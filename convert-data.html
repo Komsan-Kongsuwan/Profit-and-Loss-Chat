@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Convert Data Excel → JSON</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: #eae8e3; min-height: 100vh; padding: 40px 20px; }
+  .container { max-width: 700px; margin: 0 auto; }
+  h1 { font-size: 22px; color: #1a1a2e; margin-bottom: 6px; }
+  .subtitle { color: rgba(0,0,0,0.5); font-size: 13px; margin-bottom: 30px; }
+  .drop-zone { border: 2px dashed rgba(26,26,46,0.2); border-radius: 16px; padding: 50px 30px; text-align: center; background: #fff; cursor: pointer; transition: all 0.3s; margin-bottom: 20px; }
+  .drop-zone:hover, .drop-zone.dragover { border-color: #1a1a2e; background: #f0eef8; }
+  .drop-zone-icon { font-size: 40px; margin-bottom: 10px; }
+  .drop-zone-text { font-size: 14px; color: #1a1a2e; font-weight: 500; }
+  .drop-zone-hint { font-size: 11px; color: rgba(0,0,0,0.4); margin-top: 6px; }
+  input[type="file"] { display: none; }
+  .log { background: #fff; border-radius: 12px; padding: 20px; font-size: 12px; line-height: 1.8; border: 1px solid rgba(0,0,0,0.06); display: none; max-height: 500px; overflow-y: auto; }
+  .log.visible { display: block; }
+  .log-line { padding: 2px 0; }
+  .log-line.success { color: #2e7d32; }
+  .log-line.error { color: #c62828; }
+  .log-line.info { color: #1a1a2e; }
+  .log-line.dim { color: rgba(0,0,0,0.4); }
+  .btn { display: inline-block; margin-top: 16px; padding: 10px 24px; background: linear-gradient(135deg, #1a1a2e, #16213e); color: #fff; border: none; border-radius: 10px; font-size: 13px; font-family: inherit; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+  .btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(26,26,46,0.3); }
+  .steps { margin-bottom: 24px; }
+  .step { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 13px; color: rgba(0,0,0,0.5); }
+  .step-num { width: 24px; height: 24px; border-radius: 50%; background: rgba(26,26,46,0.1); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #1a1a2e; }
+  .progress { height: 4px; background: rgba(26,26,46,0.1); border-radius: 2px; margin: 12px 0; overflow: hidden; display: none; }
+  .progress.visible { display: block; }
+  .progress-bar { height: 100%; background: linear-gradient(90deg, #1a1a2e, #16213e); border-radius: 2px; transition: width 0.3s; width: 0%; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>📊 Data Excel → JSON Converter</h1>
+  <p class="subtitle">Convert your monthly balance specification xlsx files into data.json</p>
+
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div> Select all your data .xlsx files (e.g. 201809.xlsx, 201810.xlsx ...)</div>
+    <div class="step"><div class="step-num">2</div> Each file must have: date in row 2 col C, sites in row 3, data from row 4+</div>
+    <div class="step"><div class="step-num">3</div> Downloads data.json automatically when done</div>
+  </div>
+
+  <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+    <div class="drop-zone-icon">📁</div>
+    <div class="drop-zone-text">Drop all data .xlsx files here or click to browse</div>
+    <div class="drop-zone-hint">Select multiple files at once (Ctrl+A or Shift+click)</div>
+  </div>
+  <input type="file" id="fileInput" accept=".xlsx" multiple />
+
+  <div class="progress" id="progress"><div class="progress-bar" id="progressBar"></div></div>
+  <div class="log" id="log"></div>
+</div>
+
+<script>
+var dropZone = document.getElementById('dropZone');
+var fileInput = document.getElementById('fileInput');
+var logEl = document.getElementById('log');
+var progressEl = document.getElementById('progress');
+var progressBar = document.getElementById('progressBar');
+
+dropZone.addEventListener('dragover', function(e) { e.preventDefault(); dropZone.classList.add('dragover'); });
+dropZone.addEventListener('dragleave', function() { dropZone.classList.remove('dragover'); });
+dropZone.addEventListener('drop', function(e) { e.preventDefault(); dropZone.classList.remove('dragover'); if (e.dataTransfer.files.length) processFiles(e.dataTransfer.files); });
+fileInput.addEventListener('change', function() { if (fileInput.files.length) processFiles(fileInput.files); });
+
+function log(msg, type) {
+  logEl.classList.add('visible');
+  logEl.innerHTML += '<div class="log-line ' + (type||'info') + '">' + msg + '</div>';
+  logEl.scrollTop = logEl.scrollHeight;
+}
+
+var MONTHS_NAME = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+function parseOneFile(arrayBuffer, fileName) {
+  var wb = XLSX.read(arrayBuffer, { type: 'array', cellDates: true });
+  var ws = wb.Sheets[wb.SheetNames[0]];
+  var rows = XLSX.utils.sheet_to_json(ws, { header: 1, defval: null, raw: true });
+
+  // Extract date from row 2 (index 1), col C (index 2)
+  var dateVal = rows[1] ? rows[1][2] : null;
+  var monthStr = '', monthLabel = '';
+
+  if (dateVal instanceof Date) {
+    var y = dateVal.getFullYear();
+    var m = String(dateVal.getMonth() + 1).padStart(2, '0');
+    monthStr = y + '-' + m;
+    monthLabel = MONTHS_NAME[dateVal.getMonth()] + ' ' + y;
+  } else {
+    // Try to extract from filename like "201809.xlsx"
+    var match = fileName.match(/(\d{4})(\d{2})/);
+    if (match) {
+      monthStr = match[1] + '-' + match[2];
+      var mi = parseInt(match[2]) - 1;
+      monthLabel = (MONTHS_NAME[mi] || match[2]) + ' ' + match[1];
+    } else {
+      monthStr = fileName.replace('.xlsx', '');
+      monthLabel = monthStr;
+    }
+  }
+
+  // Find site columns and Total column from row 3 (index 2)
+  var headerRow = rows[2] || [];
+  var totalCol = -1;
+  var siteCols = [];
+
+  for (var i = 3; i < headerRow.length; i++) {
+    var val = headerRow[i];
+    if (val === 'Total') { totalCol = i; break; }
+    if (val && typeof val === 'string' && val.trim()) {
+      siteCols.push({ index: i, name: val.trim() });
+    }
+  }
+
+  var sites = siteCols.map(function(s) { return s.name; });
+
+  // Extract line items from row 4 onwards (index 3+)
+  var items = [];
+  for (var r = 3; r < rows.length; r++) {
+    var row = rows[r];
+    if (!row) continue;
+
+    var category = row[1];
+    var itemName = row[2];
+    if (!itemName || typeof itemName !== 'string') continue;
+    itemName = itemName.trim();
+    if (!itemName) continue;
+
+    var values = {};
+    siteCols.forEach(function(sc) {
+      var v = row[sc.index];
+      if (typeof v === 'number' && !isNaN(v)) {
+        values[sc.name] = Math.round(v * 100) / 100;
+      }
+    });
+
+    var total = null;
+    if (totalCol >= 0 && row[totalCol] != null && typeof row[totalCol] === 'number') {
+      total = Math.round(row[totalCol] * 100) / 100;
+    }
+
+    items.push({
+      category: (category && typeof category === 'string') ? category.trim() : null,
+      name: itemName,
+      values: values,
+      total: total
+    });
+  }
+
+  return {
+    month: monthStr,
+    label: monthLabel,
+    sites: sites,
+    items: items
+  };
+}
+
+function processFiles(fileList) {
+  logEl.innerHTML = '';
+  var files = Array.from(fileList).filter(function(f) { return f.name.endsWith('.xlsx'); });
+  files.sort(function(a, b) { return a.name.localeCompare(b.name); });
+
+  if (files.length === 0) { log('✗ No .xlsx files found', 'error'); return; }
+
+  log('📂 Found ' + files.length + ' xlsx file(s)', 'info');
+  progressEl.classList.add('visible');
+
+  var allData = [];
+  var processed = 0;
+  var errors = 0;
+
+  files.forEach(function(file, idx) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        var result = parseOneFile(e.target.result, file.name);
+        allData.push(result);
+        log('✓ ' + file.name + ' → ' + result.label + ' | ' + result.sites.length + ' sites, ' + result.items.length + ' items', 'success');
+      } catch(err) {
+        errors++;
+        log('✗ ' + file.name + ': ' + err.message, 'error');
+      }
+
+      processed++;
+      progressBar.style.width = Math.round((processed / files.length) * 100) + '%';
+
+      if (processed === files.length) {
+        // Sort by month
+        allData.sort(function(a, b) { return a.month.localeCompare(b.month); });
+
+        if (allData.length === 0) {
+          log('✗ No files were successfully parsed', 'error');
+          return;
+        }
+
+        // Summary
+        log('', 'info');
+        log('═══ Summary ═══', 'info');
+        log('Months: ' + allData.length + ' (' + allData[0].label + ' – ' + allData[allData.length-1].label + ')', 'info');
+
+        var allSitesSet = {};
+        allData.forEach(function(m) { m.sites.forEach(function(s) { allSitesSet[s] = 1; }); });
+        log('Sites: ' + Object.keys(allSitesSet).length + ' unique', 'info');
+
+        var allItemsSet = {};
+        allData.forEach(function(m) { m.items.forEach(function(i) { allItemsSet[i.name] = 1; }); });
+        log('Line items: ' + Object.keys(allItemsSet).length + ' unique', 'info');
+
+        if (errors > 0) log('Errors: ' + errors + ' file(s) failed', 'error');
+
+        // Download JSON
+        var json = JSON.stringify(allData);
+        var blob = new Blob([json], { type: 'application/json' });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'data.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        log('', 'info');
+        log('🎉 data.json downloaded! (' + (json.length/1024).toFixed(0) + ' KB)', 'success');
+        log('📁 Place data.json in the same folder as index.html', 'info');
+      }
+    };
+    reader.readAsArrayBuffer(file);
+  });
+}
+</script>
+</body>
+</html>

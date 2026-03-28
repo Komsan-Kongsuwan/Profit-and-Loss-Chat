@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Convert Keyword Excel → JSON</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: #eae8e3; min-height: 100vh; padding: 40px 20px; }
+  .container { max-width: 700px; margin: 0 auto; }
+  h1 { font-size: 22px; color: #1a1a2e; margin-bottom: 6px; }
+  .subtitle { color: rgba(0,0,0,0.5); font-size: 13px; margin-bottom: 30px; }
+  .drop-zone { border: 2px dashed rgba(26,26,46,0.2); border-radius: 16px; padding: 50px 30px; text-align: center; background: #fff; cursor: pointer; transition: all 0.3s; margin-bottom: 20px; }
+  .drop-zone:hover, .drop-zone.dragover { border-color: #1a1a2e; background: #f0eef8; }
+  .drop-zone-icon { font-size: 40px; margin-bottom: 10px; }
+  .drop-zone-text { font-size: 14px; color: #1a1a2e; font-weight: 500; }
+  .drop-zone-hint { font-size: 11px; color: rgba(0,0,0,0.4); margin-top: 6px; }
+  input[type="file"] { display: none; }
+  .log { background: #fff; border-radius: 12px; padding: 20px; font-size: 12px; line-height: 1.8; border: 1px solid rgba(0,0,0,0.06); display: none; max-height: 400px; overflow-y: auto; }
+  .log.visible { display: block; }
+  .log-line { padding: 2px 0; }
+  .log-line.success { color: #2e7d32; }
+  .log-line.error { color: #c62828; }
+  .log-line.info { color: #1a1a2e; }
+  .btn { display: inline-block; margin-top: 16px; padding: 10px 24px; background: linear-gradient(135deg, #1a1a2e, #16213e); color: #fff; border: none; border-radius: 10px; font-size: 13px; font-family: inherit; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+  .btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(26,26,46,0.3); }
+  .btn:disabled { opacity: 0.4; cursor: default; transform: none; box-shadow: none; }
+  .step { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 13px; color: rgba(0,0,0,0.5); }
+  .step-num { width: 24px; height: 24px; border-radius: 50%; background: rgba(26,26,46,0.1); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #1a1a2e; }
+  .steps { margin-bottom: 24px; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>🔑 Keyword Excel → JSON Converter</h1>
+  <p class="subtitle">Convert your keyword.xlsx into keyword.json for the chat app</p>
+
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div> Drop or select your keyword.xlsx file below</div>
+    <div class="step"><div class="step-num">2</div> It reads sheets: items, months, sites, intents</div>
+    <div class="step"><div class="step-num">3</div> Downloads keyword.json automatically</div>
+  </div>
+
+  <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+    <div class="drop-zone-icon">📄</div>
+    <div class="drop-zone-text">Drop keyword.xlsx here or click to browse</div>
+    <div class="drop-zone-hint">Only reads .xlsx files</div>
+  </div>
+  <input type="file" id="fileInput" accept=".xlsx" />
+
+  <div class="log" id="log"></div>
+</div>
+
+<script>
+var dropZone = document.getElementById('dropZone');
+var fileInput = document.getElementById('fileInput');
+var logEl = document.getElementById('log');
+
+dropZone.addEventListener('dragover', function(e) { e.preventDefault(); dropZone.classList.add('dragover'); });
+dropZone.addEventListener('dragleave', function() { dropZone.classList.remove('dragover'); });
+dropZone.addEventListener('drop', function(e) { e.preventDefault(); dropZone.classList.remove('dragover'); if (e.dataTransfer.files.length) processFile(e.dataTransfer.files[0]); });
+fileInput.addEventListener('change', function() { if (fileInput.files.length) processFile(fileInput.files[0]); });
+
+function log(msg, type) {
+  logEl.classList.add('visible');
+  logEl.innerHTML += '<div class="log-line ' + (type||'info') + '">' + msg + '</div>';
+  logEl.scrollTop = logEl.scrollHeight;
+}
+
+function processFile(file) {
+  logEl.innerHTML = '';
+  log('📂 Reading: ' + file.name + ' (' + (file.size/1024).toFixed(1) + ' KB)', 'info');
+
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      var wb = XLSX.read(e.target.result, { type: 'array' });
+      log('✓ File loaded. Sheets found: ' + wb.SheetNames.join(', '), 'success');
+
+      var result = { items: {}, months: {}, sites: {}, intents: {} };
+      var counts = {};
+
+      // Process each sheet
+      ['items', 'months', 'sites', 'intents'].forEach(function(sheetName) {
+        if (wb.SheetNames.indexOf(sheetName) === -1) {
+          log('⚠ Sheet "' + sheetName + '" not found — skipping', 'error');
+          counts[sheetName] = 0;
+          return;
+        }
+        var ws = wb.Sheets[sheetName];
+        var data = XLSX.utils.sheet_to_json(ws, { defval: '' });
+        var count = 0;
+
+        data.forEach(function(row) {
+          var keyword = String(row.keyword || '').trim().toLowerCase();
+          var value = '';
+
+          if (sheetName === 'items') value = String(row.item_name || '').trim();
+          else if (sheetName === 'months') value = String(row.pattern || '').trim();
+          else if (sheetName === 'sites') value = String(row.site_code || '').trim();
+          else if (sheetName === 'intents') value = String(row.intent || '').trim();
+
+          if (keyword && value) {
+            if (!result[sheetName][keyword]) result[sheetName][keyword] = [];
+            if (result[sheetName][keyword].indexOf(value) === -1) {
+              result[sheetName][keyword].push(value);
+            }
+            count++;
+          }
+        });
+
+        counts[sheetName] = count;
+        log('✓ ' + sheetName + ': ' + count + ' keyword mappings', 'success');
+      });
+
+      // Download JSON
+      var json = JSON.stringify(result, null, 2);
+      var blob = new Blob([json], { type: 'application/json' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'keyword.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      var total = Object.values(counts).reduce(function(a,b){return a+b;}, 0);
+      log('', 'info');
+      log('🎉 keyword.json downloaded! Total: ' + total + ' keyword mappings', 'success');
+      log('📁 Place keyword.json in the same folder as index.html', 'info');
+
+    } catch(err) {
+      log('✗ Error: ' + err.message, 'error');
+    }
+  };
+  reader.readAsArrayBuffer(file);
+}
+</script>
+</body>
+</html>
