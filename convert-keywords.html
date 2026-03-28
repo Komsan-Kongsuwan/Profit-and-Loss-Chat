@@ -80,11 +80,11 @@ function processFile(file) {
       var wb = XLSX.read(e.target.result, { type: 'array' });
       log('✓ File loaded. Sheets found: ' + wb.SheetNames.join(', '), 'success');
 
-      var result = { items: {}, months: {}, sites: {}, intents: {} };
+      var result = { items: {}, months: {}, sites: {}, intents: {}, customer_triggers: {} };
       var counts = {};
 
       // Process each sheet
-      ['items', 'months', 'sites', 'intents'].forEach(function(sheetName) {
+      ['items', 'months', 'sites', 'intents', 'customer_triggers'].forEach(function(sheetName) {
         if (wb.SheetNames.indexOf(sheetName) === -1) {
           log('⚠ Sheet "' + sheetName + '" not found — skipping', 'error');
           counts[sheetName] = 0;
@@ -102,6 +102,7 @@ function processFile(file) {
           else if (sheetName === 'months') value = String(row.pattern || '').trim();
           else if (sheetName === 'sites') value = String(row.site_code || '').trim();
           else if (sheetName === 'intents') value = String(row.intent || '').trim();
+          else if (sheetName === 'customer_triggers') value = String(row.type || '').trim();
 
           if (keyword && value) {
             if (!result[sheetName][keyword]) result[sheetName][keyword] = [];

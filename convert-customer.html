@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Convert Customer Report → JSON</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}body{font-family:'DM Sans',sans-serif;background:#eae8e3;min-height:100vh;padding:40px 20px}
+  .container{max-width:700px;margin:0 auto}h1{font-size:22px;color:#1a1a2e;margin-bottom:6px}
+  .subtitle{color:rgba(0,0,0,.5);font-size:13px;margin-bottom:30px}
+  .drop-zone{border:2px dashed rgba(26,26,46,.2);border-radius:16px;padding:50px 30px;text-align:center;background:#fff;cursor:pointer;transition:all .3s;margin-bottom:20px}
+  .drop-zone:hover,.drop-zone.dragover{border-color:#1a1a2e;background:#f0eef8}
+  .drop-zone-icon{font-size:40px;margin-bottom:10px}.drop-zone-text{font-size:14px;color:#1a1a2e;font-weight:500}
+  .drop-zone-hint{font-size:11px;color:rgba(0,0,0,.4);margin-top:6px}input[type="file"]{display:none}
+  .log{background:#fff;border-radius:12px;padding:20px;font-size:12px;line-height:1.8;border:1px solid rgba(0,0,0,.06);display:none;max-height:400px;overflow-y:auto}
+  .log.visible{display:block}.log-line{padding:2px 0}.log-line.success{color:#2e7d32}.log-line.error{color:#c62828}.log-line.info{color:#1a1a2e}
+  .steps{margin-bottom:24px}.step{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:13px;color:rgba(0,0,0,.5)}
+  .step-num{width:24px;height:24px;border-radius:50%;background:rgba(26,26,46,.1);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#1a1a2e}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>👥 Customer Report → JSON Converter</h1>
+  <p class="subtitle">Convert customer_monthly_report.xlsx into customer.json for the chat app</p>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div> Drop or select your customer report xlsx file</div>
+    <div class="step"><div class="step-num">2</div> Expected columns: Site, Customer, Year, Jan–Dec, Grand Total</div>
+    <div class="step"><div class="step-num">3</div> Downloads customer.json automatically</div>
+  </div>
+  <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+    <div class="drop-zone-icon">📄</div>
+    <div class="drop-zone-text">Drop customer report .xlsx here or click to browse</div>
+    <div class="drop-zone-hint">Single file with columns: Site, Customer, Year, Jan–Dec, Grand Total</div>
+  </div>
+  <input type="file" id="fileInput" accept=".xlsx" />
+  <div class="log" id="log"></div>
+</div>
+<script>
+var dz=document.getElementById('dropZone'),fi=document.getElementById('fileInput'),lg=document.getElementById('log');
+dz.addEventListener('dragover',function(e){e.preventDefault();dz.classList.add('dragover')});
+dz.addEventListener('dragleave',function(){dz.classList.remove('dragover')});
+dz.addEventListener('drop',function(e){e.preventDefault();dz.classList.remove('dragover');if(e.dataTransfer.files.length)proc(e.dataTransfer.files[0])});
+fi.addEventListener('change',function(){if(fi.files.length)proc(fi.files[0])});
+
+function log(m,t){lg.classList.add('visible');lg.innerHTML+='<div class="log-line '+(t||'info')+'">'+m+'</div>';lg.scrollTop=lg.scrollHeight}
+var MC=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+var MM={'Jan':'01','Feb':'02','Mar':'03','Apr':'04','May':'05','Jun':'06','Jul':'07','Aug':'08','Sep':'09','Oct':'10','Nov':'11','Dec':'12'};
+
+function proc(file){
+  lg.innerHTML='';log('📂 Reading: '+file.name+' ('+( file.size/1024).toFixed(1)+' KB)','info');
+  var reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      var wb=XLSX.read(e.target.result,{type:'array'});
+      var ws=wb.Sheets[wb.SheetNames[0]];
+      var data=XLSX.utils.sheet_to_json(ws,{defval:null});
+      log('✓ Loaded '+data.length+' rows from sheet "'+wb.SheetNames[0]+'"','success');
+
+      // Validate columns
+      var cols=Object.keys(data[0]||{});
+      var need=['Site','Customer','Year'];
+      var missing=need.filter(function(n){return cols.indexOf(n)===-1});
+      if(missing.length){log('✗ Missing columns: '+missing.join(', '),'error');return}
+
+      var records=[];var sites={},custs={},years={};
+      data.forEach(function(row){
+        var months={};
+        MC.forEach(function(mc){var v=row[mc];if(v&&typeof v==='number'&&v!==0)months[MM[mc]]=Math.round(v*100)/100});
+        var total=row['Grand Total'];
+        records.push({
+          site:String(row.Site||'').trim(),
+          customer:String(row.Customer||'').trim(),
+          year:parseInt(row.Year)||0,
+          months:months,
+          total:total?Math.round(parseFloat(total)*100)/100:0
+        });
+        sites[row.Site]=1;custs[row.Customer]=1;years[row.Year]=1;
+      });
+
+      log('✓ Parsed: '+records.length+' records','success');
+      log('  Sites: '+Object.keys(sites).length,'info');
+      log('  Customers: '+Object.keys(custs).length,'info');
+      log('  Years: '+Object.keys(years).sort().join(', '),'info');
+
+      var json=JSON.stringify(records);
+      var blob=new Blob([json],{type:'application/json'});
+      var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='customer.json';
+      document.body.appendChild(a);a.click();document.body.removeChild(a);
+
+      log('','info');
+      log('🎉 customer.json downloaded! ('+(json.length/1024).toFixed(0)+' KB)','success');
+      log('📁 Place customer.json in the same folder as index.html','info');
+    }catch(err){log('✗ Error: '+err.message,'error')}
+  };
+  reader.readAsArrayBuffer(file);
+}
+</script>
+</body>
+</html>

@@ -612,5 +612,58 @@
     "visual": [
       "chart"
     ]
+  },
+  "customer_triggers": {
+    "customer": [
+      "trigger"
+    ],
+    "client": [
+      "trigger"
+    ],
+    "account": [
+      "trigger"
+    ],
+    "buyer": [
+      "trigger"
+    ],
+    "who": [
+      "trigger"
+    ],
+    "company": [
+      "trigger"
+    ],
+    "co.,ltd": [
+      "trigger"
+    ],
+    "co., ltd": [
+      "trigger"
+    ],
+    "ltd.": [
+      "trigger"
+    ],
+    "top customer": [
+      "trigger"
+    ],
+    "best customer": [
+      "trigger"
+    ],
+    "customer revenue": [
+      "trigger"
+    ],
+    "customer list": [
+      "trigger"
+    ],
+    "how many customer": [
+      "trigger"
+    ],
+    "customer count": [
+      "trigger"
+    ],
+    "customer trend": [
+      "trigger"
+    ],
+    "customer compare": [
+      "trigger"
+    ]
   }
 }
