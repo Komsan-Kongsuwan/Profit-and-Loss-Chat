@@ -224,9 +224,9 @@ function pq(q){
     return true;
   }
 
-  // P&L items & categories (only if NOT customer query)
+  // P&L items & categories — always detect for title display
+  var ki=KW.items||{};Object.keys(ki).sort(function(a,b){return b.length-a.length}).forEach(function(k){if(em(q,k))ki[k].forEach(function(n){if(it.indexOf(n)===-1)it.push(n)})});
   if(!isCust){
-    var ki=KW.items||{};Object.keys(ki).sort(function(a,b){return b.length-a.length}).forEach(function(k){if(em(q,k))ki[k].forEach(function(n){if(it.indexOf(n)===-1)it.push(n)})});
     var kc=KW.categories||{};Object.keys(kc).sort(function(a,b){return b.length-a.length}).forEach(function(k){if(em(q,k))kc[k].forEach(function(n){if(cats.indexOf(n)===-1)cats.push(n)})});
   }
 
@@ -378,7 +378,8 @@ function grP(p){
 
 // ═══ CUSTOMER RESPONSE ═══
 function grC(p){
-  var cc=gc(),si=p.sites,dt=p.dates,intent=p.intent,cm=p.cm,cs=p.cs,wc=p.wc,raw=p.raw;
+  var cc=gc(),si=p.sites,dt=p.dates,intent=p.intent,cm=p.cm,cs=p.cs,wc=p.wc,raw=p.raw,it=p.items;
+  var itL=it.length?it.join(', ')+' - ':'';
 
   // Resolve partial search to matching customer names
   var matchedCusts=null;
@@ -388,7 +389,7 @@ function grC(p){
   if(intent==='count'){
     var rows=cFilter({sites:si.length?si:undefined,dates:dt.length?dt:undefined});
     var u={};rows.forEach(function(r){u[r.cust]=1});
-    return{tag:'cu',text:'**'+Object.keys(u).length+' customers** '+(si.length?'at '+si.join(', '):'')+(dt.length?' ('+dt[0]+'~'+dt[dt.length-1]+')':'')}}
+    return{tag:'cu',text:'**'+itL+Object.keys(u).length+' customers** '+(si.length?'at '+si.join(', '):'')+(dt.length?' ('+dt[0]+'~'+dt[dt.length-1]+')':'')}}
 
   if(intent==='list'){
     var rows=cFilter({sites:si.length?si:undefined,dates:dt.length?dt:undefined});
@@ -402,7 +403,7 @@ function grC(p){
     var tblRows=sorted.slice(0,20).map(function(e){
       var total=0;var vals=years.map(function(y){var v=e[1][y]||0;total+=v;return fb(v)});
       return[e[0]].concat(vals).concat([fb(total)])});
-    return{tag:'cu',text:'**Customers** '+(si.length?'at '+si.join(', '):'')+(dt.length?' ('+dt[0]+'~'+dt[dt.length-1]+')':'')+' (top 20 of '+sorted.length+'):',
+    return{tag:'cu',text:'**'+itL+'Customers** '+(si.length?'at '+si.join(', '):'')+(dt.length?' ('+dt[0]+'~'+dt[dt.length-1]+')':'')+' (top 20 of '+sorted.length+'):',
       table:{headers:headers,rows:tblRows}}}
   if(intent==='top'||intent==='bottom'){
     var rows=cFilter({sites:si.length?si:undefined,dates:dt.length?dt:undefined});
@@ -418,7 +419,7 @@ function grC(p){
       var total=0;var vals=years.map(function(y){var v=e[1][y]||0;total+=v;return fb(v)});
       return[e[0]].concat(vals).concat([fb(total)])});
     var totals=sorted.map(function(e){var t=0;Object.values(e[1]).forEach(function(v){t+=v});return t});
-    var res={tag:'cu',text:'**'+(intent==='top'?'Top':'Bottom')+' 10 customers** '+(si.length?'at '+si.join(', '):'')+':',
+    var res={tag:'cu',text:'**'+itL+(intent==='top'?'Top':'Bottom')+' 10 customers** '+(si.length?'at '+si.join(', '):'')+':',
       table:{headers:headers,rows:tblRows}};
     res.chart={type:'bar',data:{labels:sorted.map(function(e){return e[0].length>25?e[0].slice(0,25)+'…':e[0]}),datasets:[{label:'Revenue',data:totals,backgroundColor:cc.c.slice(0,10),borderRadius:4}]},options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{},y:{}}}};
     return res}
@@ -436,7 +437,7 @@ function grC(p){
     var headers=['Customer'].concat(years).concat(['Total']);
     var grandTotal=0;years.forEach(function(y){grandTotal+=byYear[y]});
     var tblRows=[[label].concat(years.map(function(y){return fb(byYear[y])})).concat([fb(grandTotal)])];
-    var res={tag:'cu',text:'**'+label+' trend:**',table:{headers:headers,rows:tblRows}};
+    var res={tag:'cu',text:'**'+itL+label+' trend:**',table:{headers:headers,rows:tblRows}};
     res.chart={type:'line',data:{labels:dates,datasets:[{label:'Revenue',data:dates.map(function(d){return byDate[d]}),borderColor:cc.c[4],backgroundColor:cc.c[4]+'22',fill:true}]},options:{scales:{x:{},y:{}}}};
     return res}
 
@@ -454,7 +455,7 @@ function grC(p){
     var tblRows=sorted.slice(0,30).map(function(e){
       var total=0;var vals=years.map(function(y){var v=e[1][y]||0;total+=v;return fb(v)});
       return[e[0]].concat(vals).concat([fb(total)])});
-    var title=cm?'**'+cm+':**':'**Customers matching "'+cs+'" ('+sorted.length+'):**';
+    var title=cm?'**'+itL+cm+':**':'**'+itL+'Customers matching "'+cs+'" ('+sorted.length+'):**';
     var period=dt.length?' ('+dt[0]+'~'+dt[dt.length-1]+')':'';
     return{tag:'cu',text:title+period,table:{headers:headers,rows:tblRows}}}
 
@@ -471,7 +472,7 @@ function grC(p){
   var tblRows=sorted.slice(0,15).map(function(e){
     var total=0;var vals=years.map(function(y){var v=e[1][y]||0;total+=v;return fb(v)});
     return[e[0]].concat(vals).concat([fb(total)])});
-  return{tag:'cu',text:'**Customer revenue** '+(si.length?'at '+si.join(', '):'')+(dt.length?' ('+dt[0]+'~'+dt[dt.length-1]+')':'')+':',
+  return{tag:'cu',text:'**'+itL+'Customer revenue** '+(si.length?'at '+si.join(', '):'')+(dt.length?' ('+dt[0]+'~'+dt[dt.length-1]+')':'')+':',
     table:{headers:headers,rows:tblRows}}
 }
 
