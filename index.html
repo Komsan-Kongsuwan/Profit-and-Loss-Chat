@@ -168,28 +168,31 @@ function pq(q){
   var mo=[],si=[],it=[],cats=[],intent='lookup',wc=false,isCust=false,cm=null;
 
   // Customer trigger keywords (exact)
-  var ct=KW.customer_triggers||{};Object.keys(ct).forEach(function(k){if(wm(q,k))isCust=true});
+  var ct=KW.customer_triggers||{};Object.keys(ct).forEach(function(k){if(em(q,k))isCust=true});
 
   // Customer name matching — PARTIAL: if user types "koito", match "KOITO MANUFACTURING CO.,LTD."
   var custSearch=null;
   if(!cm&&C.customers){
     // First: exact full name in query (longest match wins)
     C.customers.forEach(function(cn){if(q.indexOf(cn.toLowerCase())!==-1&&(!cm||cn.length>cm.length))cm=cn});
-    // Second: partial match — find tokens (3+ chars) that appear inside customer names
+    // Second: partial match — find tokens (4+ chars) that appear inside customer names
+    // Min 4 chars prevents "eve","air","pan" from accidentally matching
     if(!cm){
       var skipWords=['revenue','cost','profit','salary','trend','chart','top','list','compare','summary','total',
         'customer','client','jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec',
         'january','february','march','april','june','july','august','september','october','november','december',
-        'all','site','how','many','the','for','from','and','what','show','get','give','best','worst'];
-      var searchTokens=tk.filter(function(t){return t.length>=3&&!/^20\d{2}$/.test(t)&&skipWords.indexOf(t)===-1});
+        'all','site','how','many','the','for','from','and','what','show','get','give','best','worst',
+        'fixed','variable','expense','bonus','welfare','allowance','overtime','insurance','depreciation',
+        'repair','maintenance','rental','electric','water','telephone','transport','security','cleaning',
+        'highest','lowest','biggest','smallest','ranking','monthly','yearly','quarter','trend','chart','graph'];
+      var searchTokens=tk.filter(function(t){return t.length>=4&&!/^20\d{2}$/.test(t)&&skipWords.indexOf(t)===-1});
       if(searchTokens.length>0){
-        // Check each token against customer names
         for(var si2=0;si2<searchTokens.length;si2++){
           var tok=searchTokens[si2];
           var matches=C.customers.filter(function(cn){return cn.toLowerCase().indexOf(tok)!==-1});
           if(matches.length>0&&matches.length<=30){
-            custSearch=tok; // save the search term
-            if(matches.length===1)cm=matches[0]; // exact single match
+            custSearch=tok;
+            if(matches.length===1)cm=matches[0];
             isCust=true;break;
           }
         }
@@ -208,21 +211,27 @@ function pq(q){
     if(/^20\d{4}$/.test(t))mo.push(t.slice(0,4)+'-'+t.slice(4))}
 
   // Sites
-  var ks=KW.sites||{};Object.keys(ks).sort(function(a,b){return b.length-a.length}).forEach(function(k){if(wm(q,k))ks[k].forEach(function(s){if(si.indexOf(s)===-1)si.push(s)})});
+  var ks=KW.sites||{};Object.keys(ks).sort(function(a,b){return b.length-a.length}).forEach(function(k){if(em(q,k))ks[k].forEach(function(s){if(si.indexOf(s)===-1)si.push(s)})});
 
-  // Word-boundary match: prevents "ss" matching inside "gross", "ot" inside "koito"
-  function wm(query,kw){var i=query.indexOf(kw);while(i!==-1){var before=i>0?query[i-1]:'';var after=i+kw.length<query.length?query[i+kw.length]:'';
-    var bOk=!before||!/[a-z0-9ก-๙]/.test(before);var aOk=!after||!/[a-z0-9ก-๙]/.test(after);
-    if(bOk&&aOk)return true;i=query.indexOf(kw,i+1)}return false}
+  // Exact Multi-token Match (for P&L items, categories, intents, sites):
+  // ALL words in the keyword must appear as exact whole words in the query.
+  // Word order doesn't matter: keyword "revenue total" matches query "total revenue 2024"
+  // But partial words never match: query "eve" does NOT match keyword "revenue"
+  function em(query,kw){
+    var kwTk=kw.split(/[\s,;]+/);
+    var qTk=query.split(/[\s,;]+/);
+    for(var i=0;i<kwTk.length;i++){if(qTk.indexOf(kwTk[i])===-1)return false}
+    return true;
+  }
 
   // P&L items & categories (only if NOT customer query)
   if(!isCust){
-    var ki=KW.items||{};Object.keys(ki).sort(function(a,b){return b.length-a.length}).forEach(function(k){if(wm(q,k))ki[k].forEach(function(n){if(it.indexOf(n)===-1)it.push(n)})});
-    var kc=KW.categories||{};Object.keys(kc).sort(function(a,b){return b.length-a.length}).forEach(function(k){if(wm(q,k))kc[k].forEach(function(n){if(cats.indexOf(n)===-1)cats.push(n)})});
+    var ki=KW.items||{};Object.keys(ki).sort(function(a,b){return b.length-a.length}).forEach(function(k){if(em(q,k))ki[k].forEach(function(n){if(it.indexOf(n)===-1)it.push(n)})});
+    var kc=KW.categories||{};Object.keys(kc).sort(function(a,b){return b.length-a.length}).forEach(function(k){if(em(q,k))kc[k].forEach(function(n){if(cats.indexOf(n)===-1)cats.push(n)})});
   }
 
   // Intents
-  var kn=KW.intents||{};Object.keys(kn).sort(function(a,b){return b.length-a.length}).forEach(function(k){if(wm(q,k))kn[k].forEach(function(x){if(x==='chart')wc=true;else if(intent==='lookup')intent=x})});
+  var kn=KW.intents||{};Object.keys(kn).sort(function(a,b){return b.length-a.length}).forEach(function(k){if(em(q,k))kn[k].forEach(function(x){if(x==='chart')wc=true;else if(intent==='lookup')intent=x})});
   if(/all/.test(q)&&/month/.test(q))intent='trend';
   if(/list/.test(q)&&/site|item|month|category|customer/.test(q))intent='list';
   if(/how many/.test(q))intent='count';
