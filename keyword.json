@@ -1,1213 +1,853 @@
 {
   "items": {
-    "revenue": [
-      "Revenue Total"
-    ],
-    "revenues": [
-      "Revenue Total"
-    ],
-    "income": [
-      "Revenue Total"
-    ],
-    "sales": [
-      "Revenue Total"
-    ],
-    "rev": [
-      "Revenue Total"
-    ],
-    "total revenue": [
-      "Revenue Total"
-    ],
-    "revenue total": [
-      "Revenue Total"
-    ],
-    "turnover": [
-      "Revenue Total"
-    ],
-    "top line": [
-      "Revenue Total"
-    ],
-    "topline": [
-      "Revenue Total"
-    ],
-    "billing": [
-      "Revenue Total"
-    ],
-    "invoiced": [
-      "Revenue Total"
-    ],
-    "earned": [
-      "Revenue Total"
-    ],
-    "how much we earn": [
-      "Revenue Total"
-    ],
-    "how much we made": [
-      "Revenue Total"
-    ],
-    "money coming in": [
-      "Revenue Total"
-    ],
-    "money in": [
-      "Revenue Total"
-    ],
-    "\u0e23\u0e32\u0e22\u0e44\u0e14\u0e49": [
-      "Revenue Total"
-    ],
-    "material": [
-      "Material and Service"
-    ],
-    "material and service": [
-      "Material and Service"
-    ],
-    "material & service": [
-      "Material and Service"
-    ],
-    "materials": [
-      "Material and Service"
-    ],
-    "subcontract": [
-      "Material and Service"
-    ],
-    "subcontractor": [
-      "Material and Service"
-    ],
-    "sub cost": [
-      "Material and Service"
-    ],
-    "sub-contract": [
-      "Material and Service"
-    ],
-    "vendor cost": [
-      "Material and Service"
-    ],
-    "supplier cost": [
-      "Material and Service"
-    ],
-    "outsource material": [
-      "Material and Service"
-    ],
-    "direct material": [
-      "Material and Service"
-    ],
-    "raw material": [
-      "Material and Service"
-    ],
-    "material cost": [
-      "Material and Service"
-    ],
-    "\u0e27\u0e31\u0e2a\u0e14\u0e38": [
-      "Material and Service"
-    ],
-    "salary": [
-      "Salary"
-    ],
-    "salaries": [
-      "Salary"
-    ],
-    "wage": [
-      "Salary"
-    ],
-    "wages": [
-      "Salary"
-    ],
-    "base pay": [
-      "Salary"
-    ],
-    "base salary": [
-      "Salary"
-    ],
-    "payroll": [
-      "Salary"
-    ],
-    "monthly pay": [
-      "Salary"
-    ],
-    "employee pay": [
-      "Salary"
-    ],
-    "staff salary": [
-      "Salary"
-    ],
-    "staff pay": [
-      "Salary"
-    ],
-    "compensation": [
-      "Salary"
-    ],
-    "remuneration": [
-      "Salary"
-    ],
-    "basic salary": [
-      "Salary"
-    ],
-    "basic pay": [
-      "Salary"
-    ],
-    "\u0e40\u0e07\u0e34\u0e19\u0e40\u0e14\u0e37\u0e2d\u0e19": [
-      "Salary"
-    ],
-    "overtime": [
-      "Over Time"
-    ],
-    "over time": [
-      "Over Time"
-    ],
-    "ot": [
-      "Over Time"
-    ],
-    "ot cost": [
-      "Over Time"
-    ],
-    "overtime cost": [
-      "Over Time"
-    ],
-    "overtime pay": [
-      "Over Time"
-    ],
-    "extra hours": [
-      "Over Time"
-    ],
-    "overtime expense": [
-      "Over Time"
-    ],
-    "overtime payment": [
-      "Over Time"
-    ],
-    "\u0e04\u0e48\u0e32\u0e25\u0e48\u0e27\u0e07\u0e40\u0e27\u0e25\u0e32": [
-      "Over Time"
-    ],
-    "\u0e42\u0e2d\u0e17\u0e35": [
-      "Over Time"
+    "allowance": [
+      "Allowance"
     ],
     "bonus": [
       "Bonus"
     ],
-    "bonuses": [
-      "Bonus"
-    ],
-    "incentive": [
-      "Bonus"
-    ],
-    "incentives": [
-      "Bonus"
-    ],
-    "performance bonus": [
-      "Bonus"
-    ],
-    "annual bonus": [
-      "Bonus"
-    ],
-    "year-end bonus": [
-      "Bonus"
-    ],
-    "yearend bonus": [
-      "Bonus"
-    ],
-    "\u0e42\u0e1a\u0e19\u0e31\u0e2a": [
-      "Bonus"
-    ],
-    "social security": [
-      "Social security"
-    ],
-    "ss": [
-      "Social security"
-    ],
-    "sso": [
-      "Social security"
-    ],
-    "social insurance": [
-      "Social security"
-    ],
-    "social contribution": [
-      "Social security"
-    ],
-    "social fund": [
-      "Social security"
-    ],
-    "\u0e1b\u0e23\u0e30\u0e01\u0e31\u0e19\u0e2a\u0e31\u0e07\u0e04\u0e21": [
-      "Social security"
-    ],
-    "welfare": [
-      "Welfare"
-    ],
-    "benefit": [
-      "Welfare"
-    ],
-    "benefits": [
-      "Welfare"
-    ],
-    "employee benefit": [
-      "Welfare"
-    ],
-    "staff benefit": [
-      "Welfare"
-    ],
-    "employee welfare": [
-      "Welfare"
-    ],
-    "staff welfare": [
-      "Welfare"
-    ],
-    "fringe benefit": [
-      "Welfare"
-    ],
-    "fringe": [
-      "Welfare"
-    ],
-    "\u0e2a\u0e27\u0e31\u0e2a\u0e14\u0e34\u0e01\u0e32\u0e23": [
-      "Welfare"
-    ],
-    "provident": [
-      "Provident Fund"
-    ],
-    "provident fund": [
-      "Provident Fund"
-    ],
-    "pvd": [
-      "Provident Fund"
-    ],
-    "pension": [
-      "Provident Fund"
-    ],
-    "retirement fund": [
-      "Provident Fund"
-    ],
-    "employee fund": [
-      "Provident Fund"
-    ],
-    "saving fund": [
-      "Provident Fund"
-    ],
-    "\u0e01\u0e2d\u0e07\u0e17\u0e38\u0e19\u0e2a\u0e33\u0e23\u0e2d\u0e07\u0e40\u0e25\u0e35\u0e49\u0e22\u0e07\u0e0a\u0e35\u0e1e": [
-      "Provident Fund"
-    ],
-    "workmen": [
-      "Workmen's compensation"
-    ],
-    "workmen's compensation": [
-      "Workmen's compensation"
-    ],
-    "worker compensation": [
-      "Workmen's compensation"
-    ],
-    "work comp": [
-      "Workmen's compensation"
-    ],
-    "injury compensation": [
-      "Workmen's compensation"
-    ],
-    "work accident": [
-      "Workmen's compensation"
-    ],
-    "severance": [
-      "Severance Pay / Retirement Fee"
-    ],
-    "retirement": [
-      "Severance Pay / Retirement Fee"
-    ],
-    "severance pay": [
-      "Severance Pay / Retirement Fee"
-    ],
-    "retirement fee": [
-      "Severance Pay / Retirement Fee"
-    ],
-    "termination pay": [
-      "Severance Pay / Retirement Fee"
-    ],
-    "separation pay": [
-      "Severance Pay / Retirement Fee"
-    ],
-    "redundancy": [
-      "Severance Pay / Retirement Fee"
-    ],
-    "\u0e04\u0e48\u0e32\u0e0a\u0e14\u0e40\u0e0a\u0e22": [
-      "Severance Pay / Retirement Fee"
-    ],
-    "allowance": [
-      "Allowance"
-    ],
-    "allowances": [
-      "Allowance"
-    ],
-    "daily allowance": [
-      "Allowance"
-    ],
-    "meal allowance": [
-      "Allowance"
-    ],
-    "housing allowance": [
-      "Allowance"
-    ],
-    "travel allowance": [
-      "Allowance"
-    ],
-    "position allowance": [
-      "Allowance"
-    ],
-    "\u0e40\u0e1a\u0e35\u0e49\u0e22\u0e40\u0e25\u0e35\u0e49\u0e22\u0e07": [
-      "Allowance"
-    ],
-    "consumable": [
-      "Consumable Supply"
-    ],
-    "consumable supply": [
-      "Consumable Supply"
-    ],
-    "consumables": [
-      "Consumable Supply"
-    ],
-    "warehouse supply": [
-      "Consumable Supply"
-    ],
-    "wh supply": [
-      "Consumable Supply"
-    ],
-    "supplies": [
-      "Consumable Supply"
-    ],
-    "packaging": [
-      "Consumable Supply"
-    ],
-    "packing material": [
-      "Consumable Supply"
-    ],
-    "outsource": [
-      "Outsource Labor Fee"
-    ],
-    "outsource labor": [
-      "Outsource Labor Fee"
-    ],
-    "labor fee": [
-      "Outsource Labor Fee"
-    ],
-    "outsource labor fee": [
-      "Outsource Labor Fee"
-    ],
-    "outsourced": [
-      "Outsource Labor Fee"
-    ],
-    "outsourcing": [
-      "Outsource Labor Fee"
-    ],
-    "contract labor": [
-      "Outsource Labor Fee"
-    ],
-    "temp labor": [
-      "Outsource Labor Fee"
-    ],
-    "temporary staff": [
-      "Outsource Labor Fee"
-    ],
-    "temp staff": [
-      "Outsource Labor Fee"
-    ],
-    "agency fee": [
-      "Outsource Labor Fee"
-    ],
-    "manpower": [
-      "Outsource Labor Fee"
-    ],
-    "cost adjust": [
-      "Cost (Adjust)"
-    ],
-    "adjustment": [
-      "Cost (Adjust)"
-    ],
-    "cost adjustment": [
-      "Cost (Adjust)"
-    ],
-    "adjust": [
-      "Cost (Adjust)"
-    ],
-    "cost total": [
-      "Cost Total"
-    ],
-    "total cost": [
-      "Cost Total"
-    ],
-    "all cost": [
-      "Cost Total"
-    ],
-    "cost sum": [
-      "Cost Total"
-    ],
-    "variable cost total": [
-      "Variable Cost Total"
-    ],
-    "variable total": [
-      "Variable Cost Total"
-    ],
-    "total variable cost": [
-      "Variable Cost Total"
-    ],
-    "total variable": [
-      "Variable Cost Total"
-    ],
-    "variable cost sum": [
-      "Variable Cost Total"
-    ],
-    "fixed cost total": [
-      "Fixed Cost Total"
-    ],
-    "fixed total": [
-      "Fixed Cost Total"
-    ],
-    "total fixed cost": [
-      "Fixed Cost Total"
-    ],
-    "total fixed": [
-      "Fixed Cost Total"
-    ],
-    "fixed cost sum": [
-      "Fixed Cost Total"
-    ],
-    "land rental": [
-      "Land Rental"
-    ],
-    "land rent": [
-      "Land Rental"
-    ],
-    "land lease": [
-      "Land Rental"
-    ],
-    "\u0e04\u0e48\u0e32\u0e40\u0e0a\u0e48\u0e32\u0e17\u0e35\u0e48\u0e14\u0e34\u0e19": [
-      "Land Rental"
-    ],
-    "rental other": [
-      "Rental Other"
-    ],
-    "other rental": [
-      "Rental Other"
-    ],
-    "misc rental": [
-      "Rental Other"
-    ],
-    "rental equipment": [
-      "Rental Equipments"
-    ],
-    "equipment rental": [
-      "Rental Equipments"
-    ],
-    "rental equipments": [
-      "Rental Equipments"
-    ],
-    "machine rental": [
-      "Rental Equipments"
-    ],
-    "machinery rental": [
-      "Rental Equipments"
-    ],
-    "forklift rental": [
-      "Rental Equipments"
-    ],
-    "\u0e04\u0e48\u0e32\u0e40\u0e0a\u0e48\u0e32\u0e2d\u0e38\u0e1b\u0e01\u0e23\u0e13\u0e4c": [
-      "Rental Equipments"
-    ],
-    "rental office": [
-      "Rental Office"
-    ],
-    "office rental": [
-      "Rental Office"
-    ],
-    "office rent": [
-      "Rental Office"
-    ],
-    "office lease": [
-      "Rental Office"
-    ],
-    "\u0e04\u0e48\u0e32\u0e40\u0e0a\u0e48\u0e32\u0e2a\u0e33\u0e19\u0e31\u0e01\u0e07\u0e32\u0e19": [
-      "Rental Office"
-    ],
-    "repair direct": [
-      "Repair and Maintenance (Direct)"
-    ],
-    "maintenance direct": [
-      "Repair and Maintenance (Direct)"
-    ],
-    "direct repair": [
-      "Repair and Maintenance (Direct)"
-    ],
-    "direct maintenance": [
-      "Repair and Maintenance (Direct)"
-    ],
-    "repair": [
-      "Repair and Maintenance (Expense)"
-    ],
-    "maintenance": [
-      "Repair and Maintenance (Expense)"
-    ],
-    "r&m": [
-      "Repair and Maintenance (Expense)"
-    ],
-    "repair and maintenance": [
-      "Repair and Maintenance (Expense)"
-    ],
-    "fix equipment": [
-      "Repair and Maintenance (Expense)"
-    ],
-    "equipment repair": [
-      "Repair and Maintenance (Expense)"
-    ],
-    "building maintenance": [
-      "Repair and Maintenance (Expense)"
-    ],
-    "\u0e0b\u0e48\u0e2d\u0e21\u0e1a\u0e33\u0e23\u0e38\u0e07": [
-      "Repair and Maintenance (Expense)"
-    ],
-    "electric": [
-      "Electric&Water Supply"
-    ],
-    "electricity": [
-      "Electric&Water Supply"
-    ],
-    "water": [
-      "Electric&Water Supply"
-    ],
-    "utility": [
-      "Electric&Water Supply"
-    ],
-    "utilities": [
-      "Electric&Water Supply"
-    ],
-    "electric&water": [
-      "Electric&Water Supply"
-    ],
-    "electric & water": [
-      "Electric&Water Supply"
-    ],
-    "power": [
-      "Electric&Water Supply"
-    ],
-    "energy cost": [
-      "Electric&Water Supply"
-    ],
-    "water supply": [
-      "Electric&Water Supply"
-    ],
-    "electric bill": [
-      "Electric&Water Supply"
-    ],
-    "water bill": [
-      "Electric&Water Supply"
-    ],
-    "\u0e04\u0e48\u0e32\u0e44\u0e1f": [
-      "Electric&Water Supply"
-    ],
-    "\u0e04\u0e48\u0e32\u0e19\u0e49\u0e33": [
-      "Electric&Water Supply"
-    ],
-    "depreciation": [
-      "Depreciation"
-    ],
-    "dep": [
-      "Depreciation"
-    ],
-    "depreciate": [
-      "Depreciation"
-    ],
-    "amortization": [
-      "Depreciation"
-    ],
-    "asset depreciation": [
-      "Depreciation"
-    ],
-    "book value": [
-      "Depreciation"
-    ],
-    "write off": [
-      "Depreciation"
-    ],
-    "\u0e04\u0e48\u0e32\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e23\u0e32\u0e04\u0e32": [
-      "Depreciation"
-    ],
-    "gross profit": [
-      "Gross Profit"
-    ],
-    "gp": [
-      "Gross Profit"
-    ],
-    "profit": [
-      "Gross Profit"
-    ],
-    "gross margin": [
-      "Gross Profit"
-    ],
-    "gross income": [
-      "Gross Profit"
-    ],
-    "margin": [
-      "Gross Profit"
-    ],
-    "profitability": [
-      "Gross Profit"
-    ],
-    "\u0e01\u0e33\u0e44\u0e23\u0e02\u0e31\u0e49\u0e19\u0e15\u0e49\u0e19": [
-      "Gross Profit"
-    ],
-    "marginal profit": [
-      "Marginal Profit"
-    ],
-    "marginal": [
-      "Marginal Profit"
-    ],
-    "contribution margin": [
-      "Marginal Profit"
-    ],
-    "contribution": [
-      "Marginal Profit"
-    ],
-    "operating profit": [
-      "Operating Profit"
-    ],
-    "op": [
-      "Operating Profit"
-    ],
-    "net profit": [
-      "Operating Profit"
-    ],
-    "net income": [
-      "Operating Profit"
-    ],
-    "bottom line": [
-      "Operating Profit"
-    ],
-    "operating income": [
-      "Operating Profit"
-    ],
-    "ebit": [
-      "Operating Profit"
-    ],
-    "\u0e01\u0e33\u0e44\u0e23\u0e08\u0e32\u0e01\u0e01\u0e32\u0e23\u0e14\u0e33\u0e40\u0e19\u0e34\u0e19\u0e07\u0e32\u0e19": [
-      "Operating Profit"
-    ],
-    "expense total": [
-      "Expense Total"
-    ],
-    "total expense": [
-      "Expense Total"
-    ],
-    "total expenses": [
-      "Expense Total"
-    ],
-    "all expenses": [
-      "Expense Total"
-    ],
-    "conference": [
-      "Conference"
-    ],
-    "meeting": [
-      "Conference"
-    ],
-    "seminar": [
-      "Conference"
-    ],
-    "training": [
-      "Conference"
-    ],
-    "workshop": [
-      "Conference"
-    ],
-    "\u0e04\u0e48\u0e32\u0e1b\u0e23\u0e30\u0e0a\u0e38\u0e21": [
-      "Conference"
-    ],
-    "entertainment": [
-      "Entertainment"
-    ],
-    "entertain": [
-      "Entertainment"
-    ],
-    "hospitality": [
-      "Entertainment"
-    ],
-    "\u0e04\u0e48\u0e32\u0e23\u0e31\u0e1a\u0e23\u0e2d\u0e07": [
-      "Entertainment"
-    ],
-    "transport": [
-      "Transportation"
-    ],
-    "transportation": [
-      "Transportation"
-    ],
-    "travel": [
-      "Transportation"
-    ],
-    "travel expense": [
-      "Transportation"
-    ],
-    "trip": [
-      "Transportation"
-    ],
-    "business trip": [
-      "Transportation"
-    ],
-    "commute": [
-      "Transportation"
-    ],
-    "logistics expense": [
-      "Transportation"
-    ],
-    "\u0e04\u0e48\u0e32\u0e40\u0e14\u0e34\u0e19\u0e17\u0e32\u0e07": [
-      "Transportation"
-    ],
-    "telephone": [
-      "Telephone"
-    ],
-    "phone": [
-      "Telephone"
-    ],
-    "phone bill": [
-      "Telephone"
-    ],
-    "tel": [
-      "Telephone"
-    ],
-    "landline": [
-      "Telephone"
-    ],
-    "\u0e04\u0e48\u0e32\u0e42\u0e17\u0e23\u0e28\u0e31\u0e1e\u0e17\u0e4c": [
-      "Telephone"
-    ],
-    "mobile": [
-      "Mobile Phone"
-    ],
-    "mobile phone": [
-      "Mobile Phone"
-    ],
-    "cell phone": [
-      "Mobile Phone"
-    ],
-    "cellphone": [
-      "Mobile Phone"
-    ],
-    "smartphone": [
-      "Mobile Phone"
-    ],
-    "mobile bill": [
-      "Mobile Phone"
-    ],
-    "lease circuit": [
-      "Lease Circuit"
-    ],
-    "circuit": [
-      "Lease Circuit"
-    ],
-    "internet": [
-      "Lease Circuit"
-    ],
-    "network": [
-      "Lease Circuit"
-    ],
-    "bandwidth": [
-      "Lease Circuit"
-    ],
-    "leased line": [
-      "Lease Circuit"
-    ],
-    "data circuit": [
-      "Lease Circuit"
-    ],
-    "wan": [
-      "Lease Circuit"
-    ],
-    "vpn": [
-      "Lease Circuit"
-    ],
-    "\u0e04\u0e48\u0e32\u0e2d\u0e34\u0e19\u0e40\u0e17\u0e2d\u0e23\u0e4c\u0e40\u0e19\u0e47\u0e15": [
-      "Lease Circuit"
-    ],
-    "office supply": [
-      "Office Supply"
-    ],
-    "office supplies": [
-      "Office Supply"
-    ],
-    "stationery": [
-      "Office Supply"
-    ],
-    "stationary": [
-      "Office Supply"
-    ],
-    "paper": [
-      "Office Supply"
-    ],
-    "printer": [
-      "Office Supply"
-    ],
-    "toner": [
-      "Office Supply"
-    ],
-    "\u0e27\u0e31\u0e2a\u0e14\u0e38\u0e2a\u0e33\u0e19\u0e31\u0e01\u0e07\u0e32\u0e19": [
-      "Office Supply"
-    ],
-    "insurance": [
-      "Insurance"
-    ],
-    "insure": [
-      "Insurance"
-    ],
-    "premium": [
-      "Insurance"
-    ],
-    "coverage": [
-      "Insurance"
-    ],
-    "property insurance": [
-      "Insurance"
-    ],
-    "fire insurance": [
-      "Insurance"
-    ],
-    "liability insurance": [
-      "Insurance"
-    ],
-    "\u0e04\u0e48\u0e32\u0e1b\u0e23\u0e30\u0e01\u0e31\u0e19\u0e20\u0e31\u0e22": [
-      "Insurance"
-    ],
-    "security": [
-      "Security"
-    ],
-    "guard": [
-      "Security"
-    ],
-    "security guard": [
-      "Security"
-    ],
-    "cctv": [
-      "Security"
-    ],
-    "surveillance": [
-      "Security"
-    ],
-    "\u0e23\u0e31\u0e01\u0e29\u0e32\u0e04\u0e27\u0e32\u0e21\u0e1b\u0e25\u0e2d\u0e14\u0e20\u0e31\u0e22": [
-      "Security"
-    ],
-    "cleaning": [
-      "Cleaning Expense"
-    ],
-    "clean": [
-      "Cleaning Expense"
-    ],
-    "janitorial": [
-      "Cleaning Expense"
-    ],
-    "housekeeping": [
-      "Cleaning Expense"
-    ],
-    "sanitation": [
-      "Cleaning Expense"
-    ],
-    "\u0e04\u0e48\u0e32\u0e17\u0e33\u0e04\u0e27\u0e32\u0e21\u0e2a\u0e30\u0e2d\u0e32\u0e14": [
-      "Cleaning Expense"
-    ],
-    "signboard": [
-      "Signboard Tax"
-    ],
-    "signboard tax": [
-      "Signboard Tax"
-    ],
-    "sign tax": [
-      "Signboard Tax"
-    ],
-    "land tax": [
-      "Land & Building TAX"
-    ],
-    "building tax": [
-      "Land & Building TAX"
-    ],
-    "property tax": [
-      "Land & Building TAX"
-    ],
-    "land & building": [
-      "Land & Building TAX"
-    ],
-    "\u0e20\u0e32\u0e29\u0e35\u0e17\u0e35\u0e48\u0e14\u0e34\u0e19": [
-      "Land & Building TAX"
-    ],
-    "common expense": [
-      "Common expense"
-    ],
-    "common area": [
-      "Common expense"
-    ],
-    "common fee": [
-      "Common expense"
-    ],
-    "condo fee": [
-      "Common expense"
-    ],
-    "service office": [
-      "Service Office"
-    ],
-    "serviced office": [
-      "Service Office"
-    ],
-    "co-working": [
-      "Service Office"
-    ],
-    "office equipment": [
-      "Office Equipment"
-    ],
-    "equipment": [
-      "Office Equipment"
-    ],
-    "furniture": [
-      "Office Equipment"
-    ],
-    "fixture": [
-      "Office Equipment"
-    ],
-    "facility": [
-      "Facility Expense"
-    ],
-    "facility expense": [
-      "Facility Expense"
-    ],
-    "facility cost": [
-      "Facility Expense"
-    ],
-    "\u0e04\u0e48\u0e32\u0e2a\u0e32\u0e18\u0e32\u0e23\u0e13\u0e39\u0e1b\u0e42\u0e20\u0e04": [
-      "Facility Expense"
-    ],
-    "staff amenity": [
-      "Staff Amenity"
-    ],
-    "amenity": [
-      "Staff Amenity"
-    ],
-    "amenities": [
-      "Staff Amenity"
-    ],
-    "staff meal": [
-      "Staff Amenity"
-    ],
-    "canteen": [
-      "Staff Amenity"
-    ],
-    "personnel": [
-      "Personnel Expense"
-    ],
-    "personnel expense": [
-      "Personnel Expense"
-    ],
-    "hr cost": [
-      "Personnel Expense"
-    ],
-    "hr expense": [
-      "Personnel Expense"
-    ],
-    "recruitment": [
-      "Personnel Expense"
-    ],
-    "hiring cost": [
-      "Personnel Expense"
-    ],
-    "claim": [
-      "CLAIM FROM CUSTOMER"
-    ],
-    "customer claim": [
+    "claim from": [
       "CLAIM FROM CUSTOMER"
     ],
     "claim from customer": [
       "CLAIM FROM CUSTOMER"
     ],
-    "damage claim": [
+    "claimfrom": [
       "CLAIM FROM CUSTOMER"
     ],
-    "penalty": [
+    "claimfromcustomer": [
       "CLAIM FROM CUSTOMER"
     ],
-    "deduction": [
+    "customer from claim": [
       "CLAIM FROM CUSTOMER"
     ],
-    "staff": [
-      "Number of staff"
+    "customerfromclaim": [
+      "CLAIM FROM CUSTOMER"
     ],
-    "headcount": [
-      "Number of staff"
+    "from customer": [
+      "CLAIM FROM CUSTOMER"
     ],
-    "employee": [
-      "Number of staff"
+    "fromcustomer": [
+      "CLAIM FROM CUSTOMER"
     ],
-    "employees": [
-      "Number of staff"
+    "cleaning expense": [
+      "Cleaning Expense"
     ],
-    "hc": [
-      "Number of staff"
+    "cleaningexpense": [
+      "Cleaning Expense"
     ],
-    "head count": [
-      "Number of staff"
+    "expense cleaning": [
+      "Cleaning Expense"
     ],
-    "number of staff": [
-      "Number of staff"
+    "expensecleaning": [
+      "Cleaning Expense"
     ],
-    "workforce": [
-      "Number of staff"
+    "common expense": [
+      "Common expense"
     ],
-    "manpower count": [
-      "Number of staff"
+    "commonexpense": [
+      "Common expense"
     ],
-    "team size": [
-      "Number of staff"
+    "expense common": [
+      "Common expense"
     ],
-    "how many people": [
-      "Number of staff"
+    "expensecommon": [
+      "Common expense"
     ],
-    "how many staff": [
-      "Number of staff"
+    "conference": [
+      "Conference"
     ],
-    "how many employee": [
-      "Number of staff"
+    "consumable supply": [
+      "Consumable Supply"
     ],
-    "\u0e08\u0e33\u0e19\u0e27\u0e19\u0e1e\u0e19\u0e31\u0e01\u0e07\u0e32\u0e19": [
-      "Number of staff"
+    "consumablesupply": [
+      "Consumable Supply"
     ],
-    "software": [
-      "Software License"
+    "supply consumable": [
+      "Consumable Supply"
     ],
-    "license": [
-      "Software License"
+    "supplyconsumable": [
+      "Consumable Supply"
     ],
-    "software license": [
-      "Software License"
+    "adjust cost": [
+      "Cost (Adjust)"
     ],
-    "software cost": [
-      "Software License"
+    "adjustcost": [
+      "Cost (Adjust)"
     ],
-    "it cost": [
-      "Software License"
+    "cost (adjust)": [
+      "Cost (Adjust)"
     ],
-    "system cost": [
-      "Software License"
+    "cost adjust": [
+      "Cost (Adjust)"
     ],
-    "subscription": [
-      "Software License"
+    "costadjust": [
+      "Cost (Adjust)"
     ],
-    "revenue per head": [
-      "Revenue per Head"
+    "cost total": [
+      "Cost Total"
     ],
-    "rev per head": [
-      "Revenue per Head"
+    "costtotal": [
+      "Cost Total"
     ],
-    "revenue per employee": [
-      "Revenue per Head"
+    "total cost": [
+      "Cost Total"
     ],
-    "productivity": [
-      "Revenue per Head"
+    "totalcost": [
+      "Cost Total"
     ],
-    "revenue per staff": [
-      "Revenue per Head"
+    "depreciation": [
+      "Depreciation"
     ],
-    "gp ratio": [
-      "Gross Profit Ratio"
-    ],
-    "gross profit ratio": [
-      "Gross Profit Ratio"
-    ],
-    "gp%": [
-      "Gross Profit Ratio"
-    ],
-    "gross margin %": [
-      "Gross Profit Ratio"
-    ],
-    "gross profit percentage": [
-      "Gross Profit Ratio"
-    ],
-    "profit margin": [
-      "Gross Profit Ratio"
-    ],
-    "op ratio": [
-      "Operating Profit Ratio"
-    ],
-    "operating profit ratio": [
-      "Operating Profit Ratio"
-    ],
-    "op%": [
-      "Operating Profit Ratio"
-    ],
-    "net margin": [
-      "Operating Profit Ratio"
-    ],
-    "operating margin": [
-      "Operating Profit Ratio"
-    ],
-    "net profit ratio": [
-      "Operating Profit Ratio"
-    ],
-    "variable cost ratio": [
-      "Variable Cost Ratio"
-    ],
-    "variable ratio": [
-      "Variable Cost Ratio"
-    ],
-    "vcr": [
-      "Variable Cost Ratio"
-    ],
-    "fixed cost ratio": [
-      "Fixed Cost Ratio"
-    ],
-    "fixed ratio": [
-      "Fixed Cost Ratio"
-    ],
-    "fcr": [
-      "Fixed Cost Ratio"
-    ],
-    "fixed cost efficiency": [
-      "Fixed Cost Efficiency"
-    ],
-    "efficiency": [
-      "Fixed Cost Efficiency"
-    ],
-    "fce": [
-      "Fixed Cost Efficiency"
-    ],
-    "labor ratio": [
+    "direct labor": [
       "Direct Labor Ratio"
     ],
     "direct labor ratio": [
       "Direct Labor Ratio"
     ],
-    "dlr": [
+    "directlabor": [
       "Direct Labor Ratio"
     ],
-    "labor %": [
+    "directlaborratio": [
       "Direct Labor Ratio"
     ],
-    "material ratio": [
+    "labor ratio": [
+      "Direct Labor Ratio"
+    ],
+    "laborratio": [
+      "Direct Labor Ratio"
+    ],
+    "ratio labor direct": [
+      "Direct Labor Ratio"
+    ],
+    "ratiolabordirect": [
+      "Direct Labor Ratio"
+    ],
+    "direct material": [
       "Direct Material Ratio"
     ],
     "direct material ratio": [
       "Direct Material Ratio"
     ],
-    "dmr": [
+    "directmaterial": [
       "Direct Material Ratio"
     ],
-    "material %": [
+    "directmaterialratio": [
       "Direct Material Ratio"
     ],
-    "outsource ratio": [
-      "Outsource Labor Ratio"
+    "material ratio": [
+      "Direct Material Ratio"
     ],
-    "outsource labor ratio": [
-      "Outsource Labor Ratio"
+    "materialratio": [
+      "Direct Material Ratio"
     ],
-    "olr": [
-      "Outsource Labor Ratio"
+    "ratio material direct": [
+      "Direct Material Ratio"
+    ],
+    "ratiomaterialdirect": [
+      "Direct Material Ratio"
+    ],
+    "electric water": [
+      "Electric&Water Supply"
+    ],
+    "electric water supply": [
+      "Electric&Water Supply"
+    ],
+    "electric&water supply": [
+      "Electric&Water Supply"
+    ],
+    "electricwater": [
+      "Electric&Water Supply"
+    ],
+    "electricwatersupply": [
+      "Electric&Water Supply"
+    ],
+    "supply water electric": [
+      "Electric&Water Supply"
+    ],
+    "supplywaterelectric": [
+      "Electric&Water Supply"
+    ],
+    "water supply": [
+      "Electric&Water Supply"
+    ],
+    "watersupply": [
+      "Electric&Water Supply"
+    ],
+    "entertainment": [
+      "Entertainment"
+    ],
+    "adjust expense": [
+      "Expense (Adjust)"
+    ],
+    "adjustexpense": [
+      "Expense (Adjust)"
+    ],
+    "expense (adjust)": [
+      "Expense (Adjust)"
+    ],
+    "expense adjust": [
+      "Expense (Adjust)"
+    ],
+    "expenseadjust": [
+      "Expense (Adjust)"
+    ],
+    "expense total": [
+      "Expense Total"
+    ],
+    "expensetotal": [
+      "Expense Total"
+    ],
+    "total expense": [
+      "Expense Total"
+    ],
+    "totalexpense": [
+      "Expense Total"
+    ],
+    "expense facility": [
+      "Facility Expense"
+    ],
+    "expensefacility": [
+      "Facility Expense"
+    ],
+    "facility expense": [
+      "Facility Expense"
+    ],
+    "facilityexpense": [
+      "Facility Expense"
+    ],
+    "cost efficiency": [
+      "Fixed Cost Efficiency"
+    ],
+    "costefficiency": [
+      "Fixed Cost Efficiency"
+    ],
+    "efficiency cost fixed": [
+      "Fixed Cost Efficiency"
+    ],
+    "efficiencycostfixed": [
+      "Fixed Cost Efficiency"
+    ],
+    "fixed cost efficiency": [
+      "Fixed Cost Efficiency"
+    ],
+    "fixedcostefficiency": [
+      "Fixed Cost Efficiency"
+    ],
+    "cost ratio": [
+      "Fixed Cost Ratio"
+    ],
+    "costratio": [
+      "Fixed Cost Ratio"
+    ],
+    "fixed cost": [
+      "Fixed Cost Ratio"
+    ],
+    "fixed cost ratio": [
+      "Fixed Cost Ratio"
+    ],
+    "fixedcost": [
+      "Fixed Cost Ratio"
+    ],
+    "fixedcostratio": [
+      "Fixed Cost Ratio"
+    ],
+    "ratio cost fixed": [
+      "Fixed Cost Ratio"
+    ],
+    "ratiocostfixed": [
+      "Fixed Cost Ratio"
+    ],
+    "fixed cost total": [
+      "Fixed Cost Total"
+    ],
+    "fixedcosttotal": [
+      "Fixed Cost Total"
+    ],
+    "total cost fixed": [
+      "Fixed Cost Total"
+    ],
+    "totalcostfixed": [
+      "Fixed Cost Total"
+    ],
+    "gross profit": [
+      "Gross Profit"
+    ],
+    "grossprofit": [
+      "Gross Profit"
+    ],
+    "profit gross": [
+      "Gross Profit"
+    ],
+    "profitgross": [
+      "Gross Profit"
+    ],
+    "gross profit ratio": [
+      "Gross Profit Ratio"
+    ],
+    "grossprofitratio": [
+      "Gross Profit Ratio"
+    ],
+    "profit ratio": [
+      "Gross Profit Ratio"
+    ],
+    "profitratio": [
+      "Gross Profit Ratio"
+    ],
+    "ratio profit gross": [
+      "Gross Profit Ratio"
+    ],
+    "ratioprofitgross": [
+      "Gross Profit Ratio"
+    ],
+    "insurance": [
+      "Insurance"
+    ],
+    "building tax": [
+      "Land & Building TAX"
+    ],
+    "buildingtax": [
+      "Land & Building TAX"
+    ],
+    "land & building tax": [
+      "Land & Building TAX"
+    ],
+    "land building": [
+      "Land & Building TAX"
+    ],
+    "land building tax": [
+      "Land & Building TAX"
+    ],
+    "landbuilding": [
+      "Land & Building TAX"
+    ],
+    "landbuildingtax": [
+      "Land & Building TAX"
+    ],
+    "tax building land": [
+      "Land & Building TAX"
+    ],
+    "taxbuildingland": [
+      "Land & Building TAX"
+    ],
+    "land rental": [
+      "Land Rental"
+    ],
+    "landrental": [
+      "Land Rental"
+    ],
+    "rental land": [
+      "Land Rental"
+    ],
+    "rentalland": [
+      "Land Rental"
+    ],
+    "circuit lease": [
+      "Lease Circuit"
+    ],
+    "circuitlease": [
+      "Lease Circuit"
+    ],
+    "lease circuit": [
+      "Lease Circuit"
+    ],
+    "leasecircuit": [
+      "Lease Circuit"
+    ],
+    "marginal profit": [
+      "Marginal Profit"
+    ],
+    "marginalprofit": [
+      "Marginal Profit"
+    ],
+    "profit marginal": [
+      "Marginal Profit"
+    ],
+    "profitmarginal": [
+      "Marginal Profit"
     ],
     "marginal profit ratio": [
       "Marginal Profit Ratio"
     ],
-    "marginal ratio": [
+    "marginalprofitratio": [
       "Marginal Profit Ratio"
     ],
-    "mpr": [
+    "ratio profit marginal": [
       "Marginal Profit Ratio"
     ],
-    "contribution ratio": [
+    "ratioprofitmarginal": [
       "Marginal Profit Ratio"
     ],
-    "contribution %": [
-      "Marginal Profit Ratio"
+    "and service": [
+      "Material and Service"
+    ],
+    "andservice": [
+      "Material and Service"
+    ],
+    "material and": [
+      "Material and Service"
+    ],
+    "material and service": [
+      "Material and Service"
+    ],
+    "materialand": [
+      "Material and Service"
+    ],
+    "materialandservice": [
+      "Material and Service"
+    ],
+    "service and material": [
+      "Material and Service"
+    ],
+    "serviceandmaterial": [
+      "Material and Service"
+    ],
+    "mobile phone": [
+      "Mobile Phone"
+    ],
+    "mobilephone": [
+      "Mobile Phone"
+    ],
+    "phone mobile": [
+      "Mobile Phone"
+    ],
+    "phonemobile": [
+      "Mobile Phone"
+    ],
+    "number of": [
+      "Number of staff"
+    ],
+    "number of staff": [
+      "Number of staff"
+    ],
+    "numberof": [
+      "Number of staff"
+    ],
+    "numberofstaff": [
+      "Number of staff"
+    ],
+    "of staff": [
+      "Number of staff"
+    ],
+    "ofstaff": [
+      "Number of staff"
+    ],
+    "staff of number": [
+      "Number of staff"
+    ],
+    "staffofnumber": [
+      "Number of staff"
+    ],
+    "equipment office": [
+      "Office Equipment"
+    ],
+    "equipmentoffice": [
+      "Office Equipment"
+    ],
+    "office equipment": [
+      "Office Equipment"
+    ],
+    "officeequipment": [
+      "Office Equipment"
+    ],
+    "office supply": [
+      "Office Supply"
+    ],
+    "officesupply": [
+      "Office Supply"
+    ],
+    "supply office": [
+      "Office Supply"
+    ],
+    "supplyoffice": [
+      "Office Supply"
+    ],
+    "operating profit": [
+      "Operating Profit"
+    ],
+    "operatingprofit": [
+      "Operating Profit"
+    ],
+    "profit operating": [
+      "Operating Profit"
+    ],
+    "profitoperating": [
+      "Operating Profit"
+    ],
+    "operating profit ratio": [
+      "Operating Profit Ratio"
+    ],
+    "operatingprofitratio": [
+      "Operating Profit Ratio"
+    ],
+    "ratio profit operating": [
+      "Operating Profit Ratio"
+    ],
+    "ratioprofitoperating": [
+      "Operating Profit Ratio"
+    ],
+    "fee labor outsource": [
+      "Outsource Labor Fee"
+    ],
+    "feelaboroutsource": [
+      "Outsource Labor Fee"
+    ],
+    "labor fee": [
+      "Outsource Labor Fee"
+    ],
+    "laborfee": [
+      "Outsource Labor Fee"
+    ],
+    "outsource labor": [
+      "Outsource Labor Fee"
+    ],
+    "outsource labor fee": [
+      "Outsource Labor Fee"
+    ],
+    "outsourcelabor": [
+      "Outsource Labor Fee"
+    ],
+    "outsourcelaborfee": [
+      "Outsource Labor Fee"
+    ],
+    "outsource labor ratio": [
+      "Outsource Labor Ratio"
+    ],
+    "outsourcelaborratio": [
+      "Outsource Labor Ratio"
+    ],
+    "ratio labor outsource": [
+      "Outsource Labor Ratio"
+    ],
+    "ratiolaboroutsource": [
+      "Outsource Labor Ratio"
+    ],
+    "over time": [
+      "Over Time"
+    ],
+    "overtime": [
+      "Over Time"
+    ],
+    "time over": [
+      "Over Time"
+    ],
+    "timeover": [
+      "Over Time"
+    ],
+    "expense personnel": [
+      "Personnel Expense"
+    ],
+    "expensepersonnel": [
+      "Personnel Expense"
+    ],
+    "personnel expense": [
+      "Personnel Expense"
+    ],
+    "personnelexpense": [
+      "Personnel Expense"
+    ],
+    "fund provident": [
+      "Provident Fund"
+    ],
+    "fundprovident": [
+      "Provident Fund"
+    ],
+    "provident fund": [
+      "Provident Fund"
+    ],
+    "providentfund": [
+      "Provident Fund"
+    ],
+    "equipments rental": [
+      "Rental Equipments"
+    ],
+    "equipmentsrental": [
+      "Rental Equipments"
+    ],
+    "rental equipments": [
+      "Rental Equipments"
+    ],
+    "rentalequipments": [
+      "Rental Equipments"
+    ],
+    "office rental": [
+      "Rental Office"
+    ],
+    "officerental": [
+      "Rental Office"
+    ],
+    "rental office": [
+      "Rental Office"
+    ],
+    "rentaloffice": [
+      "Rental Office"
+    ],
+    "other rental": [
+      "Rental Other"
+    ],
+    "otherrental": [
+      "Rental Other"
+    ],
+    "rental other": [
+      "Rental Other"
+    ],
+    "rentalother": [
+      "Rental Other"
+    ],
+    "and maintenance": [
+      "Repair and Maintenance (Direct)"
+    ],
+    "andmaintenance": [
+      "Repair and Maintenance (Direct)"
+    ],
+    "direct maintenance and repair": [
+      "Repair and Maintenance (Direct)"
+    ],
+    "directmaintenanceandrepair": [
+      "Repair and Maintenance (Direct)"
+    ],
+    "maintenance direct": [
+      "Repair and Maintenance (Direct)"
+    ],
+    "maintenancedirect": [
+      "Repair and Maintenance (Direct)"
+    ],
+    "repair and": [
+      "Repair and Maintenance (Direct)"
+    ],
+    "repair and maintenance (direct)": [
+      "Repair and Maintenance (Direct)"
+    ],
+    "repair and maintenance direct": [
+      "Repair and Maintenance (Direct)"
+    ],
+    "repairand": [
+      "Repair and Maintenance (Direct)"
+    ],
+    "repairandmaintenancedirect": [
+      "Repair and Maintenance (Direct)"
+    ],
+    "expense maintenance and repair": [
+      "Repair and Maintenance (Expense)"
+    ],
+    "expensemaintenanceandrepair": [
+      "Repair and Maintenance (Expense)"
+    ],
+    "maintenance expense": [
+      "Repair and Maintenance (Expense)"
+    ],
+    "maintenanceexpense": [
+      "Repair and Maintenance (Expense)"
+    ],
+    "repair and maintenance (expense)": [
+      "Repair and Maintenance (Expense)"
+    ],
+    "repair and maintenance expense": [
+      "Repair and Maintenance (Expense)"
+    ],
+    "repairandmaintenanceexpense": [
+      "Repair and Maintenance (Expense)"
+    ],
+    "revenue total": [
+      "Revenue Total"
+    ],
+    "revenuetotal": [
+      "Revenue Total"
+    ],
+    "total revenue": [
+      "Revenue Total"
+    ],
+    "totalrevenue": [
+      "Revenue Total"
+    ],
+    "head per revenue": [
+      "Revenue per Head"
+    ],
+    "headperrevenue": [
+      "Revenue per Head"
+    ],
+    "per head": [
+      "Revenue per Head"
+    ],
+    "perhead": [
+      "Revenue per Head"
+    ],
+    "revenue per": [
+      "Revenue per Head"
+    ],
+    "revenue per head": [
+      "Revenue per Head"
+    ],
+    "revenueper": [
+      "Revenue per Head"
+    ],
+    "revenueperhead": [
+      "Revenue per Head"
+    ],
+    "salary": [
+      "Salary"
+    ],
+    "security": [
+      "Security"
+    ],
+    "office service": [
+      "Service Office"
+    ],
+    "officeservice": [
+      "Service Office"
+    ],
+    "service office": [
+      "Service Office"
+    ],
+    "serviceoffice": [
+      "Service Office"
+    ],
+    "fee retirement pay severance": [
+      "Severance Pay / Retirement Fee"
+    ],
+    "feeretirementpayseverance": [
+      "Severance Pay / Retirement Fee"
+    ],
+    "pay retirement": [
+      "Severance Pay / Retirement Fee"
+    ],
+    "payretirement": [
+      "Severance Pay / Retirement Fee"
+    ],
+    "retirement fee": [
+      "Severance Pay / Retirement Fee"
+    ],
+    "retirementfee": [
+      "Severance Pay / Retirement Fee"
+    ],
+    "severance pay": [
+      "Severance Pay / Retirement Fee"
+    ],
+    "severance pay / retirement fee": [
+      "Severance Pay / Retirement Fee"
+    ],
+    "severance pay retirement fee": [
+      "Severance Pay / Retirement Fee"
+    ],
+    "severancepay": [
+      "Severance Pay / Retirement Fee"
+    ],
+    "severancepayretirementfee": [
+      "Severance Pay / Retirement Fee"
+    ],
+    "signboard tax": [
+      "Signboard Tax"
+    ],
+    "signboardtax": [
+      "Signboard Tax"
+    ],
+    "tax signboard": [
+      "Signboard Tax"
+    ],
+    "taxsignboard": [
+      "Signboard Tax"
+    ],
+    "security social": [
+      "Social security"
+    ],
+    "securitysocial": [
+      "Social security"
+    ],
+    "social security": [
+      "Social security"
+    ],
+    "socialsecurity": [
+      "Social security"
+    ],
+    "license software": [
+      "Software License"
+    ],
+    "licensesoftware": [
+      "Software License"
+    ],
+    "software license": [
+      "Software License"
+    ],
+    "softwarelicense": [
+      "Software License"
+    ],
+    "amenity staff": [
+      "Staff Amenity"
+    ],
+    "amenitystaff": [
+      "Staff Amenity"
+    ],
+    "staff amenity": [
+      "Staff Amenity"
+    ],
+    "staffamenity": [
+      "Staff Amenity"
+    ],
+    "telephone": [
+      "Telephone"
+    ],
+    "transportation": [
+      "Transportation"
+    ],
+    "ratio cost variable": [
+      "Variable Cost Ratio"
+    ],
+    "ratiocostvariable": [
+      "Variable Cost Ratio"
+    ],
+    "variable cost ratio": [
+      "Variable Cost Ratio"
+    ],
+    "variablecostratio": [
+      "Variable Cost Ratio"
+    ],
+    "total cost variable": [
+      "Variable Cost Total"
+    ],
+    "totalcostvariable": [
+      "Variable Cost Total"
+    ],
+    "variable cost": [
+      "Variable Cost Total"
+    ],
+    "variable cost total": [
+      "Variable Cost Total"
+    ],
+    "variablecost": [
+      "Variable Cost Total"
+    ],
+    "variablecosttotal": [
+      "Variable Cost Total"
+    ],
+    "welfare": [
+      "Welfare"
+    ],
+    "compensation s workmen": [
+      "Workmen's compensation"
+    ],
+    "compensationsworkmen": [
+      "Workmen's compensation"
+    ],
+    "s compensation": [
+      "Workmen's compensation"
+    ],
+    "scompensation": [
+      "Workmen's compensation"
+    ],
+    "workmen s": [
+      "Workmen's compensation"
+    ],
+    "workmen s compensation": [
+      "Workmen's compensation"
+    ],
+    "workmen's compensation": [
+      "Workmen's compensation"
+    ],
+    "workmens": [
+      "Workmen's compensation"
+    ],
+    "workmenscompensation": [
+      "Workmen's compensation"
     ]
   },
   "months": {
