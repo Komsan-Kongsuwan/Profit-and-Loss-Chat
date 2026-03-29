@@ -1,37 +1,40 @@
 {
   "items": {
     "revenue": [
-      "Revenue"
+      "Revenue Total"
     ],
     "income": [
-      "Revenue"
+      "Revenue Total"
     ],
     "sales": [
-      "Revenue"
+      "Revenue Total"
     ],
     "rev": [
-      "Revenue"
+      "Revenue Total"
     ],
     "total revenue": [
       "Revenue Total"
     ],
-    "cost": [
-      "Cost Total"
-    ],
-    "total cost": [
-      "Cost Total"
-    ],
-    "cost total": [
-      "Cost Total"
+    "material": [
+      "Material and Service"
     ],
     "subcontract": [
-      "Subcontractor Cost"
+      "Material and Service"
     ],
     "subcontractor": [
-      "Subcontractor Cost"
+      "Material and Service"
     ],
     "sub cost": [
-      "Subcontractor Cost"
+      "Material and Service"
+    ],
+    "material and service": [
+      "Material and Service"
+    ],
+    "cost adjust": [
+      "Cost (Adjust)"
+    ],
+    "adjustment": [
+      "Cost (Adjust)"
     ],
     "salary": [
       "Salary"
@@ -93,11 +96,14 @@
     "allowance": [
       "Allowance"
     ],
-    "warehouse supply": [
-      "Warehouse Supply"
+    "consumable": [
+      "Consumable Supply"
     ],
-    "wh supply": [
-      "Warehouse Supply"
+    "consumable supply": [
+      "Consumable Supply"
+    ],
+    "supply": [
+      "Consumable Supply"
     ],
     "outsource": [
       "Outsource Labor Fee"
@@ -108,11 +114,23 @@
     "labor fee": [
       "Outsource Labor Fee"
     ],
-    "warehouse rental": [
-      "Warehouse Rental"
+    "cost total": [
+      "Cost Total"
     ],
-    "wh rental": [
-      "Warehouse Rental"
+    "total cost": [
+      "Cost Total"
+    ],
+    "variable cost": [
+      "Variable Cost Total"
+    ],
+    "variable total": [
+      "Variable Cost Total"
+    ],
+    "land rental": [
+      "Land Rental"
+    ],
+    "land rent": [
+      "Land Rental"
     ],
     "rental other": [
       "Rental Other"
@@ -123,14 +141,26 @@
     "equipment rental": [
       "Rental Equipments"
     ],
+    "rental office": [
+      "Rental Office"
+    ],
+    "office rental": [
+      "Rental Office"
+    ],
+    "repair direct": [
+      "Repair and Maintenance (Direct)"
+    ],
+    "maintenance direct": [
+      "Repair and Maintenance (Direct)"
+    ],
     "repair": [
-      "Repair and Maintenance"
+      "Repair and Maintenance (Expense)"
     ],
     "maintenance": [
-      "Repair and Maintenance"
+      "Repair and Maintenance (Expense)"
     ],
     "r&m": [
-      "Repair and Maintenance"
+      "Repair and Maintenance (Expense)"
     ],
     "electric": [
       "Electric&Water Supply"
@@ -150,11 +180,41 @@
     "dep": [
       "Depreciation"
     ],
-    "rental office": [
-      "Rental Office"
+    "fixed cost": [
+      "Fixed Cost Total"
     ],
-    "office rental": [
-      "Rental Office"
+    "fix cost": [
+      "Fixed Cost Total"
+    ],
+    "fixed total": [
+      "Fixed Cost Total"
+    ],
+    "fix total": [
+      "Fixed Cost Total"
+    ],
+    "gross profit": [
+      "Gross Profit"
+    ],
+    "gp": [
+      "Gross Profit"
+    ],
+    "profit": [
+      "Gross Profit"
+    ],
+    "operating profit": [
+      "Operating Profit"
+    ],
+    "op": [
+      "Operating Profit"
+    ],
+    "net profit": [
+      "Operating Profit"
+    ],
+    "expense": [
+      "Expense Total"
+    ],
+    "total expense": [
+      "Expense Total"
     ],
     "conference": [
       "Conference"
@@ -194,12 +254,6 @@
     ],
     "internet": [
       "Lease Circuit"
-    ],
-    "cargo": [
-      "Cargo Master"
-    ],
-    "cargo master": [
-      "Cargo Master"
     ],
     "office supply": [
       "Office Supply"
@@ -264,33 +318,6 @@
     "customer claim": [
       "CLAIM FROM CUSTOMER"
     ],
-    "profit": [
-      "Gross Profit"
-    ],
-    "gross profit": [
-      "Gross Profit"
-    ],
-    "gp": [
-      "Gross Profit"
-    ],
-    "operating profit": [
-      "Operating Profit"
-    ],
-    "op": [
-      "Operating Profit"
-    ],
-    "net profit": [
-      "Operating Profit"
-    ],
-    "expense": [
-      "Expense Total"
-    ],
-    "total expense": [
-      "Expense Total"
-    ],
-    "expense total": [
-      "Expense Total"
-    ],
     "staff": [
       "Number of staff"
     ],
@@ -303,41 +330,74 @@
     "hc": [
       "Number of staff"
     ],
-    "variable": [
-      "Variable"
+    "number of staff": [
+      "Number of staff"
     ],
-    "variable cost": [
-      "Variable"
+    "marginal profit": [
+      "Marginal Profit"
     ],
-    "fix": [
-      "Fix"
+    "marginal": [
+      "Marginal Profit"
     ],
-    "fixed": [
-      "Fix"
+    "revenue per head": [
+      "Revenue per Head"
     ],
-    "fix cost": [
-      "Fix"
+    "rev per head": [
+      "Revenue per Head"
     ],
-    "fixed cost": [
-      "Fix"
+    "software": [
+      "Software License"
     ],
-    "adjust": [
-      "Cost (Adjust)"
+    "license": [
+      "Software License"
     ],
-    "cost adjust": [
-      "Cost (Adjust)"
+    "gp ratio": [
+      "Gross Profit Ratio"
     ],
-    "adjustment": [
-      "Cost (Adjust)"
+    "gross profit ratio": [
+      "Gross Profit Ratio"
     ],
-    "rent": [
-      "Warehouse Rental"
+    "gp%": [
+      "Gross Profit Ratio"
     ],
-    "rental": [
-      "Warehouse Rental"
+    "op ratio": [
+      "Operating Profit Ratio"
     ],
-    "supply": [
-      "Warehouse Supply"
+    "operating profit ratio": [
+      "Operating Profit Ratio"
+    ],
+    "variable cost ratio": [
+      "Variable Cost Ratio"
+    ],
+    "fixed cost ratio": [
+      "Fixed Cost Ratio"
+    ],
+    "fixed cost efficiency": [
+      "Fixed Cost Efficiency"
+    ],
+    "labor ratio": [
+      "Direct Labor Ratio"
+    ],
+    "direct labor ratio": [
+      "Direct Labor Ratio"
+    ],
+    "material ratio": [
+      "Direct Material Ratio"
+    ],
+    "direct material ratio": [
+      "Direct Material Ratio"
+    ],
+    "outsource ratio": [
+      "Outsource Labor Ratio"
+    ],
+    "outsource labor ratio": [
+      "Outsource Labor Ratio"
+    ],
+    "marginal profit ratio": [
+      "Marginal Profit Ratio"
+    ],
+    "marginal ratio": [
+      "Marginal Profit Ratio"
     ]
   },
   "months": {
@@ -413,6 +473,18 @@
     "december": [
       "12"
     ],
+    "q1": [
+      "Q1"
+    ],
+    "q2": [
+      "Q2"
+    ],
+    "q3": [
+      "Q3"
+    ],
+    "q4": [
+      "Q4"
+    ],
     "2018": [
       "2018"
     ],
@@ -437,22 +509,22 @@
     "2025": [
       "2025"
     ],
-    "q1": [
-      "Q1"
-    ],
-    "q2": [
-      "Q2"
-    ],
-    "q3": [
-      "Q3"
-    ],
-    "q4": [
-      "Q4"
+    "2026": [
+      "2026"
     ]
   },
   "sites": {
-    "ppd": [
-      "PPD"
+    "acw": [
+      "ACW"
+    ],
+    "all site": [
+      "All Site"
+    ],
+    "bn20": [
+      "BN20"
+    ],
+    "bp1": [
+      "BP1"
     ],
     "bpa": [
       "BPA"
@@ -466,17 +538,29 @@
     "bpd": [
       "BPD"
     ],
-    "bp1": [
-      "BP1"
+    "cbr01": [
+      "CBR01"
     ],
-    "wgr": [
-      "WGR"
+    "cbr02": [
+      "CBR02"
     ],
-    "tbn1": [
-      "TBN1"
+    "cbr03": [
+      "CBR03"
     ],
-    "tbn2": [
-      "TBN2"
+    "cbr04": [
+      "CBR04"
+    ],
+    "cbr05": [
+      "CBR05"
+    ],
+    "ccs01": [
+      "CCS01"
+    ],
+    "ccs02": [
+      "CCS02"
+    ],
+    "ccs03": [
+      "CCS03"
     ],
     "hmw": [
       "HMW"
@@ -484,29 +568,95 @@
     "neg": [
       "NeG"
     ],
+    "other": [
+      "OTHER"
+    ],
+    "otr01": [
+      "OTR01"
+    ],
+    "otr02": [
+      "OTR02"
+    ],
     "p304": [
       "P304"
     ],
-    "acw": [
-      "ACW"
+    "pjr01": [
+      "PJR01"
+    ],
+    "ppd": [
+      "PPD"
+    ],
+    "ryn01": [
+      "RYN01"
+    ],
+    "ryn02": [
+      "RYN02"
+    ],
+    "ryn03": [
+      "RYN03"
+    ],
+    "ryn04": [
+      "RYN04"
+    ],
+    "sdct": [
+      "SDCT"
+    ],
+    "smk01": [
+      "SMK01"
+    ],
+    "smk02": [
+      "SMK02"
+    ],
+    "smk03": [
+      "SMK03"
+    ],
+    "smk04": [
+      "SMK04"
+    ],
+    "smk05": [
+      "SMK05"
+    ],
+    "smk06": [
+      "SMK06"
+    ],
+    "smk07": [
+      "SMK07"
     ],
     "ssw": [
       "SSW"
     ],
-    "uaf": [
-      "UAF"
-    ],
-    "stf": [
-      "STF"
+    "st11": [
+      "ST11"
     ],
     "st9": [
       "ST9"
     ],
-    "st11": [
-      "ST11"
+    "stf": [
+      "STF"
     ],
-    "other": [
-      "OTHER"
+    "tac": [
+      "TAC"
+    ],
+    "tbn1": [
+      "TBN1"
+    ],
+    "tbn2": [
+      "TBN2"
+    ],
+    "uaf": [
+      "UAF"
+    ],
+    "wgr": [
+      "WGR"
+    ],
+    "zc": [
+      "ZC"
+    ],
+    "all sites": [
+      "All Site"
+    ],
+    "total": [
+      "All Site"
     ]
   },
   "intents": {
@@ -540,6 +690,9 @@
     "monthly": [
       "trend"
     ],
+    "yearly": [
+      "trend"
+    ],
     "summary": [
       "summary"
     ],
@@ -547,9 +700,6 @@
       "summary"
     ],
     "overall": [
-      "summary"
-    ],
-    "total": [
       "summary"
     ],
     "top": [
@@ -599,6 +749,12 @@
     ],
     "list": [
       "list"
+    ],
+    "how many": [
+      "count"
+    ],
+    "count": [
+      "count"
     ],
     "chart": [
       "chart"
@@ -664,6 +820,56 @@
     ],
     "customer compare": [
       "trigger"
+    ]
+  },
+  "categories": {
+    "variable": [
+      "Variable Cost"
+    ],
+    "variable cost": [
+      "Variable Cost"
+    ],
+    "fixed": [
+      "Fixed Cost"
+    ],
+    "fixed cost": [
+      "Fixed Cost"
+    ],
+    "fix cost": [
+      "Fixed Cost"
+    ],
+    "fix": [
+      "Fixed Cost"
+    ],
+    "expense": [
+      "Expense"
+    ],
+    "expenses": [
+      "Expense"
+    ],
+    "kpi": [
+      "KPI"
+    ],
+    "ratio": [
+      "KPI"
+    ],
+    "indicator": [
+      "KPI"
+    ],
+    "p&l": [
+      "P&L Statement"
+    ],
+    "pnl": [
+      "P&L Statement"
+    ],
+    "profit loss": [
+      "P&L Statement"
+    ],
+    "profit and loss": [
+      "P&L Statement"
+    ],
+    "other": [
+      "Other"
     ]
   }
 }

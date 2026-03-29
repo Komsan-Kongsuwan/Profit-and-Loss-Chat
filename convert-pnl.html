@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Convert Customer Revenue → JSON</title>
+<title>Convert P&L Raw Data → JSON</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:'DM Sans',sans-serif;background:#eae8e3;min-height:100vh;padding:40px 20px}.ctr{max-width:700px;margin:0 auto}h1{font-size:22px;color:#1a1a2e;margin-bottom:6px}.sub{color:rgba(0,0,0,.5);font-size:13px;margin-bottom:30px}.dz{border:2px dashed rgba(26,26,46,.2);border-radius:16px;padding:50px 30px;text-align:center;background:#fff;cursor:pointer;transition:all .3s;margin-bottom:20px}.dz:hover,.dz.dg{border-color:#1a1a2e;background:#f0eef8}.dzi{font-size:40px;margin-bottom:10px}.dzt{font-size:14px;color:#1a1a2e;font-weight:500}.dzh{font-size:11px;color:rgba(0,0,0,.4);margin-top:6px}input[type="file"]{display:none}.log{background:#fff;border-radius:12px;padding:20px;font-size:12px;line-height:1.8;border:1px solid rgba(0,0,0,.06);display:none;max-height:400px;overflow-y:auto}.log.v{display:block}.ll{padding:2px 0}.ll.s{color:#2e7d32}.ll.e{color:#c62828}.ll.i{color:#1a1a2e}.stp{margin-bottom:24px}.st{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:13px;color:rgba(0,0,0,.5)}.sn{width:24px;height:24px;border-radius:50%;background:rgba(26,26,46,.1);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#1a1a2e}</style>
 </head><body>
 <div class="ctr">
-  <h1>👥 Customer Revenue → JSON Converter</h1>
-  <p class="sub">Convert customer_revenue_raw_data.xlsx into customer.json (compact indexed format)</p>
+  <h1>📊 P&L Raw Data → JSON Converter</h1>
+  <p class="sub">Convert profit_and_loss_raw_data.xlsx into pnl.json (compact indexed format)</p>
   <div class="stp">
-    <div class="st"><div class="sn">1</div> Expected columns: Date, Site, Customer, Amount</div>
-    <div class="st"><div class="sn">2</div> Compresses ~40K rows into ~770 KB indexed JSON</div>
-    <div class="st"><div class="sn">3</div> Downloads customer.json automatically</div>
+    <div class="st"><div class="sn">1</div> Expected columns: Date, Item, Item Detail, Site, Amount</div>
+    <div class="st"><div class="sn">2</div> Compresses ~100K rows into ~1.2 MB indexed JSON</div>
+    <div class="st"><div class="sn">3</div> Downloads pnl.json automatically</div>
   </div>
   <div class="dz" id="dz" onclick="document.getElementById('fi').click()">
-    <div class="dzi">📄</div><div class="dzt">Drop customer_revenue_raw_data.xlsx here</div><div class="dzh">Long format: Date, Site, Customer, Amount</div>
+    <div class="dzi">📄</div><div class="dzt">Drop profit_and_loss_raw_data.xlsx here</div><div class="dzh">Long format: Date, Item, Item Detail, Site, Amount</div>
   </div>
   <input type="file" id="fi" accept=".xlsx"/>
   <div class="log" id="lg"></div>
@@ -36,33 +36,41 @@ function proc(file){
       var data=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{defval:null,raw:true});
       log('✓ Loaded '+data.length+' rows','s');
 
-      var dateSet={},siteSet={},custSet={};
+      // Build indices
+      var dateSet={},siteSet={},catSet={},detSet={};
       data.forEach(function(r){
         if(r.Date){var d=new Date(r.Date);dateSet[d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')]=1}
-        if(r.Site)siteSet[r.Site]=1;if(r.Customer)custSet[r.Customer]=1;
+        if(r.Site)siteSet[r.Site]=1;
+        if(r.Item)catSet[r.Item]=1;
+        if(r['Item Detail'])detSet[r['Item Detail']]=1;
       });
-      var dates=Object.keys(dateSet).sort(),sites=Object.keys(siteSet).sort(),custs=Object.keys(custSet).sort();
-      var di={},si={},ci={};
-      dates.forEach(function(d,i){di[d]=i});sites.forEach(function(s,i){si[s]=i});custs.forEach(function(c,i){ci[c]=i});
+      var dates=Object.keys(dateSet).sort(),sites=Object.keys(siteSet).sort();
+      var cats=Object.keys(catSet).sort(),dets=Object.keys(detSet).sort();
+      var di={},si={},ci={},dei={};
+      dates.forEach(function(d,i){di[d]=i});sites.forEach(function(s,i){si[s]=i});
+      cats.forEach(function(c,i){ci[c]=i});dets.forEach(function(d,i){dei[d]=i});
 
       log('  Dates: '+dates.length+' ('+dates[0]+' to '+dates[dates.length-1]+')','i');
-      log('  Sites: '+sites.length,'i');log('  Customers: '+custs.length,'i');
+      log('  Sites: '+sites.length,'i');
+      log('  Categories: '+cats.join(', '),'i');
+      log('  Item Details: '+dets.length,'i');
 
+      // Build compact data
       var compact=[];
       data.forEach(function(r){
         var amt=r.Amount;if(!amt||amt===0)return;
         var d=new Date(r.Date);var dk=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
-        compact.push([si[r.Site],ci[r.Customer],di[dk],Math.round(amt*100)/100]);
+        compact.push([si[r.Site],ci[r.Item],dei[r['Item Detail']],di[dk],Math.round(amt*100)/100]);
       });
 
-      var result={dates:dates,sites:sites,customers:custs,data:compact};
+      var result={dates:dates,sites:sites,categories:cats,details:dets,data:compact};
       var json=JSON.stringify(result);
       log('✓ Compressed: '+data.length+' rows → '+(json.length/1024).toFixed(0)+' KB','s');
 
       var blob=new Blob([json],{type:'application/json'});
-      var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='customer.json';
+      var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='pnl.json';
       document.body.appendChild(a);a.click();document.body.removeChild(a);
-      log('','i');log('🎉 customer.json downloaded!','s');log('📁 Place customer.json in the same folder as index.html','i');
+      log('','i');log('🎉 pnl.json downloaded!','s');log('📁 Place pnl.json in the same folder as index.html','i');
     }catch(err){log('✗ Error: '+err.message,'e')}
   };reader.readAsArrayBuffer(file);
 }
