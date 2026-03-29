@@ -260,27 +260,46 @@ function grP(p){
 
   if(intent==='top'||intent==='bottom'){
     var itemName=it.length?it[0]:'Revenue Total';
-    var rows=pFilter({details:[itemName],dates:dt.length?dt:undefined});
-    var bySite={};rows.forEach(function(r){if(r.site!=='All Site')bySite[r.site]=(bySite[r.site]||0)+r.amt});
-    var sorted=Object.entries(bySite).sort(function(a,b){return intent==='top'?b[1]-a[1]:a[1]-b[1]}).slice(0,10);
-    var period=dt.length?dt[0]+'~'+dt[dt.length-1]:'all time';
+    var targetDates=dt.length?dt:undefined;
+    var rows=pFilter({details:[itemName],dates:targetDates});
+    // Pivot: rows=sites, get totals for ranking, then show date columns
+    var bySite={};var dateSet={};
+    rows.forEach(function(r){if(r.site==='All Site')return;dateSet[r.date]=1;
+      if(!bySite[r.site])bySite[r.site]={};bySite[r.site][r.date]=(bySite[r.site][r.date]||0)+r.amt});
+    var dates=Object.keys(dateSet).sort();
+    var sorted=Object.entries(bySite).sort(function(a,b){
+      var ta=0,tb=0;Object.values(a[1]).forEach(function(v){ta+=v});Object.values(b[1]).forEach(function(v){tb+=v});
+      return intent==='top'?tb-ta:ta-tb}).slice(0,10);
+    var period=targetDates?dt[0]+'~'+dt[dt.length-1]:'all time';
+    // If too many date columns (>12), show only Total
+    var showDates=dates.length<=12;
+    var headers=['Site'].concat(showDates?dates:[]).concat(['Total']);
+    var tblRows=sorted.map(function(e){
+      var total=0;Object.values(e[1]).forEach(function(v){total+=v});
+      if(showDates){var vals=dates.map(function(d){return fb(e[1][d]||0)});return[e[0]].concat(vals).concat([fb(total)])}
+      return[e[0],fb(total)]});
+    var totals=sorted.map(function(e){var t=0;Object.values(e[1]).forEach(function(v){t+=v});return t});
     var res={tag:'pl',text:'**'+(intent==='top'?'Top':'Bottom')+' sites by '+itemName+'** ('+period+'):',
-      table:{headers:['Rank','Site',itemName],rows:sorted.map(function(e,i){return['#'+(i+1),e[0],fb(e[1])]})}};
-    res.chart={type:'bar',data:{labels:sorted.map(function(e){return e[0]}),datasets:[{label:itemName,data:sorted.map(function(e){return e[1]}),backgroundColor:cc.c.slice(0,10),borderRadius:4}]},options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{},y:{}}}};
+      table:{headers:headers,rows:tblRows}};
+    res.chart={type:'bar',data:{labels:sorted.map(function(e){return e[0]}),datasets:[{label:itemName,data:totals,backgroundColor:cc.c.slice(0,10),borderRadius:4}]},options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{},y:{}}}};
     return res}
 
   if(intent==='trend'){
     var dets=it.length?it:['Revenue Total'];
     var targetSite=si.length?si:undefined;
     var targetDates=dt.length?dt:P.dates;
-    var datasets=[],headers=['Month'];
-    dets.forEach(function(det){
+    // Pivot: rows=items, cols=dates
+    var headers=['Item'].concat(targetDates).concat(['Total']);
+    var datasets=[];
+    var tblRows=dets.map(function(det){
       var rows=pFilter({details:[det],sites:targetSite,dates:targetDates});
       var byDate={};rows.forEach(function(r){byDate[r.date]=(byDate[r.date]||0)+r.amt});
-      var label=det+(si.length?' ('+si.join(',')+')':'');headers.push(label);
-      datasets.push({label:label,data:targetDates.map(function(d){return byDate[d]||0})});
+      var total=0;
+      var vals=targetDates.map(function(d){var v=byDate[d]||0;total+=v;return v});
+      var label=det+(si.length?' ('+si.join(',')+')':'');
+      datasets.push({label:label,data:vals});
+      return[det].concat(vals.map(fb)).concat([fb(total)])
     });
-    var tblRows=targetDates.map(function(d,i){var row=[d];datasets.forEach(function(ds){row.push(fb(ds.data[i]))});return row});
     var res={tag:'pl',text:'**'+dets.join(' & ')+' trend:**',table:{headers:headers,rows:tblRows}};
     res.chart={type:'line',data:{labels:targetDates,datasets:datasets.map(function(ds,i){return{label:ds.label,data:ds.data,borderColor:cc.c[i%15],backgroundColor:i===0?cc.c[0]+'22':'transparent',fill:i===0}})},options:{scales:{x:{},y:{}}}};
     return res}
@@ -289,25 +308,56 @@ function grP(p){
     var targetDates=dt.length?dt:P.dates;
     var targetSite=si.length?si:undefined;
     var summaryItems=['Revenue Total','Cost Total','Gross Profit','Operating Profit','Number of staff'];
-    var headers=['Item'].concat(targetDates.length>12?['Total']:targetDates);
+    var headers=['Item'].concat(targetDates).concat(['Total']);
     var tblRows=summaryItems.map(function(det){
       var rows=pFilter({details:[det],sites:targetSite,dates:targetDates});
-      if(targetDates.length>12){var total=0;rows.forEach(function(r){total+=r.amt});return[det,fb(total)]}
-      var byDate={};rows.forEach(function(r){byDate[r.date]=(byDate[r.date]||0)+r.amt});
-      return[det].concat(targetDates.map(function(d){return fb(byDate[d]||0)}))});
+      var byDate={};var total=0;
+      rows.forEach(function(r){byDate[r.date]=(byDate[r.date]||0)+r.amt;total+=r.amt});
+      return[det].concat(targetDates.map(function(d){return fb(byDate[d]||0)})).concat([fb(total)])});
     var label=si.length?si.join(', '):'All Sites';
     return{tag:'pl',text:'**Summary for '+label+'** ('+targetDates[0]+' to '+targetDates[targetDates.length-1]+'):',table:{headers:headers,rows:tblRows}}}
 
-  // Default lookup
+  // Default lookup — PIVOT: rows=items or sites, columns=dates
   var rows=pFilter(fOpts);
   if(!rows.length)return{tag:'pl',text:'No P&L data found for this query. Try: `Revenue Total 2024` or `list items`'};
-  // Aggregate by detail + date
-  if(rows.length>100){var agg={};rows.forEach(function(r){var k=r.det+'|'+r.date;agg[k]=(agg[k]||0)+r.amt});
-    var sorted=Object.entries(agg).sort(function(a,b){return a[0].localeCompare(b[0])}).slice(0,50);
-    var tbl=sorted.map(function(e){var p=e[0].split('|');return[p[0],p[1],fb(e[1])]});
-    return{tag:'pl',text:'**P&L results** ('+rows.length+' records, showing aggregated top 50):',table:{headers:['Item','Date','Amount'],rows:tbl}}}
-  var tbl=rows.slice(0,50).map(function(r){return[r.site,r.cat,r.det,r.date,fb(r.amt)]});
-  return{tag:'pl',text:'**P&L results** ('+rows.length+' records):',table:{headers:['Site','Category','Item','Date','Amount'],rows:tbl}}
+
+  // Determine pivot dimensions
+  var uniqueDates=[], uniqueItems=[], uniqueSites=[];
+  var ds={},is={},ss={};
+  rows.forEach(function(r){
+    if(!ds[r.date]){ds[r.date]=1;uniqueDates.push(r.date)}
+    if(!is[r.det]){is[r.det]=1;uniqueItems.push(r.det)}
+    if(!ss[r.site]){ss[r.site]=1;uniqueSites.push(r.site)}
+  });
+  uniqueDates.sort(); uniqueItems.sort(); uniqueSites.sort();
+
+  // Pivot by: if multiple items → rows=items, cols=dates
+  //           if single item + multiple sites → rows=sites, cols=dates
+  var pivotRows, pivotKey, headers;
+  if(uniqueItems.length>1 || uniqueSites.length<=1){
+    // Rows = items, aggregate across sites
+    pivotRows=uniqueItems; pivotKey='det';
+    var agg={};rows.forEach(function(r){var k=r.det+'|'+r.date;agg[k]=(agg[k]||0)+r.amt});
+    headers=['Item'].concat(uniqueDates).concat(['Total']);
+    var tblRows=uniqueItems.map(function(item){
+      var total=0;
+      var vals=uniqueDates.map(function(d){var v=agg[item+'|'+d]||0;total+=v;return fb(v)});
+      return[item].concat(vals).concat([fb(total)])
+    });
+  } else {
+    // Rows = sites, single item
+    var itemName=uniqueItems[0];
+    var agg={};rows.forEach(function(r){var k=r.site+'|'+r.date;agg[k]=(agg[k]||0)+r.amt});
+    headers=['Site'].concat(uniqueDates).concat(['Total']);
+    var tblRows=uniqueSites.map(function(site){
+      var total=0;
+      var vals=uniqueDates.map(function(d){var v=agg[site+'|'+d]||0;total+=v;return fb(v)});
+      return[site].concat(vals).concat([fb(total)])
+    });
+  }
+  var label=si.length?si.join(', '):'';
+  var period=dt.length?' ('+uniqueDates[0]+' ~ '+uniqueDates[uniqueDates.length-1]+')':'';
+  return{tag:'pl',text:'**'+(it.length?it.join(', '):'P&L results')+' '+label+'**'+period+':',table:{headers:headers,rows:tblRows}}
 }
 
 // ═══ CUSTOMER RESPONSE ═══
@@ -326,47 +376,87 @@ function grC(p){
 
   if(intent==='list'){
     var rows=cFilter({sites:si.length?si:undefined,dates:dt.length?dt:undefined});
-    var agg={};rows.forEach(function(r){agg[r.cust]=(agg[r.cust]||0)+r.amt});
-    var sorted=Object.entries(agg).sort(function(a,b){return b[1]-a[1]}).slice(0,20);
-    return{tag:'cu',text:'**Top customers** '+(si.length?'at '+si.join(', '):'')+(dt.length?' ('+dt[0]+'~'+dt[dt.length-1]+')':'')+':',
-      table:{headers:['#','Customer','Revenue'],rows:sorted.map(function(e,i){return['#'+(i+1),e[0],fb(e[1])]})}}}
-
+    var byKey={},yearSet={};
+    rows.forEach(function(r){var y=r.date.split('-')[0];yearSet[y]=1;
+      if(!byKey[r.cust])byKey[r.cust]={};byKey[r.cust][y]=(byKey[r.cust][y]||0)+r.amt});
+    var years=Object.keys(yearSet).sort();
+    var sorted=Object.entries(byKey).sort(function(a,b){
+      var ta=0,tb=0;Object.values(a[1]).forEach(function(v){ta+=v});Object.values(b[1]).forEach(function(v){tb+=v});return tb-ta});
+    var headers=['Customer'].concat(years).concat(['Total']);
+    var tblRows=sorted.slice(0,20).map(function(e){
+      var total=0;var vals=years.map(function(y){var v=e[1][y]||0;total+=v;return fb(v)});
+      return[e[0]].concat(vals).concat([fb(total)])});
+    return{tag:'cu',text:'**Customers** '+(si.length?'at '+si.join(', '):'')+(dt.length?' ('+dt[0]+'~'+dt[dt.length-1]+')':'')+' (top 20 of '+sorted.length+'):',
+      table:{headers:headers,rows:tblRows}}}
   if(intent==='top'||intent==='bottom'){
     var rows=cFilter({sites:si.length?si:undefined,dates:dt.length?dt:undefined});
-    var agg={};rows.forEach(function(r){if(r.cust!=='All Customer')agg[r.cust]=(agg[r.cust]||0)+r.amt});
-    var sorted=Object.entries(agg).sort(function(a,b){return intent==='top'?b[1]-a[1]:a[1]-b[1]}).slice(0,10);
+    var byKey={},yearSet={};
+    rows.forEach(function(r){if(r.cust==='All Customer')return;var y=r.date.split('-')[0];yearSet[y]=1;
+      if(!byKey[r.cust])byKey[r.cust]={};byKey[r.cust][y]=(byKey[r.cust][y]||0)+r.amt});
+    var years=Object.keys(yearSet).sort();
+    var sorted=Object.entries(byKey).sort(function(a,b){
+      var ta=0,tb=0;Object.values(a[1]).forEach(function(v){ta+=v});Object.values(b[1]).forEach(function(v){tb+=v});
+      return intent==='top'?tb-ta:ta-tb}).slice(0,10);
+    var headers=['Customer'].concat(years).concat(['Total']);
+    var tblRows=sorted.map(function(e){
+      var total=0;var vals=years.map(function(y){var v=e[1][y]||0;total+=v;return fb(v)});
+      return[e[0]].concat(vals).concat([fb(total)])});
+    var totals=sorted.map(function(e){var t=0;Object.values(e[1]).forEach(function(v){t+=v});return t});
     var res={tag:'cu',text:'**'+(intent==='top'?'Top':'Bottom')+' 10 customers** '+(si.length?'at '+si.join(', '):'')+':',
-      table:{headers:['#','Customer','Revenue'],rows:sorted.map(function(e,i){return['#'+(i+1),e[0],fb(e[1])]})}};
-    res.chart={type:'bar',data:{labels:sorted.map(function(e){return e[0].length>25?e[0].slice(0,25)+'…':e[0]}),datasets:[{label:'Revenue',data:sorted.map(function(e){return e[1]}),backgroundColor:cc.c.slice(0,10),borderRadius:4}]},options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{},y:{}}}};
+      table:{headers:headers,rows:tblRows}};
+    res.chart={type:'bar',data:{labels:sorted.map(function(e){return e[0].length>25?e[0].slice(0,25)+'…':e[0]}),datasets:[{label:'Revenue',data:totals,backgroundColor:cc.c.slice(0,10),borderRadius:4}]},options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{},y:{}}}};
     return res}
 
   if(intent==='trend'){
     var filt=matchedCusts?{custs:matchedCusts}:{};if(si.length)filt.sites=si;
     var rows=cFilter(filt);
+    // Pivot: if matched custs, rows=customers cols=year-months; else single row
     var byDate={};rows.forEach(function(r){byDate[r.date]=(byDate[r.date]||0)+r.amt});
     var dates=Object.keys(byDate).sort();
     var label=cm||(cs?'"'+cs+'" ('+matchedCusts.length+' matches)':'All customers');if(si.length)label+=' at '+si.join(', ');
-    var res={tag:'cu',text:'**'+label+' trend:**',table:{headers:['Month','Revenue'],rows:dates.map(function(d){return[d,fb(byDate[d])]})}};
+    // Group by year for wide format
+    var byYear={};dates.forEach(function(d){var y=d.split('-')[0];byYear[y]=(byYear[y]||0)+byDate[d]});
+    var years=Object.keys(byYear).sort();
+    var headers=['Customer'].concat(years).concat(['Total']);
+    var grandTotal=0;years.forEach(function(y){grandTotal+=byYear[y]});
+    var tblRows=[[label].concat(years.map(function(y){return fb(byYear[y])})).concat([fb(grandTotal)])];
+    var res={tag:'cu',text:'**'+label+' trend:**',table:{headers:headers,rows:tblRows}};
     res.chart={type:'line',data:{labels:dates,datasets:[{label:'Revenue',data:dates.map(function(d){return byDate[d]}),borderColor:cc.c[4],backgroundColor:cc.c[4]+'22',fill:true}]},options:{scales:{x:{},y:{}}}};
     return res}
 
   if(matchedCusts&&matchedCusts.length>0){
     var rows=cFilter({custs:matchedCusts,sites:si.length?si:undefined,dates:dt.length?dt:undefined});
     if(!rows.length)return{tag:'cu',text:'No data found for **'+(cm||cs)+'**'};
-    // Aggregate by customer
-    var agg={};rows.forEach(function(r){agg[r.cust]=(agg[r.cust]||0)+r.amt});
-    var sorted=Object.entries(agg).sort(function(a,b){return b[1]-a[1]});
+    // Pivot: rows=customers, cols=years
+    var byKey={},yearSet={};
+    rows.forEach(function(r){var y=r.date.split('-')[0];var k=r.cust;yearSet[y]=1;
+      if(!byKey[k])byKey[k]={};byKey[k][y]=(byKey[k][y]||0)+r.amt});
+    var years=Object.keys(yearSet).sort();
+    var headers=['Customer'].concat(years).concat(['Total']);
+    var sorted=Object.entries(byKey).sort(function(a,b){
+      var ta=0,tb=0;Object.values(a[1]).forEach(function(v){ta+=v});Object.values(b[1]).forEach(function(v){tb+=v});return tb-ta});
+    var tblRows=sorted.slice(0,30).map(function(e){
+      var total=0;var vals=years.map(function(y){var v=e[1][y]||0;total+=v;return fb(v)});
+      return[e[0]].concat(vals).concat([fb(total)])});
     var title=cm?'**'+cm+':**':'**Customers matching "'+cs+'" ('+sorted.length+'):**';
     var period=dt.length?' ('+dt[0]+'~'+dt[dt.length-1]+')':'';
-    return{tag:'cu',text:title+period,table:{headers:['#','Customer','Revenue'],rows:sorted.slice(0,30).map(function(e,i){return['#'+(i+1),e[0],fb(e[1])]})}}}
+    return{tag:'cu',text:title+period,table:{headers:headers,rows:tblRows}}}
 
-  // Default
+  // Default — pivot: rows=customers, cols=years
   var rows=cFilter({sites:si.length?si:undefined,dates:dt.length?dt:undefined});
   if(!rows.length)return{tag:'cu',text:'No customer data found.'};
-  var agg={};rows.forEach(function(r){if(r.cust!=='All Customer')agg[r.cust]=(agg[r.cust]||0)+r.amt});
-  var sorted=Object.entries(agg).sort(function(a,b){return b[1]-a[1]}).slice(0,15);
+  var byKey={},yearSet={};
+  rows.forEach(function(r){if(r.cust==='All Customer')return;var y=r.date.split('-')[0];yearSet[y]=1;
+    if(!byKey[r.cust])byKey[r.cust]={};byKey[r.cust][y]=(byKey[r.cust][y]||0)+r.amt});
+  var years=Object.keys(yearSet).sort();
+  var sorted=Object.entries(byKey).sort(function(a,b){
+    var ta=0,tb=0;Object.values(a[1]).forEach(function(v){ta+=v});Object.values(b[1]).forEach(function(v){tb+=v});return tb-ta});
+  var headers=['Customer'].concat(years).concat(['Total']);
+  var tblRows=sorted.slice(0,15).map(function(e){
+    var total=0;var vals=years.map(function(y){var v=e[1][y]||0;total+=v;return fb(v)});
+    return[e[0]].concat(vals).concat([fb(total)])});
   return{tag:'cu',text:'**Customer revenue** '+(si.length?'at '+si.join(', '):'')+(dt.length?' ('+dt[0]+'~'+dt[dt.length-1]+')':'')+':',
-    table:{headers:['#','Customer','Revenue'],rows:sorted.map(function(e,i){return['#'+(i+1),e[0],fb(e[1])]})}}
+    table:{headers:headers,rows:tblRows}}
 }
 
 function send(text){var q=(text||$i.value).trim();if(!q)return;$i.value='';$b.className='sb off';am('u',{text:q});showTh();
