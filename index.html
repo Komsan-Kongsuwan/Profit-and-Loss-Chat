@@ -315,7 +315,8 @@ function grP(p){
       datasets.push({label:label,data:vals});
       return[det].concat(vals.map(fb)).concat([fb(total)])
     });
-    var res={tag:'pl',text:'**'+dets.join(' & ')+' trend:**',table:{headers:headers,rows:tblRows}};
+    var siteLabel=si.length?' ('+si.join(', ')+')':'';
+    var res={tag:'pl',text:'**'+dets.join(' & ')+siteLabel+' trend:**',table:{headers:headers,rows:tblRows}};
     res.chart={type:'line',data:{labels:targetDates,datasets:datasets.map(function(ds,i){return{label:ds.label,data:ds.data,borderColor:cc.c[i%15],backgroundColor:i===0?cc.c[0]+'22':'transparent',fill:i===0}})},options:{scales:{x:{},y:{}}}};
     return res}
 
@@ -370,9 +371,9 @@ function grP(p){
       return[site].concat(vals).concat([fb(total)])
     });
   }
-  var label=si.length?si.join(', '):'';
+  var siteLabel2=si.length?' ('+si.join(', ')+')':'';
   var period=dt.length?' ('+uniqueDates[0]+' ~ '+uniqueDates[uniqueDates.length-1]+')':'';
-  return{tag:'pl',text:'**'+(it.length?it.join(', '):'P&L results')+' '+label+'**'+period+':',table:{headers:headers,rows:tblRows}}
+  return{tag:'pl',text:'**'+(it.length?it.join(', '):'P&L results')+siteLabel2+'**'+period+':',table:{headers:headers,rows:tblRows}}
 }
 
 // ═══ CUSTOMER RESPONSE ═══
