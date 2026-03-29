@@ -119,7 +119,7 @@ function init(){
       $i.addEventListener('input',function(){$b.className='sb '+($i.value.trim()?'on':'off')});
       $i.addEventListener('keydown',function(e){if(e.key==='Enter')send()});
       am('a',{text:"Welcome! I'm your **Unified Financial Data Assistant**.\n\n📊 **P&L Data:** "+(P.details||[]).length+" items, "+P.sites.length+" sites, "+P.dates.length+" months ("+P.dates[0]+" to "+P.dates[P.dates.length-1]+")\n👥 **Customer Data:** "+(C.customers||[]).length+" customers, "+C.sites.length+" sites, "+C.dates.length+" months ("+C.dates[0]+" to "+C.dates[C.dates.length-1]+")\n\nAdd **\"customer\"** for customer queries. Add **\"chart\"** for visuals.",
-        suggestions:['Revenue Total 2024','Top customer BPA 2023','Salary trend chart','Customer list BPA 2022','Fixed cost SMK01 2024','Gross Profit trend 2023 chart']});
+        suggestions:['Revenue Total 2024','Top customer CBR01 2023','Salary trend chart','Customer list CBR01 2022','Fixed cost SMK01 2024','Gross Profit trend 2023 chart']});
     }catch(e){document.getElementById('ld').innerHTML='<div style="font-size:40px;margin-bottom:16px">⚠️</div><div class="le"><b>Init error:</b> '+e.message+'<br><br>Your JSON files may be in the old format.<br>Re-generate them using the converter tools.</div>'}
   }
   fetch('pnl.json').then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}).then(function(d){P=d;ck()}).catch(function(e){errs.push('pnl.json: '+e.message);ck()});
@@ -170,7 +170,7 @@ function pq(q){
   // Customer trigger keywords (exact)
   var ct=KW.customer_triggers||{};Object.keys(ct).forEach(function(k){if(em(q,k))isCust=true});
 
-  // Customer name matching — PARTIAL: if user types "koito", match "KOITO MANUFACTURING CO.,LTD."
+  // Customer name matching — PARTIAL: if user types partial name, match full customer name
   var custSearch=null;
   if(!cm&&C.customers){
     // First: exact full name in query (longest match wins)
@@ -255,7 +255,7 @@ function grP(p){
   var cc=gc(),si=p.sites,it=p.items,cats=p.cats,dt=p.dates,intent=p.intent,wc=p.wc,raw=p.raw;
 
   if(intent==='help')return{text:'📊 **P&L:** '+P.details.length+' items, '+P.sites.length+' sites\n👥 **Customer:** '+C.customers.length+' customers\n\nAdd **"customer"** for customer queries.',
-    suggestions:['Revenue Total 2024','Salary trend 2023 chart','Top sites by Gross Profit 2024','Fixed cost SMK01 2024','Customer list BPA 2022','Compare 2023 vs 2024']};
+    suggestions:['Revenue Total 2024','Salary trend 2023 chart','Top sites by Gross Profit 2024','Fixed cost SMK01 2024','Customer list CBR01 2022','Compare 2023 vs 2024']};
   if(intent==='list'){
     if(/site/.test(raw))return{tag:'pl',text:'**P&L Sites ('+P.sites.length+'):**\n'+P.sites.join(', ')};
     if(/item|detail/.test(raw))return{tag:'pl',text:'**Item Details ('+P.details.length+'):**\n'+P.details.join(', ')};
@@ -269,7 +269,7 @@ function grP(p){
   // Guard: if NOTHING was recognized, don't default — show help instead
   var nothingMatched=!it.length&&!cats.length&&!si.length&&!dt.length&&intent==='lookup';
   if(nothingMatched)return{text:'I couldn\'t recognize any keywords in **"'+raw+'"**. Try using exact words like:',
-    suggestions:['Revenue Total 2024','Salary SMK01 2023','Gross Profit trend chart','Top sites by Bonus 2024','Fixed cost 2023','Customer Koito 2022','Summary 2024','List items']};
+    suggestions:['Revenue Total 2024','Salary SMK01 2023','Gross Profit trend chart','Top sites by Bonus 2024','Fixed cost 2023','Customer CBR01 2022','Summary 2024','List items']};
 
   if(!it.length&&!cats.length)fOpts.details=['Revenue Total'];  // default only when dates or sites matched
 

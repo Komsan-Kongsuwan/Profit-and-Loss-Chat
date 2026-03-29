@@ -1114,29 +1114,8 @@
     ]
   },
   "sites": {
-    "acw": [
-      "ACW"
-    ],
     "all site": [
       "All Site"
-    ],
-    "bn20": [
-      "BN20"
-    ],
-    "bp1": [
-      "BP1"
-    ],
-    "bpa": [
-      "BPA"
-    ],
-    "bpb": [
-      "BPB"
-    ],
-    "bpc": [
-      "BPC"
-    ],
-    "bpd": [
-      "BPD"
     ],
     "cbr01": [
       "CBR01"
@@ -1162,29 +1141,14 @@
     "ccs03": [
       "CCS03"
     ],
-    "hmw": [
-      "HMW"
-    ],
-    "neg": [
-      "NeG"
-    ],
-    "other": [
-      "OTHER"
-    ],
     "otr01": [
       "OTR01"
     ],
     "otr02": [
       "OTR02"
     ],
-    "p304": [
-      "P304"
-    ],
     "pjr01": [
       "PJR01"
-    ],
-    "ppd": [
-      "PPD"
     ],
     "ryn01": [
       "RYN01"
@@ -1197,9 +1161,6 @@
     ],
     "ryn04": [
       "RYN04"
-    ],
-    "sdct": [
-      "SDCT"
     ],
     "smk01": [
       "SMK01"
@@ -1222,36 +1183,6 @@
     "smk07": [
       "SMK07"
     ],
-    "ssw": [
-      "SSW"
-    ],
-    "st11": [
-      "ST11"
-    ],
-    "st9": [
-      "ST9"
-    ],
-    "stf": [
-      "STF"
-    ],
-    "tac": [
-      "TAC"
-    ],
-    "tbn1": [
-      "TBN1"
-    ],
-    "tbn2": [
-      "TBN2"
-    ],
-    "uaf": [
-      "UAF"
-    ],
-    "wgr": [
-      "WGR"
-    ],
-    "zc": [
-      "ZC"
-    ],
     "all sites": [
       "All Site"
     ],
@@ -1265,9 +1196,6 @@
       "All Site"
     ],
     "company wide": [
-      "All Site"
-    ],
-    "\u0e17\u0e31\u0e49\u0e07\u0e2b\u0e21\u0e14": [
       "All Site"
     ]
   },
