@@ -103,16 +103,24 @@ function datesForYear(years,pool){return pool.filter(function(d){var y=d.split('
 
 // ─── Init ───
 function init(){
-  var n=0,errs=[];
-  function ck(){n++;document.getElementById('lt').textContent='Loaded '+n+'/3...';if(n<3)return;
+  var n=0,errs=[],done=false;
+  function ck(){
+    n++;document.getElementById('lt').textContent='Loaded '+n+'/3...';
+    if(n<3||done)return;
+    done=true;
     if(errs.length){document.getElementById('ld').innerHTML='<div style="font-size:40px;margin-bottom:16px">⚠️</div><div class="le"><b>Cannot load:</b><br>'+errs.join('<br>')+'<br><br>Need: <b>pnl.json</b>, <b>customer.json</b>, <b>keyword.json</b><br>in same folder as index.html.<br>Use GitHub Pages or local server.</div>';return}
-    document.getElementById('hs').textContent=P.dates.length+' months P&L • '+C.customers.length+' customers • '+(P.sites.length+C.sites.length)+' sites';
-    document.getElementById('ld').style.display='none';document.getElementById('ms').style.display='block';document.getElementById('ib').style.display='block';
-    $m=document.getElementById('ms');$i=document.getElementById('inp');$b=document.getElementById('sbt');
-    $i.addEventListener('input',function(){$b.className='sb '+($i.value.trim()?'on':'off')});
-    $i.addEventListener('keydown',function(e){if(e.key==='Enter')send()});
-    am('a',{text:"Welcome! I'm your **Unified Financial Data Assistant**.\n\n📊 **P&L Data:** "+P.details.length+" items, "+P.sites.length+" sites, "+P.dates.length+" months ("+P.dates[0]+" to "+P.dates[P.dates.length-1]+")\n👥 **Customer Data:** "+C.customers.length+" customers, "+C.sites.length+" sites, "+C.dates.length+" months ("+C.dates[0]+" to "+C.dates[C.dates.length-1]+")\n\nAdd **\"customer\"** for customer queries. Add **\"chart\"** for visuals.",
-      suggestions:['Revenue Total 2024','Top customer BPA 2023','Salary trend chart','Customer list BPA 2022','Fixed cost SMK01 2024','Gross Profit trend 2023 chart']})
+    // Validate structure
+    if(!P.dates||!P.sites||!P.data){errs.push('pnl.json: invalid format (missing dates/sites/data)');document.getElementById('ld').innerHTML='<div style="font-size:40px;margin-bottom:16px">⚠️</div><div class="le">'+errs.join('<br>')+'<br><br>Re-generate pnl.json using convert-pnl.html</div>';return}
+    if(!C.dates||!C.sites||!C.data){errs.push('customer.json: invalid format');document.getElementById('ld').innerHTML='<div style="font-size:40px;margin-bottom:16px">⚠️</div><div class="le">'+errs.join('<br>')+'<br><br>Re-generate customer.json using convert-customer.html</div>';return}
+    try{
+      document.getElementById('hs').textContent=P.dates.length+' months P&L • '+C.customers.length+' customers • '+P.sites.length+' sites';
+      document.getElementById('ld').style.display='none';document.getElementById('ms').style.display='block';document.getElementById('ib').style.display='block';
+      $m=document.getElementById('ms');$i=document.getElementById('inp');$b=document.getElementById('sbt');
+      $i.addEventListener('input',function(){$b.className='sb '+($i.value.trim()?'on':'off')});
+      $i.addEventListener('keydown',function(e){if(e.key==='Enter')send()});
+      am('a',{text:"Welcome! I'm your **Unified Financial Data Assistant**.\n\n📊 **P&L Data:** "+(P.details||[]).length+" items, "+P.sites.length+" sites, "+P.dates.length+" months ("+P.dates[0]+" to "+P.dates[P.dates.length-1]+")\n👥 **Customer Data:** "+(C.customers||[]).length+" customers, "+C.sites.length+" sites, "+C.dates.length+" months ("+C.dates[0]+" to "+C.dates[C.dates.length-1]+")\n\nAdd **\"customer\"** for customer queries. Add **\"chart\"** for visuals.",
+        suggestions:['Revenue Total 2024','Top customer BPA 2023','Salary trend chart','Customer list BPA 2022','Fixed cost SMK01 2024','Gross Profit trend 2023 chart']});
+    }catch(e){document.getElementById('ld').innerHTML='<div style="font-size:40px;margin-bottom:16px">⚠️</div><div class="le"><b>Init error:</b> '+e.message+'<br><br>Your JSON files may be in the old format.<br>Re-generate them using the converter tools.</div>'}
   }
   fetch('pnl.json').then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}).then(function(d){P=d;ck()}).catch(function(e){errs.push('pnl.json: '+e.message);ck()});
   fetch('customer.json').then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}).then(function(d){C=d;ck()}).catch(function(e){errs.push('customer.json: '+e.message);ck()});
