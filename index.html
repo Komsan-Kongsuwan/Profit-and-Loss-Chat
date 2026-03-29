@@ -165,11 +165,38 @@ function hideTh(){var e=document.getElementById('thk');if(e)e.remove()}
 // ═══ PARSE QUERY ═══
 function pq(q){
   q=q.toLowerCase().trim();var tk=q.split(/[\s,;]+/);
-  var mo=[],si=[],it=[],cats=[],intent='lookup',wc=false,isCust=false;
+  var mo=[],si=[],it=[],cats=[],intent='lookup',wc=false,isCust=false,cm=null;
 
-  // Customer trigger
+  // Customer trigger keywords (exact)
   var ct=KW.customer_triggers||{};Object.keys(ct).forEach(function(k){if(q.indexOf(k)!==-1)isCust=true});
-  if(!isCust){C.customers.forEach(function(cn){if(q.indexOf(cn.toLowerCase())!==-1)isCust=true})}
+
+  // Customer name matching — PARTIAL: if user types "koito", match "KOITO MANUFACTURING CO.,LTD."
+  var custSearch=null;
+  if(!cm&&C.customers){
+    // First: exact full name in query (longest match wins)
+    C.customers.forEach(function(cn){if(q.indexOf(cn.toLowerCase())!==-1&&(!cm||cn.length>cm.length))cm=cn});
+    // Second: partial match — find tokens (3+ chars) that appear inside customer names
+    if(!cm){
+      var skipWords=['revenue','cost','profit','salary','trend','chart','top','list','compare','summary','total',
+        'customer','client','jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec',
+        'january','february','march','april','june','july','august','september','october','november','december',
+        'all','site','how','many','the','for','from','and','what','show','get','give','best','worst'];
+      var searchTokens=tk.filter(function(t){return t.length>=3&&!/^20\d{2}$/.test(t)&&skipWords.indexOf(t)===-1});
+      if(searchTokens.length>0){
+        // Check each token against customer names
+        for(var si2=0;si2<searchTokens.length;si2++){
+          var tok=searchTokens[si2];
+          var matches=C.customers.filter(function(cn){return cn.toLowerCase().indexOf(tok)!==-1});
+          if(matches.length>0&&matches.length<=30){
+            custSearch=tok; // save the search term
+            if(matches.length===1)cm=matches[0]; // exact single match
+            isCust=true;break;
+          }
+        }
+      }
+    }
+    if(cm)isCust=true;
+  }
 
   // Months/years
   var km=KW.months||{};
@@ -183,7 +210,7 @@ function pq(q){
   // Sites
   var ks=KW.sites||{};Object.keys(ks).sort(function(a,b){return b.length-a.length}).forEach(function(k){if(q.indexOf(k)!==-1)ks[k].forEach(function(s){if(si.indexOf(s)===-1)si.push(s)})});
 
-  // P&L items & categories
+  // P&L items & categories (only if NOT customer query)
   if(!isCust){
     var ki=KW.items||{};Object.keys(ki).sort(function(a,b){return b.length-a.length}).forEach(function(k){if(q.indexOf(k)!==-1)ki[k].forEach(function(n){if(it.indexOf(n)===-1)it.push(n)})});
     var kc=KW.categories||{};Object.keys(kc).sort(function(a,b){return b.length-a.length}).forEach(function(k){if(q.indexOf(k)!==-1)kc[k].forEach(function(n){if(cats.indexOf(n)===-1)cats.push(n)})});
@@ -205,10 +232,7 @@ function pq(q){
     else if(pool.indexOf(m)!==-1&&rdates.indexOf(m)===-1)rdates.push(m)
   });
 
-  // Customer name match
-  var cm=null;if(isCust)C.customers.forEach(function(cn){if(q.indexOf(cn.toLowerCase())!==-1&&(!cm||cn.length>cm.length))cm=cn});
-
-  return{dates:rdates.sort(),sites:si,items:it,cats:cats,intent:intent,raw:q,wc:wc,isCust:isCust,cm:cm}
+  return{dates:rdates.sort(),sites:si,items:it,cats:cats,intent:intent,raw:q,wc:wc,isCust:isCust,cm:cm,cs:custSearch}
 }
 
 // ═══ P&L RESPONSE ═══
@@ -282,7 +306,12 @@ function grP(p){
 
 // ═══ CUSTOMER RESPONSE ═══
 function grC(p){
-  var cc=gc(),si=p.sites,dt=p.dates,intent=p.intent,cm=p.cm,wc=p.wc,raw=p.raw;
+  var cc=gc(),si=p.sites,dt=p.dates,intent=p.intent,cm=p.cm,cs=p.cs,wc=p.wc,raw=p.raw;
+
+  // Resolve partial search to matching customer names
+  var matchedCusts=null;
+  if(cm){matchedCusts=[cm]}
+  else if(cs){matchedCusts=C.customers.filter(function(cn){return cn.toLowerCase().indexOf(cs)!==-1})}
 
   if(intent==='count'){
     var rows=cFilter({sites:si.length?si:undefined,dates:dt.length?dt:undefined});
@@ -306,19 +335,24 @@ function grC(p){
     return res}
 
   if(intent==='trend'){
-    var filt=cm?{custs:[cm]}:{};if(si.length)filt.sites=si;
+    var filt=matchedCusts?{custs:matchedCusts}:{};if(si.length)filt.sites=si;
     var rows=cFilter(filt);
     var byDate={};rows.forEach(function(r){byDate[r.date]=(byDate[r.date]||0)+r.amt});
     var dates=Object.keys(byDate).sort();
-    var label=cm||'All customers';if(si.length)label+=' at '+si.join(', ');
+    var label=cm||(cs?'"'+cs+'" ('+matchedCusts.length+' matches)':'All customers');if(si.length)label+=' at '+si.join(', ');
     var res={tag:'cu',text:'**'+label+' trend:**',table:{headers:['Month','Revenue'],rows:dates.map(function(d){return[d,fb(byDate[d])]})}};
     res.chart={type:'line',data:{labels:dates,datasets:[{label:'Revenue',data:dates.map(function(d){return byDate[d]}),borderColor:cc.c[4],backgroundColor:cc.c[4]+'22',fill:true}]},options:{scales:{x:{},y:{}}}};
     return res}
 
-  if(cm){
-    var rows=cFilter({custs:[cm],sites:si.length?si:undefined,dates:dt.length?dt:undefined});
-    if(!rows.length)return{tag:'cu',text:'No data for **'+cm+'**'};
-    return{tag:'cu',text:'**'+cm+':**',table:{headers:['Site','Month','Revenue'],rows:rows.slice(0,50).map(function(r){return[r.site,r.date,fb(r.amt)]})}}}
+  if(matchedCusts&&matchedCusts.length>0){
+    var rows=cFilter({custs:matchedCusts,sites:si.length?si:undefined,dates:dt.length?dt:undefined});
+    if(!rows.length)return{tag:'cu',text:'No data found for **'+(cm||cs)+'**'};
+    // Aggregate by customer
+    var agg={};rows.forEach(function(r){agg[r.cust]=(agg[r.cust]||0)+r.amt});
+    var sorted=Object.entries(agg).sort(function(a,b){return b[1]-a[1]});
+    var title=cm?'**'+cm+':**':'**Customers matching "'+cs+'" ('+sorted.length+'):**';
+    var period=dt.length?' ('+dt[0]+'~'+dt[dt.length-1]+')':'';
+    return{tag:'cu',text:title+period,table:{headers:['#','Customer','Revenue'],rows:sorted.slice(0,30).map(function(e,i){return['#'+(i+1),e[0],fb(e[1])]})}}}
 
   // Default
   var rows=cFilter({sites:si.length?si:undefined,dates:dt.length?dt:undefined});
