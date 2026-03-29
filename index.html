@@ -168,7 +168,7 @@ function pq(q){
   var mo=[],si=[],it=[],cats=[],intent='lookup',wc=false,isCust=false,cm=null;
 
   // Customer trigger keywords (exact)
-  var ct=KW.customer_triggers||{};Object.keys(ct).forEach(function(k){if(q.indexOf(k)!==-1)isCust=true});
+  var ct=KW.customer_triggers||{};Object.keys(ct).forEach(function(k){if(wm(q,k))isCust=true});
 
   // Customer name matching — PARTIAL: if user types "koito", match "KOITO MANUFACTURING CO.,LTD."
   var custSearch=null;
@@ -208,16 +208,21 @@ function pq(q){
     if(/^20\d{4}$/.test(t))mo.push(t.slice(0,4)+'-'+t.slice(4))}
 
   // Sites
-  var ks=KW.sites||{};Object.keys(ks).sort(function(a,b){return b.length-a.length}).forEach(function(k){if(q.indexOf(k)!==-1)ks[k].forEach(function(s){if(si.indexOf(s)===-1)si.push(s)})});
+  var ks=KW.sites||{};Object.keys(ks).sort(function(a,b){return b.length-a.length}).forEach(function(k){if(wm(q,k))ks[k].forEach(function(s){if(si.indexOf(s)===-1)si.push(s)})});
+
+  // Word-boundary match: prevents "ss" matching inside "gross", "ot" inside "koito"
+  function wm(query,kw){var i=query.indexOf(kw);while(i!==-1){var before=i>0?query[i-1]:'';var after=i+kw.length<query.length?query[i+kw.length]:'';
+    var bOk=!before||!/[a-z0-9ก-๙]/.test(before);var aOk=!after||!/[a-z0-9ก-๙]/.test(after);
+    if(bOk&&aOk)return true;i=query.indexOf(kw,i+1)}return false}
 
   // P&L items & categories (only if NOT customer query)
   if(!isCust){
-    var ki=KW.items||{};Object.keys(ki).sort(function(a,b){return b.length-a.length}).forEach(function(k){if(q.indexOf(k)!==-1)ki[k].forEach(function(n){if(it.indexOf(n)===-1)it.push(n)})});
-    var kc=KW.categories||{};Object.keys(kc).sort(function(a,b){return b.length-a.length}).forEach(function(k){if(q.indexOf(k)!==-1)kc[k].forEach(function(n){if(cats.indexOf(n)===-1)cats.push(n)})});
+    var ki=KW.items||{};Object.keys(ki).sort(function(a,b){return b.length-a.length}).forEach(function(k){if(wm(q,k))ki[k].forEach(function(n){if(it.indexOf(n)===-1)it.push(n)})});
+    var kc=KW.categories||{};Object.keys(kc).sort(function(a,b){return b.length-a.length}).forEach(function(k){if(wm(q,k))kc[k].forEach(function(n){if(cats.indexOf(n)===-1)cats.push(n)})});
   }
 
   // Intents
-  var kn=KW.intents||{};Object.keys(kn).sort(function(a,b){return b.length-a.length}).forEach(function(k){if(q.indexOf(k)!==-1)kn[k].forEach(function(x){if(x==='chart')wc=true;else if(intent==='lookup')intent=x})});
+  var kn=KW.intents||{};Object.keys(kn).sort(function(a,b){return b.length-a.length}).forEach(function(k){if(wm(q,k))kn[k].forEach(function(x){if(x==='chart')wc=true;else if(intent==='lookup')intent=x})});
   if(/all/.test(q)&&/month/.test(q))intent='trend';
   if(/list/.test(q)&&/site|item|month|category|customer/.test(q))intent='list';
   if(/how many/.test(q))intent='count';
