@@ -203,7 +203,7 @@ function pq(q){
   for(var i=0;i<tk.length;i++){var t=tk[i];
     if(km[t]){var ps=km[t],nx=tk[i+1];
       if(ps[0].length===2&&nx&&/^20\d{2}$/.test(nx)){mo.push(nx+'-'+ps[0]);i++;continue}
-      ps.forEach(function(p){if(/^20\d{2}$/.test(p))mo.push(p);else if(p.length===2)mo.push('MM:'+p);else if(/^Q[1-4]$/.test(p))mo.push(p);else if(/^20\d{2}-\d{2}$/.test(p))mo.push(p)});continue}
+      ps.forEach(function(p){if(/^20\d{2}$/.test(p))mo.push(p);else if(p.length===2)mo.push('MM:'+p);else if(/^[QH][1-4]$/.test(p))mo.push(p);else if(/^20\d{2}-\d{2}$/.test(p))mo.push(p)});continue}
     if(/^20\d{2}-\d{2}$/.test(t))mo.push(t);
     if(/^20\d{4}$/.test(t))mo.push(t.slice(0,4)+'-'+t.slice(4))}
 
@@ -229,6 +229,7 @@ function pq(q){
     if(/^20\d{2}$/.test(m)){pool.forEach(function(d){if(d.startsWith(m+'-')&&rdates.indexOf(d)===-1)rdates.push(d)})}
     else if(m.startsWith('MM:')){var mm=m.slice(3);pool.forEach(function(d){if(d.endsWith('-'+mm)&&rdates.indexOf(d)===-1)rdates.push(d)})}
     else if(/^Q[1-4]$/.test(m)){var qm={Q1:['01','02','03'],Q2:['04','05','06'],Q3:['07','08','09'],Q4:['10','11','12']}[m];pool.forEach(function(d){if(qm.indexOf(d.split('-')[1])!==-1&&rdates.indexOf(d)===-1)rdates.push(d)})}
+    else if(/^H[12]$/.test(m)){var hm=m==='H1'?['01','02','03','04','05','06']:['07','08','09','10','11','12'];pool.forEach(function(d){if(hm.indexOf(d.split('-')[1])!==-1&&rdates.indexOf(d)===-1)rdates.push(d)})}
     else if(pool.indexOf(m)!==-1&&rdates.indexOf(m)===-1)rdates.push(m)
   });
 

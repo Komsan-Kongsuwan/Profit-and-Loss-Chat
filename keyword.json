@@ -3,6 +3,9 @@
     "revenue": [
       "Revenue Total"
     ],
+    "revenues": [
+      "Revenue Total"
+    ],
     "income": [
       "Revenue Total"
     ],
@@ -15,7 +18,52 @@
     "total revenue": [
       "Revenue Total"
     ],
+    "revenue total": [
+      "Revenue Total"
+    ],
+    "turnover": [
+      "Revenue Total"
+    ],
+    "top line": [
+      "Revenue Total"
+    ],
+    "topline": [
+      "Revenue Total"
+    ],
+    "billing": [
+      "Revenue Total"
+    ],
+    "invoiced": [
+      "Revenue Total"
+    ],
+    "earned": [
+      "Revenue Total"
+    ],
+    "how much we earn": [
+      "Revenue Total"
+    ],
+    "how much we made": [
+      "Revenue Total"
+    ],
+    "money coming in": [
+      "Revenue Total"
+    ],
+    "money in": [
+      "Revenue Total"
+    ],
+    "\u0e23\u0e32\u0e22\u0e44\u0e14\u0e49": [
+      "Revenue Total"
+    ],
     "material": [
+      "Material and Service"
+    ],
+    "material and service": [
+      "Material and Service"
+    ],
+    "material & service": [
+      "Material and Service"
+    ],
+    "materials": [
       "Material and Service"
     ],
     "subcontract": [
@@ -27,22 +75,76 @@
     "sub cost": [
       "Material and Service"
     ],
-    "material and service": [
+    "sub-contract": [
       "Material and Service"
     ],
-    "cost adjust": [
-      "Cost (Adjust)"
+    "vendor cost": [
+      "Material and Service"
     ],
-    "adjustment": [
-      "Cost (Adjust)"
+    "supplier cost": [
+      "Material and Service"
+    ],
+    "outsource material": [
+      "Material and Service"
+    ],
+    "direct material": [
+      "Material and Service"
+    ],
+    "raw material": [
+      "Material and Service"
+    ],
+    "material cost": [
+      "Material and Service"
+    ],
+    "\u0e27\u0e31\u0e2a\u0e14\u0e38": [
+      "Material and Service"
     ],
     "salary": [
+      "Salary"
+    ],
+    "salaries": [
       "Salary"
     ],
     "wage": [
       "Salary"
     ],
+    "wages": [
+      "Salary"
+    ],
     "base pay": [
+      "Salary"
+    ],
+    "base salary": [
+      "Salary"
+    ],
+    "payroll": [
+      "Salary"
+    ],
+    "monthly pay": [
+      "Salary"
+    ],
+    "employee pay": [
+      "Salary"
+    ],
+    "staff salary": [
+      "Salary"
+    ],
+    "staff pay": [
+      "Salary"
+    ],
+    "compensation": [
+      "Salary"
+    ],
+    "remuneration": [
+      "Salary"
+    ],
+    "basic salary": [
+      "Salary"
+    ],
+    "basic pay": [
+      "Salary"
+    ],
+    "\u0e40\u0e07\u0e34\u0e19\u0e40\u0e14\u0e37\u0e2d\u0e19": [
       "Salary"
     ],
     "overtime": [
@@ -54,7 +156,55 @@
     "ot": [
       "Over Time"
     ],
+    "ot cost": [
+      "Over Time"
+    ],
+    "overtime cost": [
+      "Over Time"
+    ],
+    "overtime pay": [
+      "Over Time"
+    ],
+    "extra hours": [
+      "Over Time"
+    ],
+    "overtime expense": [
+      "Over Time"
+    ],
+    "overtime payment": [
+      "Over Time"
+    ],
+    "\u0e04\u0e48\u0e32\u0e25\u0e48\u0e27\u0e07\u0e40\u0e27\u0e25\u0e32": [
+      "Over Time"
+    ],
+    "\u0e42\u0e2d\u0e17\u0e35": [
+      "Over Time"
+    ],
     "bonus": [
+      "Bonus"
+    ],
+    "bonuses": [
+      "Bonus"
+    ],
+    "incentive": [
+      "Bonus"
+    ],
+    "incentives": [
+      "Bonus"
+    ],
+    "performance bonus": [
+      "Bonus"
+    ],
+    "annual bonus": [
+      "Bonus"
+    ],
+    "year-end bonus": [
+      "Bonus"
+    ],
+    "yearend bonus": [
+      "Bonus"
+    ],
+    "\u0e42\u0e1a\u0e19\u0e31\u0e2a": [
       "Bonus"
     ],
     "social security": [
@@ -66,10 +216,46 @@
     "sso": [
       "Social security"
     ],
+    "social insurance": [
+      "Social security"
+    ],
+    "social contribution": [
+      "Social security"
+    ],
+    "social fund": [
+      "Social security"
+    ],
+    "\u0e1b\u0e23\u0e30\u0e01\u0e31\u0e19\u0e2a\u0e31\u0e07\u0e04\u0e21": [
+      "Social security"
+    ],
     "welfare": [
       "Welfare"
     ],
     "benefit": [
+      "Welfare"
+    ],
+    "benefits": [
+      "Welfare"
+    ],
+    "employee benefit": [
+      "Welfare"
+    ],
+    "staff benefit": [
+      "Welfare"
+    ],
+    "employee welfare": [
+      "Welfare"
+    ],
+    "staff welfare": [
+      "Welfare"
+    ],
+    "fringe benefit": [
+      "Welfare"
+    ],
+    "fringe": [
+      "Welfare"
+    ],
+    "\u0e2a\u0e27\u0e31\u0e2a\u0e14\u0e34\u0e01\u0e32\u0e23": [
       "Welfare"
     ],
     "provident": [
@@ -81,10 +267,37 @@
     "pvd": [
       "Provident Fund"
     ],
+    "pension": [
+      "Provident Fund"
+    ],
+    "retirement fund": [
+      "Provident Fund"
+    ],
+    "employee fund": [
+      "Provident Fund"
+    ],
+    "saving fund": [
+      "Provident Fund"
+    ],
+    "\u0e01\u0e2d\u0e07\u0e17\u0e38\u0e19\u0e2a\u0e33\u0e23\u0e2d\u0e07\u0e40\u0e25\u0e35\u0e49\u0e22\u0e07\u0e0a\u0e35\u0e1e": [
+      "Provident Fund"
+    ],
     "workmen": [
       "Workmen's compensation"
     ],
-    "compensation": [
+    "workmen's compensation": [
+      "Workmen's compensation"
+    ],
+    "worker compensation": [
+      "Workmen's compensation"
+    ],
+    "work comp": [
+      "Workmen's compensation"
+    ],
+    "injury compensation": [
+      "Workmen's compensation"
+    ],
+    "work accident": [
       "Workmen's compensation"
     ],
     "severance": [
@@ -93,7 +306,46 @@
     "retirement": [
       "Severance Pay / Retirement Fee"
     ],
+    "severance pay": [
+      "Severance Pay / Retirement Fee"
+    ],
+    "retirement fee": [
+      "Severance Pay / Retirement Fee"
+    ],
+    "termination pay": [
+      "Severance Pay / Retirement Fee"
+    ],
+    "separation pay": [
+      "Severance Pay / Retirement Fee"
+    ],
+    "redundancy": [
+      "Severance Pay / Retirement Fee"
+    ],
+    "\u0e04\u0e48\u0e32\u0e0a\u0e14\u0e40\u0e0a\u0e22": [
+      "Severance Pay / Retirement Fee"
+    ],
     "allowance": [
+      "Allowance"
+    ],
+    "allowances": [
+      "Allowance"
+    ],
+    "daily allowance": [
+      "Allowance"
+    ],
+    "meal allowance": [
+      "Allowance"
+    ],
+    "housing allowance": [
+      "Allowance"
+    ],
+    "travel allowance": [
+      "Allowance"
+    ],
+    "position allowance": [
+      "Allowance"
+    ],
+    "\u0e40\u0e1a\u0e35\u0e49\u0e22\u0e40\u0e25\u0e35\u0e49\u0e22\u0e07": [
       "Allowance"
     ],
     "consumable": [
@@ -102,7 +354,22 @@
     "consumable supply": [
       "Consumable Supply"
     ],
-    "supply": [
+    "consumables": [
+      "Consumable Supply"
+    ],
+    "warehouse supply": [
+      "Consumable Supply"
+    ],
+    "wh supply": [
+      "Consumable Supply"
+    ],
+    "supplies": [
+      "Consumable Supply"
+    ],
+    "packaging": [
+      "Consumable Supply"
+    ],
+    "packing material": [
       "Consumable Supply"
     ],
     "outsource": [
@@ -114,17 +381,86 @@
     "labor fee": [
       "Outsource Labor Fee"
     ],
+    "outsource labor fee": [
+      "Outsource Labor Fee"
+    ],
+    "outsourced": [
+      "Outsource Labor Fee"
+    ],
+    "outsourcing": [
+      "Outsource Labor Fee"
+    ],
+    "contract labor": [
+      "Outsource Labor Fee"
+    ],
+    "temp labor": [
+      "Outsource Labor Fee"
+    ],
+    "temporary staff": [
+      "Outsource Labor Fee"
+    ],
+    "temp staff": [
+      "Outsource Labor Fee"
+    ],
+    "agency fee": [
+      "Outsource Labor Fee"
+    ],
+    "manpower": [
+      "Outsource Labor Fee"
+    ],
+    "cost adjust": [
+      "Cost (Adjust)"
+    ],
+    "adjustment": [
+      "Cost (Adjust)"
+    ],
+    "cost adjustment": [
+      "Cost (Adjust)"
+    ],
+    "adjust": [
+      "Cost (Adjust)"
+    ],
     "cost total": [
       "Cost Total"
     ],
     "total cost": [
       "Cost Total"
     ],
-    "variable cost": [
+    "all cost": [
+      "Cost Total"
+    ],
+    "cost sum": [
+      "Cost Total"
+    ],
+    "variable cost total": [
       "Variable Cost Total"
     ],
     "variable total": [
       "Variable Cost Total"
+    ],
+    "total variable cost": [
+      "Variable Cost Total"
+    ],
+    "total variable": [
+      "Variable Cost Total"
+    ],
+    "variable cost sum": [
+      "Variable Cost Total"
+    ],
+    "fixed cost total": [
+      "Fixed Cost Total"
+    ],
+    "fixed total": [
+      "Fixed Cost Total"
+    ],
+    "total fixed cost": [
+      "Fixed Cost Total"
+    ],
+    "total fixed": [
+      "Fixed Cost Total"
+    ],
+    "fixed cost sum": [
+      "Fixed Cost Total"
     ],
     "land rental": [
       "Land Rental"
@@ -132,7 +468,19 @@
     "land rent": [
       "Land Rental"
     ],
+    "land lease": [
+      "Land Rental"
+    ],
+    "\u0e04\u0e48\u0e32\u0e40\u0e0a\u0e48\u0e32\u0e17\u0e35\u0e48\u0e14\u0e34\u0e19": [
+      "Land Rental"
+    ],
     "rental other": [
+      "Rental Other"
+    ],
+    "other rental": [
+      "Rental Other"
+    ],
+    "misc rental": [
       "Rental Other"
     ],
     "rental equipment": [
@@ -141,16 +489,46 @@
     "equipment rental": [
       "Rental Equipments"
     ],
+    "rental equipments": [
+      "Rental Equipments"
+    ],
+    "machine rental": [
+      "Rental Equipments"
+    ],
+    "machinery rental": [
+      "Rental Equipments"
+    ],
+    "forklift rental": [
+      "Rental Equipments"
+    ],
+    "\u0e04\u0e48\u0e32\u0e40\u0e0a\u0e48\u0e32\u0e2d\u0e38\u0e1b\u0e01\u0e23\u0e13\u0e4c": [
+      "Rental Equipments"
+    ],
     "rental office": [
       "Rental Office"
     ],
     "office rental": [
       "Rental Office"
     ],
+    "office rent": [
+      "Rental Office"
+    ],
+    "office lease": [
+      "Rental Office"
+    ],
+    "\u0e04\u0e48\u0e32\u0e40\u0e0a\u0e48\u0e32\u0e2a\u0e33\u0e19\u0e31\u0e01\u0e07\u0e32\u0e19": [
+      "Rental Office"
+    ],
     "repair direct": [
       "Repair and Maintenance (Direct)"
     ],
     "maintenance direct": [
+      "Repair and Maintenance (Direct)"
+    ],
+    "direct repair": [
+      "Repair and Maintenance (Direct)"
+    ],
+    "direct maintenance": [
       "Repair and Maintenance (Direct)"
     ],
     "repair": [
@@ -162,7 +540,25 @@
     "r&m": [
       "Repair and Maintenance (Expense)"
     ],
+    "repair and maintenance": [
+      "Repair and Maintenance (Expense)"
+    ],
+    "fix equipment": [
+      "Repair and Maintenance (Expense)"
+    ],
+    "equipment repair": [
+      "Repair and Maintenance (Expense)"
+    ],
+    "building maintenance": [
+      "Repair and Maintenance (Expense)"
+    ],
+    "\u0e0b\u0e48\u0e2d\u0e21\u0e1a\u0e33\u0e23\u0e38\u0e07": [
+      "Repair and Maintenance (Expense)"
+    ],
     "electric": [
+      "Electric&Water Supply"
+    ],
+    "electricity": [
       "Electric&Water Supply"
     ],
     "water": [
@@ -174,23 +570,56 @@
     "utilities": [
       "Electric&Water Supply"
     ],
+    "electric&water": [
+      "Electric&Water Supply"
+    ],
+    "electric & water": [
+      "Electric&Water Supply"
+    ],
+    "power": [
+      "Electric&Water Supply"
+    ],
+    "energy cost": [
+      "Electric&Water Supply"
+    ],
+    "water supply": [
+      "Electric&Water Supply"
+    ],
+    "electric bill": [
+      "Electric&Water Supply"
+    ],
+    "water bill": [
+      "Electric&Water Supply"
+    ],
+    "\u0e04\u0e48\u0e32\u0e44\u0e1f": [
+      "Electric&Water Supply"
+    ],
+    "\u0e04\u0e48\u0e32\u0e19\u0e49\u0e33": [
+      "Electric&Water Supply"
+    ],
     "depreciation": [
       "Depreciation"
     ],
     "dep": [
       "Depreciation"
     ],
-    "fixed cost": [
-      "Fixed Cost Total"
+    "depreciate": [
+      "Depreciation"
     ],
-    "fix cost": [
-      "Fixed Cost Total"
+    "amortization": [
+      "Depreciation"
     ],
-    "fixed total": [
-      "Fixed Cost Total"
+    "asset depreciation": [
+      "Depreciation"
     ],
-    "fix total": [
-      "Fixed Cost Total"
+    "book value": [
+      "Depreciation"
+    ],
+    "write off": [
+      "Depreciation"
+    ],
+    "\u0e04\u0e48\u0e32\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e23\u0e32\u0e04\u0e32": [
+      "Depreciation"
     ],
     "gross profit": [
       "Gross Profit"
@@ -201,6 +630,33 @@
     "profit": [
       "Gross Profit"
     ],
+    "gross margin": [
+      "Gross Profit"
+    ],
+    "gross income": [
+      "Gross Profit"
+    ],
+    "margin": [
+      "Gross Profit"
+    ],
+    "profitability": [
+      "Gross Profit"
+    ],
+    "\u0e01\u0e33\u0e44\u0e23\u0e02\u0e31\u0e49\u0e19\u0e15\u0e49\u0e19": [
+      "Gross Profit"
+    ],
+    "marginal profit": [
+      "Marginal Profit"
+    ],
+    "marginal": [
+      "Marginal Profit"
+    ],
+    "contribution margin": [
+      "Marginal Profit"
+    ],
+    "contribution": [
+      "Marginal Profit"
+    ],
     "operating profit": [
       "Operating Profit"
     ],
@@ -210,10 +666,31 @@
     "net profit": [
       "Operating Profit"
     ],
-    "expense": [
+    "net income": [
+      "Operating Profit"
+    ],
+    "bottom line": [
+      "Operating Profit"
+    ],
+    "operating income": [
+      "Operating Profit"
+    ],
+    "ebit": [
+      "Operating Profit"
+    ],
+    "\u0e01\u0e33\u0e44\u0e23\u0e08\u0e32\u0e01\u0e01\u0e32\u0e23\u0e14\u0e33\u0e40\u0e19\u0e34\u0e19\u0e07\u0e32\u0e19": [
+      "Operating Profit"
+    ],
+    "expense total": [
       "Expense Total"
     ],
     "total expense": [
+      "Expense Total"
+    ],
+    "total expenses": [
+      "Expense Total"
+    ],
+    "all expenses": [
       "Expense Total"
     ],
     "conference": [
@@ -222,7 +699,28 @@
     "meeting": [
       "Conference"
     ],
+    "seminar": [
+      "Conference"
+    ],
+    "training": [
+      "Conference"
+    ],
+    "workshop": [
+      "Conference"
+    ],
+    "\u0e04\u0e48\u0e32\u0e1b\u0e23\u0e30\u0e0a\u0e38\u0e21": [
+      "Conference"
+    ],
     "entertainment": [
+      "Entertainment"
+    ],
+    "entertain": [
+      "Entertainment"
+    ],
+    "hospitality": [
+      "Entertainment"
+    ],
+    "\u0e04\u0e48\u0e32\u0e23\u0e31\u0e1a\u0e23\u0e2d\u0e07": [
       "Entertainment"
     ],
     "transport": [
@@ -234,16 +732,58 @@
     "travel": [
       "Transportation"
     ],
+    "travel expense": [
+      "Transportation"
+    ],
+    "trip": [
+      "Transportation"
+    ],
+    "business trip": [
+      "Transportation"
+    ],
+    "commute": [
+      "Transportation"
+    ],
+    "logistics expense": [
+      "Transportation"
+    ],
+    "\u0e04\u0e48\u0e32\u0e40\u0e14\u0e34\u0e19\u0e17\u0e32\u0e07": [
+      "Transportation"
+    ],
     "telephone": [
       "Telephone"
     ],
     "phone": [
       "Telephone"
     ],
+    "phone bill": [
+      "Telephone"
+    ],
+    "tel": [
+      "Telephone"
+    ],
+    "landline": [
+      "Telephone"
+    ],
+    "\u0e04\u0e48\u0e32\u0e42\u0e17\u0e23\u0e28\u0e31\u0e1e\u0e17\u0e4c": [
+      "Telephone"
+    ],
     "mobile": [
       "Mobile Phone"
     ],
     "mobile phone": [
+      "Mobile Phone"
+    ],
+    "cell phone": [
+      "Mobile Phone"
+    ],
+    "cellphone": [
+      "Mobile Phone"
+    ],
+    "smartphone": [
+      "Mobile Phone"
+    ],
+    "mobile bill": [
       "Mobile Phone"
     ],
     "lease circuit": [
@@ -255,13 +795,73 @@
     "internet": [
       "Lease Circuit"
     ],
+    "network": [
+      "Lease Circuit"
+    ],
+    "bandwidth": [
+      "Lease Circuit"
+    ],
+    "leased line": [
+      "Lease Circuit"
+    ],
+    "data circuit": [
+      "Lease Circuit"
+    ],
+    "wan": [
+      "Lease Circuit"
+    ],
+    "vpn": [
+      "Lease Circuit"
+    ],
+    "\u0e04\u0e48\u0e32\u0e2d\u0e34\u0e19\u0e40\u0e17\u0e2d\u0e23\u0e4c\u0e40\u0e19\u0e47\u0e15": [
+      "Lease Circuit"
+    ],
     "office supply": [
+      "Office Supply"
+    ],
+    "office supplies": [
       "Office Supply"
     ],
     "stationery": [
       "Office Supply"
     ],
+    "stationary": [
+      "Office Supply"
+    ],
+    "paper": [
+      "Office Supply"
+    ],
+    "printer": [
+      "Office Supply"
+    ],
+    "toner": [
+      "Office Supply"
+    ],
+    "\u0e27\u0e31\u0e2a\u0e14\u0e38\u0e2a\u0e33\u0e19\u0e31\u0e01\u0e07\u0e32\u0e19": [
+      "Office Supply"
+    ],
     "insurance": [
+      "Insurance"
+    ],
+    "insure": [
+      "Insurance"
+    ],
+    "premium": [
+      "Insurance"
+    ],
+    "coverage": [
+      "Insurance"
+    ],
+    "property insurance": [
+      "Insurance"
+    ],
+    "fire insurance": [
+      "Insurance"
+    ],
+    "liability insurance": [
+      "Insurance"
+    ],
+    "\u0e04\u0e48\u0e32\u0e1b\u0e23\u0e30\u0e01\u0e31\u0e19\u0e20\u0e31\u0e22": [
       "Insurance"
     ],
     "security": [
@@ -270,13 +870,43 @@
     "guard": [
       "Security"
     ],
+    "security guard": [
+      "Security"
+    ],
+    "cctv": [
+      "Security"
+    ],
+    "surveillance": [
+      "Security"
+    ],
+    "\u0e23\u0e31\u0e01\u0e29\u0e32\u0e04\u0e27\u0e32\u0e21\u0e1b\u0e25\u0e2d\u0e14\u0e20\u0e31\u0e22": [
+      "Security"
+    ],
     "cleaning": [
       "Cleaning Expense"
     ],
     "clean": [
       "Cleaning Expense"
     ],
+    "janitorial": [
+      "Cleaning Expense"
+    ],
+    "housekeeping": [
+      "Cleaning Expense"
+    ],
+    "sanitation": [
+      "Cleaning Expense"
+    ],
+    "\u0e04\u0e48\u0e32\u0e17\u0e33\u0e04\u0e27\u0e32\u0e21\u0e2a\u0e30\u0e2d\u0e32\u0e14": [
+      "Cleaning Expense"
+    ],
     "signboard": [
+      "Signboard Tax"
+    ],
+    "signboard tax": [
+      "Signboard Tax"
+    ],
+    "sign tax": [
       "Signboard Tax"
     ],
     "land tax": [
@@ -285,13 +915,46 @@
     "building tax": [
       "Land & Building TAX"
     ],
+    "property tax": [
+      "Land & Building TAX"
+    ],
+    "land & building": [
+      "Land & Building TAX"
+    ],
+    "\u0e20\u0e32\u0e29\u0e35\u0e17\u0e35\u0e48\u0e14\u0e34\u0e19": [
+      "Land & Building TAX"
+    ],
     "common expense": [
+      "Common expense"
+    ],
+    "common area": [
+      "Common expense"
+    ],
+    "common fee": [
+      "Common expense"
+    ],
+    "condo fee": [
       "Common expense"
     ],
     "service office": [
       "Service Office"
     ],
+    "serviced office": [
+      "Service Office"
+    ],
+    "co-working": [
+      "Service Office"
+    ],
     "office equipment": [
+      "Office Equipment"
+    ],
+    "equipment": [
+      "Office Equipment"
+    ],
+    "furniture": [
+      "Office Equipment"
+    ],
+    "fixture": [
       "Office Equipment"
     ],
     "facility": [
@@ -300,10 +963,25 @@
     "facility expense": [
       "Facility Expense"
     ],
+    "facility cost": [
+      "Facility Expense"
+    ],
+    "\u0e04\u0e48\u0e32\u0e2a\u0e32\u0e18\u0e32\u0e23\u0e13\u0e39\u0e1b\u0e42\u0e20\u0e04": [
+      "Facility Expense"
+    ],
     "staff amenity": [
       "Staff Amenity"
     ],
     "amenity": [
+      "Staff Amenity"
+    ],
+    "amenities": [
+      "Staff Amenity"
+    ],
+    "staff meal": [
+      "Staff Amenity"
+    ],
+    "canteen": [
       "Staff Amenity"
     ],
     "personnel": [
@@ -312,10 +990,34 @@
     "personnel expense": [
       "Personnel Expense"
     ],
+    "hr cost": [
+      "Personnel Expense"
+    ],
+    "hr expense": [
+      "Personnel Expense"
+    ],
+    "recruitment": [
+      "Personnel Expense"
+    ],
+    "hiring cost": [
+      "Personnel Expense"
+    ],
     "claim": [
       "CLAIM FROM CUSTOMER"
     ],
     "customer claim": [
+      "CLAIM FROM CUSTOMER"
+    ],
+    "claim from customer": [
+      "CLAIM FROM CUSTOMER"
+    ],
+    "damage claim": [
+      "CLAIM FROM CUSTOMER"
+    ],
+    "penalty": [
+      "CLAIM FROM CUSTOMER"
+    ],
+    "deduction": [
       "CLAIM FROM CUSTOMER"
     ],
     "staff": [
@@ -327,17 +1029,59 @@
     "employee": [
       "Number of staff"
     ],
+    "employees": [
+      "Number of staff"
+    ],
     "hc": [
+      "Number of staff"
+    ],
+    "head count": [
       "Number of staff"
     ],
     "number of staff": [
       "Number of staff"
     ],
-    "marginal profit": [
-      "Marginal Profit"
+    "workforce": [
+      "Number of staff"
     ],
-    "marginal": [
-      "Marginal Profit"
+    "manpower count": [
+      "Number of staff"
+    ],
+    "team size": [
+      "Number of staff"
+    ],
+    "how many people": [
+      "Number of staff"
+    ],
+    "how many staff": [
+      "Number of staff"
+    ],
+    "how many employee": [
+      "Number of staff"
+    ],
+    "\u0e08\u0e33\u0e19\u0e27\u0e19\u0e1e\u0e19\u0e31\u0e01\u0e07\u0e32\u0e19": [
+      "Number of staff"
+    ],
+    "software": [
+      "Software License"
+    ],
+    "license": [
+      "Software License"
+    ],
+    "software license": [
+      "Software License"
+    ],
+    "software cost": [
+      "Software License"
+    ],
+    "it cost": [
+      "Software License"
+    ],
+    "system cost": [
+      "Software License"
+    ],
+    "subscription": [
+      "Software License"
     ],
     "revenue per head": [
       "Revenue per Head"
@@ -345,11 +1089,14 @@
     "rev per head": [
       "Revenue per Head"
     ],
-    "software": [
-      "Software License"
+    "revenue per employee": [
+      "Revenue per Head"
     ],
-    "license": [
-      "Software License"
+    "productivity": [
+      "Revenue per Head"
+    ],
+    "revenue per staff": [
+      "Revenue per Head"
     ],
     "gp ratio": [
       "Gross Profit Ratio"
@@ -360,19 +1107,58 @@
     "gp%": [
       "Gross Profit Ratio"
     ],
+    "gross margin %": [
+      "Gross Profit Ratio"
+    ],
+    "gross profit percentage": [
+      "Gross Profit Ratio"
+    ],
+    "profit margin": [
+      "Gross Profit Ratio"
+    ],
     "op ratio": [
       "Operating Profit Ratio"
     ],
     "operating profit ratio": [
       "Operating Profit Ratio"
     ],
+    "op%": [
+      "Operating Profit Ratio"
+    ],
+    "net margin": [
+      "Operating Profit Ratio"
+    ],
+    "operating margin": [
+      "Operating Profit Ratio"
+    ],
+    "net profit ratio": [
+      "Operating Profit Ratio"
+    ],
     "variable cost ratio": [
+      "Variable Cost Ratio"
+    ],
+    "variable ratio": [
+      "Variable Cost Ratio"
+    ],
+    "vcr": [
       "Variable Cost Ratio"
     ],
     "fixed cost ratio": [
       "Fixed Cost Ratio"
     ],
+    "fixed ratio": [
+      "Fixed Cost Ratio"
+    ],
+    "fcr": [
+      "Fixed Cost Ratio"
+    ],
     "fixed cost efficiency": [
+      "Fixed Cost Efficiency"
+    ],
+    "efficiency": [
+      "Fixed Cost Efficiency"
+    ],
+    "fce": [
       "Fixed Cost Efficiency"
     ],
     "labor ratio": [
@@ -381,10 +1167,22 @@
     "direct labor ratio": [
       "Direct Labor Ratio"
     ],
+    "dlr": [
+      "Direct Labor Ratio"
+    ],
+    "labor %": [
+      "Direct Labor Ratio"
+    ],
     "material ratio": [
       "Direct Material Ratio"
     ],
     "direct material ratio": [
+      "Direct Material Ratio"
+    ],
+    "dmr": [
+      "Direct Material Ratio"
+    ],
+    "material %": [
       "Direct Material Ratio"
     ],
     "outsource ratio": [
@@ -393,10 +1191,22 @@
     "outsource labor ratio": [
       "Outsource Labor Ratio"
     ],
+    "olr": [
+      "Outsource Labor Ratio"
+    ],
     "marginal profit ratio": [
       "Marginal Profit Ratio"
     ],
     "marginal ratio": [
+      "Marginal Profit Ratio"
+    ],
+    "mpr": [
+      "Marginal Profit Ratio"
+    ],
+    "contribution ratio": [
+      "Marginal Profit Ratio"
+    ],
+    "contribution %": [
       "Marginal Profit Ratio"
     ]
   },
@@ -473,17 +1283,167 @@
     "december": [
       "12"
     ],
+    "\u0e21\u0e01\u0e23\u0e32\u0e04\u0e21": [
+      "01"
+    ],
+    "\u0e21.\u0e04.": [
+      "01"
+    ],
+    "\u0e21.\u0e04": [
+      "01"
+    ],
+    "\u0e01\u0e38\u0e21\u0e20\u0e32\u0e1e\u0e31\u0e19\u0e18\u0e4c": [
+      "02"
+    ],
+    "\u0e01.\u0e1e.": [
+      "02"
+    ],
+    "\u0e01.\u0e1e": [
+      "02"
+    ],
+    "\u0e21\u0e35\u0e19\u0e32\u0e04\u0e21": [
+      "03"
+    ],
+    "\u0e21\u0e35.\u0e04.": [
+      "03"
+    ],
+    "\u0e21\u0e35.\u0e04": [
+      "03"
+    ],
+    "\u0e40\u0e21\u0e29\u0e32\u0e22\u0e19": [
+      "04"
+    ],
+    "\u0e40\u0e21.\u0e22.": [
+      "04"
+    ],
+    "\u0e40\u0e21.\u0e22": [
+      "04"
+    ],
+    "\u0e1e\u0e24\u0e29\u0e20\u0e32\u0e04\u0e21": [
+      "05"
+    ],
+    "\u0e1e.\u0e04.": [
+      "05"
+    ],
+    "\u0e1e.\u0e04": [
+      "05"
+    ],
+    "\u0e21\u0e34\u0e16\u0e38\u0e19\u0e32\u0e22\u0e19": [
+      "06"
+    ],
+    "\u0e21\u0e34.\u0e22.": [
+      "06"
+    ],
+    "\u0e21\u0e34.\u0e22": [
+      "06"
+    ],
+    "\u0e01\u0e23\u0e01\u0e0e\u0e32\u0e04\u0e21": [
+      "07"
+    ],
+    "\u0e01.\u0e04.": [
+      "07"
+    ],
+    "\u0e01.\u0e04": [
+      "07"
+    ],
+    "\u0e2a\u0e34\u0e07\u0e2b\u0e32\u0e04\u0e21": [
+      "08"
+    ],
+    "\u0e2a.\u0e04.": [
+      "08"
+    ],
+    "\u0e2a.\u0e04": [
+      "08"
+    ],
+    "\u0e01\u0e31\u0e19\u0e22\u0e32\u0e22\u0e19": [
+      "09"
+    ],
+    "\u0e01.\u0e22.": [
+      "09"
+    ],
+    "\u0e01.\u0e22": [
+      "09"
+    ],
+    "\u0e15\u0e38\u0e25\u0e32\u0e04\u0e21": [
+      "10"
+    ],
+    "\u0e15.\u0e04.": [
+      "10"
+    ],
+    "\u0e15.\u0e04": [
+      "10"
+    ],
+    "\u0e1e\u0e24\u0e28\u0e08\u0e34\u0e01\u0e32\u0e22\u0e19": [
+      "11"
+    ],
+    "\u0e1e.\u0e22.": [
+      "11"
+    ],
+    "\u0e1e.\u0e22": [
+      "11"
+    ],
+    "\u0e18\u0e31\u0e19\u0e27\u0e32\u0e04\u0e21": [
+      "12"
+    ],
+    "\u0e18.\u0e04.": [
+      "12"
+    ],
+    "\u0e18.\u0e04": [
+      "12"
+    ],
     "q1": [
+      "Q1"
+    ],
+    "quarter 1": [
+      "Q1"
+    ],
+    "first quarter": [
       "Q1"
     ],
     "q2": [
       "Q2"
     ],
+    "quarter 2": [
+      "Q2"
+    ],
+    "second quarter": [
+      "Q2"
+    ],
     "q3": [
+      "Q3"
+    ],
+    "quarter 3": [
+      "Q3"
+    ],
+    "third quarter": [
       "Q3"
     ],
     "q4": [
       "Q4"
+    ],
+    "quarter 4": [
+      "Q4"
+    ],
+    "fourth quarter": [
+      "Q4"
+    ],
+    "h1": [
+      "H1"
+    ],
+    "first half": [
+      "H1"
+    ],
+    "1st half": [
+      "H1"
+    ],
+    "h2": [
+      "H2"
+    ],
+    "second half": [
+      "H2"
+    ],
+    "2nd half": [
+      "H2"
     ],
     "2018": [
       "2018"
@@ -655,7 +1615,19 @@
     "all sites": [
       "All Site"
     ],
-    "total": [
+    "all": [
+      "All Site"
+    ],
+    "company": [
+      "All Site"
+    ],
+    "companywide": [
+      "All Site"
+    ],
+    "company wide": [
+      "All Site"
+    ],
+    "\u0e17\u0e31\u0e49\u0e07\u0e2b\u0e21\u0e14": [
       "All Site"
     ]
   },
@@ -673,6 +1645,18 @@
       "compare"
     ],
     "diff": [
+      "compare"
+    ],
+    "against": [
+      "compare"
+    ],
+    "compared to": [
+      "compare"
+    ],
+    "comparison": [
+      "compare"
+    ],
+    "\u0e40\u0e1b\u0e23\u0e35\u0e22\u0e1a\u0e40\u0e17\u0e35\u0e22\u0e1a": [
       "compare"
     ],
     "trend": [
@@ -693,6 +1677,36 @@
     "yearly": [
       "trend"
     ],
+    "year over year": [
+      "trend"
+    ],
+    "yoy": [
+      "trend"
+    ],
+    "month over month": [
+      "trend"
+    ],
+    "mom": [
+      "trend"
+    ],
+    "movement": [
+      "trend"
+    ],
+    "progression": [
+      "trend"
+    ],
+    "history": [
+      "trend"
+    ],
+    "historical": [
+      "trend"
+    ],
+    "track": [
+      "trend"
+    ],
+    "\u0e41\u0e19\u0e27\u0e42\u0e19\u0e49\u0e21": [
+      "trend"
+    ],
     "summary": [
       "summary"
     ],
@@ -700,6 +1714,27 @@
       "summary"
     ],
     "overall": [
+      "summary"
+    ],
+    "snapshot": [
+      "summary"
+    ],
+    "dashboard": [
+      "summary"
+    ],
+    "highlight": [
+      "summary"
+    ],
+    "brief": [
+      "summary"
+    ],
+    "recap": [
+      "summary"
+    ],
+    "\u0e2a\u0e23\u0e38\u0e1b": [
+      "summary"
+    ],
+    "\u0e20\u0e32\u0e1e\u0e23\u0e27\u0e21": [
       "summary"
     ],
     "top": [
@@ -723,6 +1758,24 @@
     "max": [
       "top"
     ],
+    "maximum": [
+      "top"
+    ],
+    "leading": [
+      "top"
+    ],
+    "rank": [
+      "top"
+    ],
+    "ranking": [
+      "top"
+    ],
+    "\u0e2a\u0e39\u0e07\u0e2a\u0e38\u0e14": [
+      "top"
+    ],
+    "\u0e21\u0e32\u0e01\u0e17\u0e35\u0e48\u0e2a\u0e38\u0e14": [
+      "top"
+    ],
     "lowest": [
       "bottom"
     ],
@@ -738,6 +1791,18 @@
     "min": [
       "bottom"
     ],
+    "minimum": [
+      "bottom"
+    ],
+    "weakest": [
+      "bottom"
+    ],
+    "\u0e15\u0e48\u0e33\u0e2a\u0e38\u0e14": [
+      "bottom"
+    ],
+    "\u0e19\u0e49\u0e2d\u0e22\u0e17\u0e35\u0e48\u0e2a\u0e38\u0e14": [
+      "bottom"
+    ],
     "help": [
       "help"
     ],
@@ -747,13 +1812,46 @@
     "what can": [
       "help"
     ],
+    "guide": [
+      "help"
+    ],
+    "instruction": [
+      "help"
+    ],
+    "\u0e0a\u0e48\u0e27\u0e22": [
+      "help"
+    ],
     "list": [
+      "list"
+    ],
+    "show all": [
+      "list"
+    ],
+    "all items": [
+      "list"
+    ],
+    "enumerate": [
+      "list"
+    ],
+    "\u0e23\u0e32\u0e22\u0e01\u0e32\u0e23": [
       "list"
     ],
     "how many": [
       "count"
     ],
     "count": [
+      "count"
+    ],
+    "number of": [
+      "count"
+    ],
+    "total number": [
+      "count"
+    ],
+    "\u0e08\u0e33\u0e19\u0e27\u0e19": [
+      "count"
+    ],
+    "\u0e01\u0e35\u0e48": [
       "count"
     ],
     "chart": [
@@ -767,25 +1865,61 @@
     ],
     "visual": [
       "chart"
+    ],
+    "visualize": [
+      "chart"
+    ],
+    "diagram": [
+      "chart"
+    ],
+    "draw": [
+      "chart"
+    ],
+    "show chart": [
+      "chart"
+    ],
+    "show graph": [
+      "chart"
+    ],
+    "\u0e01\u0e23\u0e32\u0e1f": [
+      "chart"
+    ],
+    "\u0e41\u0e1c\u0e19\u0e20\u0e39\u0e21\u0e34": [
+      "chart"
     ]
   },
   "customer_triggers": {
     "customer": [
       "trigger"
     ],
+    "customers": [
+      "trigger"
+    ],
     "client": [
+      "trigger"
+    ],
+    "clients": [
       "trigger"
     ],
     "account": [
       "trigger"
     ],
+    "accounts": [
+      "trigger"
+    ],
     "buyer": [
+      "trigger"
+    ],
+    "buyers": [
       "trigger"
     ],
     "who": [
       "trigger"
     ],
-    "company": [
+    "which company": [
+      "trigger"
+    ],
+    "which customer": [
       "trigger"
     ],
     "co.,ltd": [
@@ -797,16 +1931,31 @@
     "ltd.": [
       "trigger"
     ],
+    "co.,ltd.": [
+      "trigger"
+    ],
+    "company name": [
+      "trigger"
+    ],
     "top customer": [
       "trigger"
     ],
     "best customer": [
       "trigger"
     ],
+    "biggest customer": [
+      "trigger"
+    ],
     "customer revenue": [
       "trigger"
     ],
+    "client revenue": [
+      "trigger"
+    ],
     "customer list": [
+      "trigger"
+    ],
+    "list customer": [
       "trigger"
     ],
     "how many customer": [
@@ -820,6 +1969,18 @@
     ],
     "customer compare": [
       "trigger"
+    ],
+    "customer ranking": [
+      "trigger"
+    ],
+    "customer rank": [
+      "trigger"
+    ],
+    "\u0e25\u0e39\u0e01\u0e04\u0e49\u0e32": [
+      "trigger"
+    ],
+    "\u0e1a\u0e23\u0e34\u0e29\u0e31\u0e17": [
+      "trigger"
     ]
   },
   "categories": {
@@ -829,10 +1990,31 @@
     "variable cost": [
       "Variable Cost"
     ],
+    "variable costs": [
+      "Variable Cost"
+    ],
+    "direct cost": [
+      "Variable Cost"
+    ],
+    "direct costs": [
+      "Variable Cost"
+    ],
+    "cogs": [
+      "Variable Cost"
+    ],
+    "cost of goods": [
+      "Variable Cost"
+    ],
+    "\u0e15\u0e49\u0e19\u0e17\u0e38\u0e19\u0e1c\u0e31\u0e19\u0e41\u0e1b\u0e23": [
+      "Variable Cost"
+    ],
     "fixed": [
       "Fixed Cost"
     ],
     "fixed cost": [
+      "Fixed Cost"
+    ],
+    "fixed costs": [
       "Fixed Cost"
     ],
     "fix cost": [
@@ -841,10 +2023,40 @@
     "fix": [
       "Fixed Cost"
     ],
+    "overhead": [
+      "Fixed Cost"
+    ],
+    "indirect cost": [
+      "Fixed Cost"
+    ],
+    "\u0e15\u0e49\u0e19\u0e17\u0e38\u0e19\u0e04\u0e07\u0e17\u0e35\u0e48": [
+      "Fixed Cost"
+    ],
     "expense": [
       "Expense"
     ],
     "expenses": [
+      "Expense"
+    ],
+    "opex": [
+      "Expense"
+    ],
+    "operating expense": [
+      "Expense"
+    ],
+    "selling expense": [
+      "Expense"
+    ],
+    "admin expense": [
+      "Expense"
+    ],
+    "sga": [
+      "Expense"
+    ],
+    "sg&a": [
+      "Expense"
+    ],
+    "\u0e04\u0e48\u0e32\u0e43\u0e0a\u0e49\u0e08\u0e48\u0e32\u0e22": [
       "Expense"
     ],
     "kpi": [
@@ -854,6 +2066,21 @@
       "KPI"
     ],
     "indicator": [
+      "KPI"
+    ],
+    "metric": [
+      "KPI"
+    ],
+    "metrics": [
+      "KPI"
+    ],
+    "performance": [
+      "KPI"
+    ],
+    "benchmark": [
+      "KPI"
+    ],
+    "\u0e15\u0e31\u0e27\u0e0a\u0e35\u0e49\u0e27\u0e31\u0e14": [
       "KPI"
     ],
     "p&l": [
@@ -868,7 +2095,25 @@
     "profit and loss": [
       "P&L Statement"
     ],
+    "income statement": [
+      "P&L Statement"
+    ],
+    "profit & loss": [
+      "P&L Statement"
+    ],
+    "\u0e07\u0e1a\u0e01\u0e33\u0e44\u0e23\u0e02\u0e32\u0e14\u0e17\u0e38\u0e19": [
+      "P&L Statement"
+    ],
     "other": [
+      "Other"
+    ],
+    "misc": [
+      "Other"
+    ],
+    "miscellaneous": [
+      "Other"
+    ],
+    "\u0e2d\u0e37\u0e48\u0e19\u0e46": [
       "Other"
     ]
   }
