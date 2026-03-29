@@ -265,7 +265,13 @@ function grP(p){
   // Query data
   var fOpts={};
   if(si.length)fOpts.sites=si;if(it.length)fOpts.details=it;if(cats.length)fOpts.cats=cats;if(dt.length)fOpts.dates=dt;
-  if(!it.length&&!cats.length)fOpts.details=['Revenue Total'];  // default
+
+  // Guard: if NOTHING was recognized, don't default — show help instead
+  var nothingMatched=!it.length&&!cats.length&&!si.length&&!dt.length&&intent==='lookup';
+  if(nothingMatched)return{text:'I couldn\'t recognize any keywords in **"'+raw+'"**. Try using exact words like:',
+    suggestions:['Revenue Total 2024','Salary SMK01 2023','Gross Profit trend chart','Top sites by Bonus 2024','Fixed cost 2023','Customer Koito 2022','Summary 2024','List items']};
+
+  if(!it.length&&!cats.length)fOpts.details=['Revenue Total'];  // default only when dates or sites matched
 
   if(intent==='top'||intent==='bottom'){
     var itemName=it.length?it[0]:'Revenue Total';
