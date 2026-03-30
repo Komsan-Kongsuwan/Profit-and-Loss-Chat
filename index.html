@@ -124,7 +124,23 @@ function init(){
   }
   fetch('pnl.json').then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}).then(function(d){P=d;ck()}).catch(function(e){errs.push('pnl.json: '+e.message);ck()});
   fetch('customer.json').then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}).then(function(d){C=d;ck()}).catch(function(e){errs.push('customer.json: '+e.message);ck()});
-  fetch('keyword.json').then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}).then(function(d){KW=d;ck()}).catch(function(e){errs.push('keyword.json: '+e.message);ck()});
+  fetch('keyword.json').then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}).then(function(d){
+    KW=d;
+    // Inject single-word shorthands missing from keyword.xlsx
+    var shorts={
+      'revenue':['Revenue Total'],
+      'gp':['Gross Profit'],'gross':['Gross Profit'],
+      'op':['Operating Profit'],
+      'mp':['Marginal Profit'],
+      'headcount':['Number of staff'],'staff':['Number of staff'],'head':['Number of staff'],
+      'ebit':['Operating Profit'],'ebitda':['Operating Profit'],
+      'depreciation':['Depreciation'],
+      'overtime':['Over Time'],'ot':['Over Time']
+    };
+    KW.items=KW.items||{};
+    Object.keys(shorts).forEach(function(k){if(!KW.items[k])KW.items[k]=shorts[k]});
+    ck();
+  }).catch(function(e){errs.push('keyword.json: '+e.message);ck()});
 }
 
 // ─── Helpers ───
@@ -265,6 +281,16 @@ function pq(q){
   var ki=KW.items||{};Object.keys(ki).sort(function(a,b){return b.length-a.length}).forEach(function(k){if(em(q,k))ki[k].forEach(function(n){if(it.indexOf(n)===-1)it.push(n)})});
   if(!isCust){
     var kc=KW.categories||{};Object.keys(kc).sort(function(a,b){return b.length-a.length}).forEach(function(k){if(em(q,k))kc[k].forEach(function(n){if(cats.indexOf(n)===-1)cats.push(n)})});
+  }
+
+  // ── Smart 'profit' fallback ─────────────────────────────────────────────────
+  // If user wrote 'profit' but no specific profit metric matched (e.g. gross/operating/
+  // marginal), default to Gross Profit. But if a qualified profit is already in 'it',
+  // don't add a second one.
+  if(!isCust){
+    var hasProfitWord=tk.indexOf('profit')!==-1;
+    var hasQualifiedProfit=it.some(function(x){return x.indexOf('Profit')!==-1});
+    if(hasProfitWord&&!hasQualifiedProfit) it.push('Gross Profit');
   }
 
   // ── Intents ───────────────────────────────────────────────────────────────
