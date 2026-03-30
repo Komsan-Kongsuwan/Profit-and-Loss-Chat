@@ -235,6 +235,8 @@ function pq(q){
   if(/all/.test(q)&&/month/.test(q))intent='trend';
   if(/list/.test(q)&&/site|item|month|category|customer/.test(q))intent='list';
   if(/how many/.test(q))intent='count';
+  // "chart" alone → treat as "trend" (show data over time with chart)
+  if(wc&&intent==='lookup')intent='trend';
 
   // Resolve dates to actual date strings
   var rdates=[];
