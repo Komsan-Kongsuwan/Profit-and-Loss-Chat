@@ -167,16 +167,57 @@ function pq(q){
   q=q.toLowerCase().trim();var tk=q.split(/[\s,;]+/);
   var mo=[],si=[],it=[],cats=[],intent='lookup',wc=false,isCust=false,cm=null;
 
-  // Customer trigger keywords (exact)
+  // ── Relative date resolution ──────────────────────────────────────────────
+  var now=new Date();
+  var thisY=now.getFullYear().toString();
+  var lastY=(now.getFullYear()-1).toString();
+  var thisMM=String(now.getMonth()+1).padStart(2,'0');
+  var prevMonth=now.getMonth()===0?12:now.getMonth();
+  var prevMonthY=now.getMonth()===0?(now.getFullYear()-1).toString():thisY;
+  var prevMM=String(prevMonth).padStart(2,'0');
+  // "this year" / "current year"
+  if(/\b(this year|current year|ปีนี้)\b/.test(q)) mo.push(thisY);
+  // "last year" / "previous year"
+  if(/\b(last year|previous year|prior year|ปีที่แล้ว)\b/.test(q)) mo.push(lastY);
+  // "this month" / "current month"
+  if(/\b(this month|current month|เดือนนี้)\b/.test(q)) mo.push(thisY+'-'+thisMM);
+  // "last month" / "previous month"
+  if(/\b(last month|previous month|เดือนที่แล้ว)\b/.test(q)) mo.push(prevMonthY+'-'+prevMM);
+  // "ytd" / "year to date"
+  if(/\b(ytd|year to date|year-to-date)\b/.test(q)){
+    for(var m=1;m<=parseInt(thisMM);m++) mo.push(thisY+'-'+String(m).padStart(2,'0'));
+  }
+  // "last quarter" — previous calendar quarter
+  if(/\b(last quarter|previous quarter|q before)\b/.test(q)){
+    var curQ=Math.ceil(parseInt(thisMM)/3);
+    var lq=curQ===1?4:curQ-1;
+    var lqY=curQ===1?lastY:thisY;
+    var qMos={1:['01','02','03'],2:['04','05','06'],3:['07','08','09'],4:['10','11','12']};
+    qMos[lq].forEach(function(mm){mo.push(lqY+'-'+mm)});
+  }
+  // "this quarter"
+  if(/\b(this quarter|current quarter)\b/.test(q)){
+    var curQ=Math.ceil(parseInt(thisMM)/3);
+    var qMos={1:['01','02','03'],2:['04','05','06'],3:['07','08','09'],4:['10','11','12']};
+    qMos[curQ].forEach(function(mm){mo.push(thisY+'-'+mm)});
+  }
+  // "last 3/6/12 months"
+  var lnm=q.match(/last\s+(\d+)\s+months?/);
+  if(lnm){
+    var n=parseInt(lnm[1]);
+    for(var i=0;i<n;i++){
+      var d=new Date(now.getFullYear(),now.getMonth()-i,1);
+      mo.push(d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'));
+    }
+  }
+
+  // ── Customer triggers ─────────────────────────────────────────────────────
   var ct=KW.customer_triggers||{};Object.keys(ct).forEach(function(k){if(em(q,k))isCust=true});
 
-  // Customer name matching — PARTIAL: if user types partial name, match full customer name
+  // ── Customer name matching ────────────────────────────────────────────────
   var custSearch=null;
   if(!cm&&C.customers){
-    // First: exact full name in query (longest match wins)
     C.customers.forEach(function(cn){if(q.indexOf(cn.toLowerCase())!==-1&&(!cm||cn.length>cm.length))cm=cn});
-    // Second: partial match — find tokens (4+ chars) that appear inside customer names
-    // Min 4 chars prevents "eve","air","pan" from accidentally matching
     if(!cm){
       var skipWords=['revenue','cost','profit','salary','trend','chart','top','list','compare','summary','total',
         'customer','client','jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec',
@@ -190,55 +231,47 @@ function pq(q){
         for(var si2=0;si2<searchTokens.length;si2++){
           var tok=searchTokens[si2];
           var matches=C.customers.filter(function(cn){return cn.toLowerCase().indexOf(tok)!==-1});
-          if(matches.length>0&&matches.length<=30){
-            custSearch=tok;
-            if(matches.length===1)cm=matches[0];
-            isCust=true;break;
-          }
+          if(matches.length>0&&matches.length<=30){custSearch=tok;if(matches.length===1)cm=matches[0];isCust=true;break}
         }
       }
     }
     if(cm)isCust=true;
   }
 
-  // Months/years
+  // ── Exact multi-token word match ──────────────────────────────────────────
+  function em(query,kw){
+    var kwTk=kw.split(/[\s,;]+/);var qTk=query.split(/[\s,;]+/);
+    for(var i=0;i<kwTk.length;i++){if(qTk.indexOf(kwTk[i])===-1)return false}
+    return true;
+  }
+
+  // ── Months / years ────────────────────────────────────────────────────────
   var km=KW.months||{};
   for(var i=0;i<tk.length;i++){var t=tk[i];
     if(km[t]){var ps=km[t],nx=tk[i+1];
       if(ps[0].length===2&&nx&&/^20\d{2}$/.test(nx)){mo.push(nx+'-'+ps[0]);i++;continue}
       ps.forEach(function(p){if(/^20\d{2}$/.test(p))mo.push(p);else if(p.length===2)mo.push('MM:'+p);else if(/^[QH][1-4]$/.test(p))mo.push(p);else if(/^20\d{2}-\d{2}$/.test(p))mo.push(p)});continue}
     if(/^20\d{2}-\d{2}$/.test(t))mo.push(t);
-    if(/^20\d{4}$/.test(t))mo.push(t.slice(0,4)+'-'+t.slice(4))}
-
-  // Sites
-  var ks=KW.sites||{};Object.keys(ks).sort(function(a,b){return b.length-a.length}).forEach(function(k){if(em(q,k))ks[k].forEach(function(s){if(si.indexOf(s)===-1)si.push(s)})});
-
-  // Exact Multi-token Match (for P&L items, categories, intents, sites):
-  // ALL words in the keyword must appear as exact whole words in the query.
-  // Word order doesn't matter: keyword "revenue total" matches query "total revenue 2024"
-  // But partial words never match: query "eve" does NOT match keyword "revenue"
-  function em(query,kw){
-    var kwTk=kw.split(/[\s,;]+/);
-    var qTk=query.split(/[\s,;]+/);
-    for(var i=0;i<kwTk.length;i++){if(qTk.indexOf(kwTk[i])===-1)return false}
-    return true;
+    if(/^20\d{4}$/.test(t))mo.push(t.slice(0,4)+'-'+t.slice(4));
   }
 
-  // P&L items & categories — always detect for title display
+  // ── Sites ─────────────────────────────────────────────────────────────────
+  var ks=KW.sites||{};Object.keys(ks).sort(function(a,b){return b.length-a.length}).forEach(function(k){if(em(q,k))ks[k].forEach(function(s){if(si.indexOf(s)===-1)si.push(s)})});
+
+  // ── P&L items & categories ────────────────────────────────────────────────
   var ki=KW.items||{};Object.keys(ki).sort(function(a,b){return b.length-a.length}).forEach(function(k){if(em(q,k))ki[k].forEach(function(n){if(it.indexOf(n)===-1)it.push(n)})});
   if(!isCust){
     var kc=KW.categories||{};Object.keys(kc).sort(function(a,b){return b.length-a.length}).forEach(function(k){if(em(q,k))kc[k].forEach(function(n){if(cats.indexOf(n)===-1)cats.push(n)})});
   }
 
-  // Intents
+  // ── Intents ───────────────────────────────────────────────────────────────
   var kn=KW.intents||{};Object.keys(kn).sort(function(a,b){return b.length-a.length}).forEach(function(k){if(em(q,k))kn[k].forEach(function(x){if(x==='chart')wc=true;else if(intent==='lookup')intent=x})});
   if(/all/.test(q)&&/month/.test(q))intent='trend';
   if(/list/.test(q)&&/site|item|month|category|customer/.test(q))intent='list';
   if(/how many/.test(q))intent='count';
-  // "chart" alone → treat as "trend" (show data over time with chart)
   if(wc&&intent==='lookup')intent='trend';
 
-  // Resolve dates to actual date strings
+  // ── Resolve date tokens → actual YYYY-MM strings ──────────────────────────
   var rdates=[];
   var pool=isCust?C.dates:P.dates;
   mo.forEach(function(m){
@@ -251,7 +284,6 @@ function pq(q){
 
   return{dates:rdates.sort(),sites:si,items:it,cats:cats,intent:intent,raw:q,wc:wc,isCust:isCust,cm:cm,cs:custSearch}
 }
-
 // ═══ P&L RESPONSE ═══
 function grP(p){
   var cc=gc(),si=p.sites,it=p.items,cats=p.cats,dt=p.dates,intent=p.intent,wc=p.wc,raw=p.raw;
@@ -264,22 +296,119 @@ function grP(p){
     if(/categor/.test(raw))return{tag:'pl',text:'**Categories:**\n'+P.categories.join(', ')};
     if(/month/.test(raw))return{tag:'pl',text:'**Months ('+P.dates.length+'):**\n'+P.dates.join(', ')};}
 
-  // Query data
+  // Guard: nothing recognized
+  var nothingMatched=!it.length&&!cats.length&&!si.length&&!dt.length&&intent==='lookup';
+  if(nothingMatched)return{text:'I couldn\'t recognize any keywords in **"'+raw+'"**. Try:',
+    suggestions:['Revenue Total 2024','Salary SMK01 2023','Gross Profit trend chart','Top sites by Bonus 2024','Compare 2023 vs 2024','Summary 2024','List items']};
+
+  // Build filter options
   var fOpts={};
   if(si.length)fOpts.sites=si;if(it.length)fOpts.details=it;if(cats.length)fOpts.cats=cats;if(dt.length)fOpts.dates=dt;
+  if(!it.length&&!cats.length)fOpts.details=['Revenue Total'];
 
-  // Guard: if NOTHING was recognized, don't default — show help instead
-  var nothingMatched=!it.length&&!cats.length&&!si.length&&!dt.length&&intent==='lookup';
-  if(nothingMatched)return{text:'I couldn\'t recognize any keywords in **"'+raw+'"**. Try using exact words like:',
-    suggestions:['Revenue Total 2024','Salary SMK01 2023','Gross Profit trend chart','Top sites by Bonus 2024','Fixed cost 2023','Customer CBR01 2022','Summary 2024','List items']};
+  // ── COMPARE ───────────────────────────────────────────────────────────────
+  if(intent==='compare'){
+    var dets=it.length?it:['Revenue Total'];
+    var targetSites=si.length?si:undefined;
 
-  if(!it.length&&!cats.length)fOpts.details=['Revenue Total'];  // default only when dates or sites matched
+    // Split detected dates into year buckets
+    var yearGroups={};
+    dt.forEach(function(d){var y=d.split('-')[0];if(!yearGroups[y])yearGroups[y]=[];yearGroups[y].push(d)});
+    var yearList=Object.keys(yearGroups).sort();
 
+    // ── Case A: Year-over-year comparison ──
+    if(yearList.length>=2){
+      // Pre-compute values: det → year → total
+      var vals={};
+      dets.forEach(function(det){
+        vals[det]={};
+        yearList.forEach(function(y){
+          var rows=pFilter({details:[det],sites:targetSites,dates:yearGroups[y]});
+          var t=0;rows.forEach(function(r){t+=r.amt});vals[det][y]=t;
+        });
+      });
+
+      var headers=['Metric'].concat(yearList).concat(['Change','Change %']);
+      var tblRows=dets.map(function(det){
+        var ys=yearList.map(function(y){return vals[det][y]||0});
+        var chg=ys[ys.length-1]-ys[0];
+        var pct=ys[0]!==0?(chg/Math.abs(ys[0])*100):null;
+        return[det]
+          .concat(ys.map(fb))
+          .concat([(chg>=0?'+':'')+fb(chg), pct!=null?(parseFloat(pct.toFixed(1))>=0?'+':'')+pct.toFixed(1)+'%':'—']);
+      });
+
+      var siteLabel=si.length?' ('+si.join(', ')+')':'';
+      var res={tag:'pl',text:'**Compare '+yearList.join(' vs ')+siteLabel+':**',table:{headers:headers,rows:tblRows}};
+
+      // Chart: grouped bar — metrics on x-axis, years as datasets
+      res.chart={type:'bar',data:{
+        labels:dets,
+        datasets:yearList.map(function(y,i){
+          return{label:y,data:dets.map(function(det){return vals[det][y]||0}),borderRadius:4}
+        })
+      },options:{scales:{x:{},y:{}}}};
+      return res;
+    }
+
+    // ── Case B: Site-vs-site comparison ──
+    if(si.length>=2){
+      var det=dets[0];
+      var targetDates=dt.length?dt:P.dates.slice(-12);
+      var siteYearData={};var yearSet={};
+      si.forEach(function(site){
+        siteYearData[site]={};
+        var rows=pFilter({details:[det],sites:[site],dates:targetDates});
+        rows.forEach(function(r){var y=r.date.split('-')[0];yearSet[y]=1;siteYearData[site][y]=(siteYearData[site][y]||0)+r.amt});
+      });
+      var years=Object.keys(yearSet).sort();
+      var headers=['Site'].concat(years).concat(['Total']);
+      var totals=[];
+      var tblRows=si.map(function(site){
+        var total=0;var ys=years.map(function(y){var v=siteYearData[site][y]||0;total+=v;return fb(v)});
+        totals.push(total);return[site].concat(ys).concat([fb(total)]);
+      });
+      var periodLabel=dt.length?' ('+targetDates[0]+' ~ '+targetDates[targetDates.length-1]+')':' (last 12 months)';
+      var res={tag:'pl',text:'**'+det+' — '+si.join(' vs ')+periodLabel+':**',table:{headers:headers,rows:tblRows}};
+      res.chart={type:'bar',data:{labels:si,datasets:[{label:det,data:totals,backgroundColor:cc.c.slice(0,si.length),borderRadius:4}]},
+        options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{},y:{}}}};
+      return res;
+    }
+
+    // ── Case C: Metric-vs-metric comparison ──
+    if(dets.length>=2){
+      var targetDates=dt.length?dt:P.dates.slice(-12);
+      var yearSet={};targetDates.forEach(function(d){yearSet[d.split('-')[0]]=1});
+      var years=Object.keys(yearSet).sort();
+      var detData={};
+      dets.forEach(function(det){
+        detData[det]={};
+        var rows=pFilter({details:[det],sites:targetSites,dates:targetDates});
+        rows.forEach(function(r){var y=r.date.split('-')[0];detData[det][y]=(detData[det][y]||0)+r.amt});
+      });
+      var headers=['Metric'].concat(years).concat(['Total']);
+      var tblRows=dets.map(function(det){
+        var total=0;var ys=years.map(function(y){var v=detData[det][y]||0;total+=v;return fb(v)});
+        return[det].concat(ys).concat([fb(total)]);
+      });
+      var siteLabel=si.length?' ('+si.join(', ')+')':'';
+      var res={tag:'pl',text:'**'+dets.join(' vs ')+siteLabel+':**',table:{headers:headers,rows:tblRows}};
+      var totals=dets.map(function(det){var t=0;Object.values(detData[det]).forEach(function(v){t+=v});return t});
+      res.chart={type:'bar',data:{labels:dets,datasets:[{label:'Total',data:totals,backgroundColor:cc.c.slice(0,dets.length),borderRadius:4}]},
+        options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{},y:{}}}};
+      return res;
+    }
+
+    // Not enough to compare — prompt user
+    return{tag:'pl',text:'Please specify what to compare — two years, two sites, or two metrics:',
+      suggestions:['Revenue Total compare 2023 vs 2024','CBR01 vs CBR02 Gross Profit 2024','Compare Salary vs Bonus 2024','Compare Variable Cost Fixed Cost 2023']};
+  }
+
+  // ── TOP / BOTTOM ──────────────────────────────────────────────────────────
   if(intent==='top'||intent==='bottom'){
     var itemName=it.length?it[0]:'Revenue Total';
     var targetDates=dt.length?dt:undefined;
     var rows=pFilter({details:[itemName],dates:targetDates});
-    // Pivot: rows=sites, get totals for ranking, then show date columns
     var bySite={};var dateSet={};
     rows.forEach(function(r){if(r.site==='All Site')return;dateSet[r.date]=1;
       if(!bySite[r.site])bySite[r.site]={};bySite[r.site][r.date]=(bySite[r.site][r.date]||0)+r.amt});
@@ -288,7 +417,6 @@ function grP(p){
       var ta=0,tb=0;Object.values(a[1]).forEach(function(v){ta+=v});Object.values(b[1]).forEach(function(v){tb+=v});
       return intent==='top'?tb-ta:ta-tb}).slice(0,10);
     var period=targetDates?dt[0]+'~'+dt[dt.length-1]:'all time';
-    // If too many date columns (>12), show only Total
     var showDates=dates.length<=12;
     var headers=['Site'].concat(showDates?dates:[]).concat(['Total']);
     var tblRows=sorted.map(function(e){
@@ -296,34 +424,38 @@ function grP(p){
       if(showDates){var vals=dates.map(function(d){return fb(e[1][d]||0)});return[e[0]].concat(vals).concat([fb(total)])}
       return[e[0],fb(total)]});
     var totals=sorted.map(function(e){var t=0;Object.values(e[1]).forEach(function(v){t+=v});return t});
-    var res={tag:'pl',text:'**'+(intent==='top'?'Top':'Bottom')+' sites by '+itemName+'** ('+period+'):',
-      table:{headers:headers,rows:tblRows}};
+    var res={tag:'pl',text:'**'+(intent==='top'?'Top':'Bottom')+' sites by '+itemName+'** ('+period+'):',table:{headers:headers,rows:tblRows}};
     res.chart={type:'bar',data:{labels:sorted.map(function(e){return e[0]}),datasets:[{label:itemName,data:totals,backgroundColor:cc.c.slice(0,10),borderRadius:4}]},options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{},y:{}}}};
-    return res}
+    return res;
+  }
 
+  // ── TREND ─────────────────────────────────────────────────────────────────
   if(intent==='trend'){
     var dets=it.length?it:['Revenue Total'];
     var targetSite=si.length?si:undefined;
-    var targetDates=dt.length?dt:P.dates;
-    // Pivot: rows=items, cols=dates
+    // Default: last 24 months (not all-time — avoids 70-column tables)
+    var targetDates=dt.length?dt:P.dates.slice(-24);
     var headers=['Item'].concat(targetDates).concat(['Total']);
     var datasets=[];
     var tblRows=dets.map(function(det){
       var rows=pFilter({details:[det],sites:targetSite,dates:targetDates});
       var byDate={};rows.forEach(function(r){byDate[r.date]=(byDate[r.date]||0)+r.amt});
-      var total=0;
-      var vals=targetDates.map(function(d){var v=byDate[d]||0;total+=v;return v});
+      var total=0;var vals=targetDates.map(function(d){var v=byDate[d]||0;total+=v;return v});
       var label=det+(si.length?' ('+si.join(',')+')':'');
       datasets.push({label:label,data:vals});
-      return[det].concat(vals.map(fb)).concat([fb(total)])
+      return[det].concat(vals.map(fb)).concat([fb(total)]);
     });
     var siteLabel=si.length?' ('+si.join(', ')+')':'';
-    var res={tag:'pl',text:'**'+dets.join(' & ')+siteLabel+' trend:**',table:{headers:headers,rows:tblRows}};
+    var periodNote=dt.length?'':' (last 24 months)';
+    var res={tag:'pl',text:'**'+dets.join(' & ')+siteLabel+' trend**'+periodNote+':',table:{headers:headers,rows:tblRows}};
     res.chart={type:'line',data:{labels:targetDates,datasets:datasets.map(function(ds,i){return{label:ds.label,data:ds.data,borderColor:cc.c[i%15],backgroundColor:i===0?cc.c[0]+'22':'transparent',fill:i===0}})},options:{scales:{x:{},y:{}}}};
-    return res}
+    return res;
+  }
 
+  // ── SUMMARY ───────────────────────────────────────────────────────────────
   if(intent==='summary'){
-    var targetDates=dt.length?dt:P.dates;
+    // Default: last 12 months (not all-time)
+    var targetDates=dt.length?dt:P.dates.slice(-12);
     var targetSite=si.length?si:undefined;
     var summaryItems=['Revenue Total','Cost Total','Gross Profit','Operating Profit','Number of staff'];
     var headers=['Item'].concat(targetDates).concat(['Total']);
@@ -333,51 +465,43 @@ function grP(p){
       rows.forEach(function(r){byDate[r.date]=(byDate[r.date]||0)+r.amt;total+=r.amt});
       return[det].concat(targetDates.map(function(d){return fb(byDate[d]||0)})).concat([fb(total)])});
     var label=si.length?si.join(', '):'All Sites';
-    return{tag:'pl',text:'**Summary for '+label+'** ('+targetDates[0]+' to '+targetDates[targetDates.length-1]+'):',table:{headers:headers,rows:tblRows}}}
+    var periodNote=dt.length?'':'last 12 months';
+    return{tag:'pl',text:'**Summary for '+label+'** ('+(dt.length?targetDates[0]+' to '+targetDates[targetDates.length-1]:periodNote)+'):',table:{headers:headers,rows:tblRows}};
+  }
 
-  // Default lookup — PIVOT: rows=items or sites, columns=dates
+  // ── DEFAULT LOOKUP ────────────────────────────────────────────────────────
   var rows=pFilter(fOpts);
   if(!rows.length)return{tag:'pl',text:'No P&L data found for this query. Try: `Revenue Total 2024` or `list items`'};
 
-  // Determine pivot dimensions
-  var uniqueDates=[], uniqueItems=[], uniqueSites=[];
+  var uniqueDates=[],uniqueItems=[],uniqueSites=[];
   var ds={},is={},ss={};
   rows.forEach(function(r){
     if(!ds[r.date]){ds[r.date]=1;uniqueDates.push(r.date)}
     if(!is[r.det]){is[r.det]=1;uniqueItems.push(r.det)}
     if(!ss[r.site]){ss[r.site]=1;uniqueSites.push(r.site)}
   });
-  uniqueDates.sort(); uniqueItems.sort(); uniqueSites.sort();
+  uniqueDates.sort();uniqueItems.sort();uniqueSites.sort();
 
-  // Pivot by: if multiple items → rows=items, cols=dates
-  //           if single item + multiple sites → rows=sites, cols=dates
-  var pivotRows, pivotKey, headers;
-  if(uniqueItems.length>1 || uniqueSites.length<=1){
-    // Rows = items, aggregate across sites
-    pivotRows=uniqueItems; pivotKey='det';
+  var headers,tblRows;
+  if(uniqueItems.length>1||uniqueSites.length<=1){
     var agg={};rows.forEach(function(r){var k=r.det+'|'+r.date;agg[k]=(agg[k]||0)+r.amt});
     headers=['Item'].concat(uniqueDates).concat(['Total']);
-    var tblRows=uniqueItems.map(function(item){
-      var total=0;
-      var vals=uniqueDates.map(function(d){var v=agg[item+'|'+d]||0;total+=v;return fb(v)});
-      return[item].concat(vals).concat([fb(total)])
+    tblRows=uniqueItems.map(function(item){
+      var total=0;var vals=uniqueDates.map(function(d){var v=agg[item+'|'+d]||0;total+=v;return fb(v)});
+      return[item].concat(vals).concat([fb(total)]);
     });
   } else {
-    // Rows = sites, single item
-    var itemName=uniqueItems[0];
     var agg={};rows.forEach(function(r){var k=r.site+'|'+r.date;agg[k]=(agg[k]||0)+r.amt});
     headers=['Site'].concat(uniqueDates).concat(['Total']);
-    var tblRows=uniqueSites.map(function(site){
-      var total=0;
-      var vals=uniqueDates.map(function(d){var v=agg[site+'|'+d]||0;total+=v;return fb(v)});
-      return[site].concat(vals).concat([fb(total)])
+    tblRows=uniqueSites.map(function(site){
+      var total=0;var vals=uniqueDates.map(function(d){var v=agg[site+'|'+d]||0;total+=v;return fb(v)});
+      return[site].concat(vals).concat([fb(total)]);
     });
   }
   var siteLabel2=si.length?' ('+si.join(', ')+')':'';
   var period=dt.length?' ('+uniqueDates[0]+' ~ '+uniqueDates[uniqueDates.length-1]+')':'';
-  return{tag:'pl',text:'**'+(it.length?it.join(', '):'P&L results')+siteLabel2+'**'+period+':',table:{headers:headers,rows:tblRows}}
+  return{tag:'pl',text:'**'+(it.length?it.join(', '):'P&L results')+siteLabel2+'**'+period+':',table:{headers:headers,rows:tblRows}};
 }
-
 // ═══ CUSTOMER RESPONSE ═══
 function grC(p){
   var cc=gc(),si=p.sites,dt=p.dates,intent=p.intent,cm=p.cm,cs=p.cs,wc=p.wc,raw=p.raw,it=p.items;
