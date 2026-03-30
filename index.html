@@ -251,7 +251,10 @@ function pq(q){
     if(km[t]){var ps=km[t],nx=tk[i+1];
       if(ps[0].length===2&&nx&&/^20\d{2}$/.test(nx)){mo.push(nx+'-'+ps[0]);i++;continue}
       ps.forEach(function(p){if(/^20\d{2}$/.test(p))mo.push(p);else if(p.length===2)mo.push('MM:'+p);else if(/^[QH][1-4]$/.test(p))mo.push(p);else if(/^20\d{2}-\d{2}$/.test(p))mo.push(p)});continue}
-    if(/^20\d{2}-\d{2}$/.test(t))mo.push(t);
+    if(/^20\d{2}-20\d{2}$/.test(t)){  // year range e.g. 2018-2026
+      var pts=t.split('-'),fy=parseInt(pts[0]),ty=parseInt(pts[1]);
+      if(ty>fy&&ty-fy<=30){for(var yr=fy;yr<=ty;yr++)mo.push(String(yr))}
+    } else if(/^20\d{2}-\d{2}$/.test(t))mo.push(t);  // month e.g. 2024-01
     if(/^20\d{4}$/.test(t))mo.push(t.slice(0,4)+'-'+t.slice(4));
   }
 
