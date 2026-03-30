@@ -268,11 +268,15 @@ function pq(q){
   }
 
   // ── Intents ───────────────────────────────────────────────────────────────
-  var kn=KW.intents||{};Object.keys(kn).sort(function(a,b){return b.length-a.length}).forEach(function(k){if(em(q,k))kn[k].forEach(function(x){if(x==='chart')wc=true;else if(intent==='lookup')intent=x})});
+  var kn=KW.intents||{};Object.keys(kn).sort(function(a,b){return b.length-a.length}).forEach(function(k){if(em(q,k))kn[k].forEach(function(x){
+    if(x==='chart')wc=true;
+    else if(intent==='lookup')intent=x;
+    else if(x==='trend')intent='trend';  // trend always wins — user explicitly said trend/chart
+  })});
   if(/all/.test(q)&&/month/.test(q))intent='trend';
   if(/list/.test(q)&&/site|item|month|category|customer/.test(q))intent='list';
   if(/how many/.test(q))intent='count';
-  if(wc&&intent==='lookup')intent='trend';
+  if(wc&&(intent==='lookup'||intent==='compare'))intent='trend';  // chart keyword also pulls compare → trend
 
   // ── Resolve date tokens → actual YYYY-MM strings ──────────────────────────
   var rdates=[];
@@ -435,23 +439,44 @@ function grP(p){
   // ── TREND ─────────────────────────────────────────────────────────────────
   if(intent==='trend'){
     var dets=it.length?it:['Revenue Total'];
-    var targetSite=si.length?si:undefined;
-    // Default: last 24 months (not all-time — avoids 70-column tables)
     var targetDates=dt.length?dt:P.dates.slice(-24);
-    var headers=['Item'].concat(targetDates).concat(['Total']);
-    var datasets=[];
-    var tblRows=dets.map(function(det){
-      var rows=pFilter({details:[det],sites:targetSite,dates:targetDates});
-      var byDate={};rows.forEach(function(r){byDate[r.date]=(byDate[r.date]||0)+r.amt});
-      var total=0;var vals=targetDates.map(function(d){var v=byDate[d]||0;total+=v;return v});
-      var label=det+(si.length?' ('+si.join(',')+')':'');
-      datasets.push({label:label,data:vals});
-      return[det].concat(vals.map(fb)).concat([fb(total)]);
-    });
-    var siteLabel=si.length?' ('+si.join(', ')+')':'';
+    var datasets=[];var tblRows=[];
+    var headers=['Series'].concat(targetDates).concat(['Total']);
+
+    if(si.length>1){
+      // Multiple sites → one line per site (per metric)
+      si.forEach(function(site){
+        dets.forEach(function(det){
+          var rows=pFilter({details:[det],sites:[site],dates:targetDates});
+          var byDate={};rows.forEach(function(r){byDate[r.date]=(byDate[r.date]||0)+r.amt});
+          var total=0;var vals=targetDates.map(function(d){var v=byDate[d]||0;total+=v;return v});
+          var label=(dets.length>1?det+' ':'')+site;
+          datasets.push({label:label,data:vals});
+          tblRows.push([label].concat(vals.map(fb)).concat([fb(total)]));
+        });
+      });
+    } else {
+      // Single site or no site → one line per metric
+      dets.forEach(function(det){
+        var rows=pFilter({details:[det],sites:si.length?si:undefined,dates:targetDates});
+        var byDate={};rows.forEach(function(r){byDate[r.date]=(byDate[r.date]||0)+r.amt});
+        var total=0;var vals=targetDates.map(function(d){var v=byDate[d]||0;total+=v;return v});
+        var label=det+(si.length?' ('+si[0]+')':'');
+        datasets.push({label:label,data:vals});
+        tblRows.push([label].concat(vals.map(fb)).concat([fb(total)]));
+      });
+    }
+
+    var titleSites=si.length?si.join(' vs '):'';
+    var titleDets=dets.join(' & ');
     var periodNote=dt.length?'':' (last 24 months)';
-    var res={tag:'pl',text:'**'+dets.join(' & ')+siteLabel+' trend**'+periodNote+':',table:{headers:headers,rows:tblRows}};
-    res.chart={type:'line',data:{labels:targetDates,datasets:datasets.map(function(ds,i){return{label:ds.label,data:ds.data,borderColor:cc.c[i%15],backgroundColor:i===0?cc.c[0]+'22':'transparent',fill:i===0}})},options:{scales:{x:{},y:{}}}};
+    var res={tag:'pl',text:'**'+titleDets+(titleSites?' — '+titleSites:'')+' trend**'+periodNote+':',
+      table:{headers:headers,rows:tblRows}};
+    res.chart={type:'line',data:{labels:targetDates,datasets:datasets.map(function(ds,i){
+      return{label:ds.label,data:ds.data,borderColor:cc.c[i%15],
+        backgroundColor:i===0&&datasets.length===1?cc.c[0]+'22':'transparent',
+        fill:i===0&&datasets.length===1,tension:0.3,borderWidth:2,pointRadius:2};
+    })},options:{scales:{x:{},y:{}}}};
     return res;
   }
 
